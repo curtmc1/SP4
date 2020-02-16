@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Brian : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    //script for testing
+    #region Singleton
+    public static Brian instance;
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        instance = this;
     }
+    #endregion
+
+    public GameObject player;
 }
