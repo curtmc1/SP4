@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HUD : MonoBehaviour {
+public class HUD : MonoBehaviour 
+{
 
     public Inventory Inventory;
 
@@ -28,7 +29,7 @@ public class HUD : MonoBehaviour {
             Transform textTransform = slot.GetChild(0).GetChild(1);
             Image image = imageTransform.GetComponent<Image>();
             Text txtCount = textTransform.GetComponent<Text>();
-            ItemDragHandler itemDragHandler = imageTransform.GetComponent<ItemDragHandler>();
+            ItemHandler itemDragHandler = imageTransform.GetComponent<ItemHandler>();
 
             if(index == e.Item.Slot.Id)
             {
@@ -65,7 +66,7 @@ public class HUD : MonoBehaviour {
             Image image = imageTransform.GetComponent<Image>();
             Text txtCount = textTransform.GetComponent<Text>();
 
-            ItemDragHandler itemDragHandler = imageTransform.GetComponent<ItemDragHandler>();
+            ItemHandler itemDragHandler = imageTransform.GetComponent<ItemHandler>();
 
             // We found the item in the UI
             if (itemDragHandler.Item == null)
