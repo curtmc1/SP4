@@ -10,15 +10,11 @@ public class Portal : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.Log("HELLOOOOO?");
     }
 
-    void OnCollisionEnter(Collision collision)
+    private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("Collided");
-        Debug.Log(collision.gameObject.name);
-
-        if (collision.gameObject.name == "First person player")
-        {
-        }
     }
 }
