@@ -4,15 +4,21 @@ using UnityEngine;
 
 public class Portal : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject portal1;
+    public GameObject portal2;
 
     // Update is called once per frame
     void Update()
     {
-        
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        Debug.Log("Collided");
+        Debug.Log(collision.gameObject.name);
+
+        if (collision.gameObject.name == "First person player")
+        {
+        }
     }
 }
