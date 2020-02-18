@@ -42,10 +42,10 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropDown.value = currentIndex;
         resolutionDropDown.RefreshShownValue();
 
-        if (PlayerPrefs.HasKey("graphics"))
-        {
-            int i = PlayerPrefs.GetInt("graphics");
-        }
+        //if (PlayerPrefs.HasKey("graphics"))
+        //{
+        //    int i = PlayerPrefs.GetInt("graphics");
+        //}
     }
 
     public void SetResolution(int index)
