@@ -1731,6 +1731,9 @@ MonoBehaviour:
   audioMixer: {fileID: 24100000, guid: 88fb68116e9bd0749ab6ae5b09dca350, type: 2}
   particles: {fileID: 1115581553}
   resolutionDropDown: {fileID: 21276146}
+  graphicsDropDown: {fileID: 1488434129}
+  toggleMenu: {fileID: 1246846169}
+  sliderRef: {fileID: 2133888764}
 --- !u!1 &491364093
 GameObject:
   m_ObjectHideFlags: 0
