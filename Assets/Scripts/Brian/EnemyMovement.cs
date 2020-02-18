@@ -9,12 +9,11 @@ public class EnemyMovement : MonoBehaviour
     private Vector3 startPos;
     private Vector3 roamPos;
 
-    public float range = 10f;
-
     NavMeshAgent nav;
     Transform player;
-
     EnemyStates states;
+
+    //public float range = 10f;
 
     private static Vector3 GetRandomDir()
     {
@@ -30,9 +29,9 @@ public class EnemyMovement : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        //To see enemy range
+        //To see enemy range for testing
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, range);
+        //Gizmos.DrawWireSphere(transform.position, range);
     }
 
     void FacePlayer()
@@ -49,9 +48,9 @@ public class EnemyMovement : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
         states = GetComponent<EnemyStates>();
         player = GetPlayerInstance.instance.player.transform;
-
         startPos = transform.position;
         roamPos = GetRandomRoamPos();
+        //range = states.range;
         //Debug.Log(GetRandomRoamPos());
     }
 
