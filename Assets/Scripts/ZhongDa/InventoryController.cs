@@ -113,10 +113,6 @@ public class InventoryController : MonoBehaviour
     //    }
     //}
 
-    void Start()
-    {
-        //Cursor.visible = false;
-    }
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.I))
@@ -130,9 +126,10 @@ public class InventoryController : MonoBehaviour
             Cursor.visible = false;
         }
     }
-    private void OnControllerColliderHit(ControllerColliderHit hit)
+
+    private void OnCollisionEnter(Collision other)
     {
-        IInventoryItem item = hit.collider.GetComponent<IInventoryItem>();
+        IInventoryItem item = other.collider.GetComponent<IInventoryItem>();
 
         if(item != null)
         {

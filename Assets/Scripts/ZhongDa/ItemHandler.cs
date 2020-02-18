@@ -4,8 +4,21 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class ItemHandler : MonoBehaviour, IDragHandler, IEndDragHandler
+public class ItemHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        HUD hud = GetComponentInParent<HUD>();
+        transform.parent = hud.transform;
+    }
+    public void OnDrag(PointerEventData eventData)
+    {
+        transform.GetChild(0).position = Input.mousePosition;
+    }
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        transform.GetChild(0).localPosition = Vector3.zero;
+    }
     //public InventoryItemBase Item { get; set; } //DragHandler
 
     //#region //ClickHandler
@@ -62,14 +75,6 @@ public class ItemHandler : MonoBehaviour, IDragHandler, IEndDragHandler
     //#endregion
 
     ////DropHandler
-    public void OnDrag(PointerEventData eventData)
-    {
-        transform.position = Input.mousePosition;
-    }
-    public void OnEndDrag(PointerEventData eventData)
-    {
-        transform.localPosition = Vector3.zero;
-    }
     ////DropHandler
     //public void OnDrag(PointerEventData eventData)
     //{
