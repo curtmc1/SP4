@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
+    //make distance reach smaller
     private Vector3 startPos;
     private Vector3 roamPos;
 
@@ -64,15 +65,14 @@ public class EnemyMovement : MonoBehaviour
         {
             nav.speed = 2f;
             nav.SetDestination(roamPos);
-        }
 
-        //Debug.Log(Vector3.Distance(roamPos, transform.position));
-        if (Vector3.Distance(roamPos, transform.position) < distanceFromPosReached)
-        {
-            roamPos = GetRandomRoamPos();
-            Debug.Log(GetRandomRoamPos());
+            //Debug.Log(Vector3.Distance(roamPos, transform.position));
+            if (Vector3.Distance(roamPos, transform.position) < distanceFromPosReached)
+            {
+                roamPos = GetRandomRoamPos();
+                Debug.Log(GetRandomRoamPos());
+            }
         }
-
         if (states.currState == States.state_chase)
         {
             nav.speed = 5f;
@@ -80,7 +80,6 @@ public class EnemyMovement : MonoBehaviour
 
             if (distanceaway < nav.stoppingDistance)
             {
-                //Attack Code here
                 FacePlayer();
             }
         }
