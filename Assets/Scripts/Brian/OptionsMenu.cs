@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
@@ -7,12 +8,14 @@ using UnityEngine.UI;
 public class OptionsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
-
     public ParticleSystem particles;
-
     public Dropdown resolutionDropDown;
+    public Dropdown graphicsDropDown;
+    public Toggle toggleMenu;
+    public Slider sliderRef;
 
     Resolution[] resolutions;
+    Resolution resolution;
 
     // Start is called before the first frame update
     void Start()
@@ -42,28 +45,36 @@ public class OptionsMenu : MonoBehaviour
         resolutionDropDown.value = currentIndex;
         resolutionDropDown.RefreshShownValue();
 
-        if (PlayerPrefs.HasKey("graphics"))
-        {
-            int i = PlayerPrefs.GetInt("graphics");
-        }
+        //Get player prefs
+        //if (PlayerPrefs.HasKey("Graphics"))
+        resolution.width = PlayerPrefs.GetInt("ResolutionWidth");
+        resolution.height = PlayerPrefs.GetInt("ResolutionHeight");
+        sliderRef.value = PlayerPrefs.GetFloat("MasterVolume");
+        graphicsDropDown.value =  PlayerPrefs.GetInt("Graphics");
+        toggleMenu.isOn = PlayerPrefs.GetInt("bool") == 0 ? false : true;
     }
 
     public void SetResolution(int index)
     {
-        Resolution resolution = resolutions[index];
+        resolution = resolutions[index];
+
         Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+
+        PlayerPrefs.SetInt("ResolutionWidth", resolution.width);
+        PlayerPrefs.SetInt("ResolutionHeight", resolution.height);
     }
 
     public void SetVolume(float volume)
     {
         //Debug.Log(volume);
         audioMixer.SetFloat("MasterVolume", volume);
+        PlayerPrefs.SetFloat("MasterVolume", volume);
     }
 
     public void SetQuality(int index)
     {
         QualitySettings.SetQualityLevel(index);
-
+        PlayerPrefs.SetInt("Graphics", index);
         switch (index)
         {
             case 0:
@@ -96,12 +107,12 @@ public class OptionsMenu : MonoBehaviour
                 pce.rateOverTime = 30;
                 particles.gameObject.SetActive(true);
                 break;
-
         }
     }
 
     public void SetFullScreen(bool isFullscreen)
     {
         Screen.fullScreen = isFullscreen;
+        PlayerPrefs.SetInt("bool", isFullscreen ? 1 : 0);
     }
 }

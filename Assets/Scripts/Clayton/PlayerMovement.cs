@@ -4,39 +4,78 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public CharacterController controller;
-    public float speed = 10f;
-    public float gravity = -9.8f;
-    public float groundDistance = 0.4f;
-    public float jumpHeight = 2.5f;
-    public Transform groundCheck;
-    public LayerMask groundMask;
-    private Vector3 velocity;
-    private bool isGrounded;
+    public float speed = 1;
+    public float tempSpeed = 1;
+    public float mouseSensitivity = 100f;
+    public float playerHealth = 100f;
+    [SerializeField] private Rigidbody playerBody;
+    [SerializeField] private float jumpForce = 4f;
+    [SerializeField] private float raycastDistance = 1.15f;
+    private bool doubleJumped = false;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        playerBody = GetComponent<Rigidbody>();
+        tempSpeed = speed;
+
+        //PlayerPrefs, store health and use throughout the game
+        PlayerPrefs.SetFloat("playerHealth", playerHealth);
+    }
 
     // Update is called once per frame
     void Update()
     {
-        //Check if player is on ground | create an invisible sphere to check if collide with anything ( If yes then isGrounded will be true)
-        isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask);
+        Jump();
+    }
 
-        //Might register before player is totally on the ground, so set velocity to a little bit below ground to prevent it
-        if (isGrounded && velocity.y < 0)
-            velocity.y = -2f;
+    private void FixedUpdate()
+    {
+        Move();
+    }
+
+    private void Move() //Movement
+    {
+        //Shift to increase speed
+        if (Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.LeftShift))
+            speed *= 2;
+
+        if (Input.GetKeyUp(KeyCode.RightShift) || Input.GetKeyUp(KeyCode.LeftShift))
+            speed = tempSpeed;
 
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
-        Vector3 move = transform.right * x + transform.forward * z;
+        Vector3 movement = new Vector3(x, 0, z) * speed * Time.deltaTime;
 
-        controller.Move(move * speed * Time.deltaTime);
+        Vector3 newPosition = playerBody.position + playerBody.transform.TransformDirection(movement);
+        playerBody.MovePosition(newPosition);
+    }
 
-        //Fomula for speed travel after falling a height h (With reference of Gravity Potential Energy and Kinetic Energy) | v = square root of -2 * g * h 
-        if (Input.GetButtonDown("Jump") && isGrounded)
-            velocity.y = Mathf.Sqrt(-2 * gravity * jumpHeight);
+    private void Jump()
+    {
+        //If player is on ground, can jump, if on air can jump one more time
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (IsGrounded())
+            {
+                doubleJumped = false;
+                playerBody.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+            }
+            else
+            {
+                if (!doubleJumped)
+                {
+                    playerBody.AddForce(0, jumpForce, 0, ForceMode.Impulse);
+                    doubleJumped = true;
+                }
+            }
+        }  
+    }
 
-        //Free fall formula | y = half * gravity * time^2
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
+    private bool IsGrounded()
+    {
+        //Use Raycast to check the distance between player and the ground
+        return Physics.Raycast(transform.position, Vector3.down, raycastDistance);
     }
 }

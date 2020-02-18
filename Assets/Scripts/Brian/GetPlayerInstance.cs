@@ -15,4 +15,6 @@ public class GetPlayerInstance : MonoBehaviour
     #endregion
 
     public GameObject player;
+
+    //if null do something
 }
