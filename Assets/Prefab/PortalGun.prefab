@@ -28,8 +28,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2549423564563996104}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.73, y: 1.13, z: -1.54}
-  m_LocalScale: {x: 0.3591, y: 0.30739802, z: 1.788}
+  m_LocalPosition: {x: -6.7118, y: 1.1055, z: -1.8662}
+  m_LocalScale: {x: 0.2611419, y: 0.258491, z: 1.1357039}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -107,3 +107,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portal1: {fileID: 8466117012655462027, guid: 8b2fadbfbeb3b79409fbba7df99b0411, type: 3}
   portal2: {fileID: 6855509977811208359, guid: 597b34d6911049a429e12a96fbc837a4, type: 3}
+  bullet: {fileID: 569515065198195600, guid: 6654a0f3f449c4644a23ada46d88b09c, type: 3}
