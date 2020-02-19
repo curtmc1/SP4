@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 8742375522312655480}
   - component: {fileID: 8742375522312655487}
   - component: {fileID: 3492662995952853105}
+  - component: {fileID: 4019154735698769438}
+  - component: {fileID: 6291141867309820860}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -113,9 +115,9 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8742375522312655426}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 0.5
+  m_Radius: 0.75
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -161,3 +163,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currState: 0
   range: 10
+--- !u!114 &4019154735698769438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8742375522312655426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc537d010800b584389d5b59364a756d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 10
+--- !u!114 &6291141867309820860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8742375522312655426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc338755cf0e6c4e858be80b9246322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invulnPeriod: 0
+  hpbar: {fileID: 0}

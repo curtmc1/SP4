@@ -47,7 +47,7 @@ public class EnemyMovement : MonoBehaviour
     {
         nav = GetComponent<NavMeshAgent>();
         states = GetComponent<EnemyStates>();
-        player = GetPlayerInstance.instance.player.transform;
+        player = Manager.instance.player.transform;
         startPos = transform.position;
         roamPos = GetRandomRoamPos();
         //range = states.range;
