@@ -569,7 +569,7 @@ MonoBehaviour:
   playerHealth: 100
   playerBody: {fileID: 0}
   jumpForce: 5
-  raycastDistance: 1.15
+  raycastDistance: 2
 --- !u!1 &3353939331902171005
 GameObject:
   m_ObjectHideFlags: 0
