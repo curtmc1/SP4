@@ -14,6 +14,7 @@ public class HealthBarShrink : MonoBehaviour
 
     private void Awake()
     {
+        PlayerPrefs.SetFloat("playerHealth", 100); //ensures that player starts with 100 hp, and that previous hp is not brought back
         barImage = transform.Find("bar").GetComponent<Image>();
         damagedBarImage = transform.Find("damagedBar").GetComponent<Image>();
         damaged = healed = false;
@@ -36,10 +37,9 @@ public class HealthBarShrink : MonoBehaviour
 
     // Start is called before the first frame update
     void Start()
-    {
-        PlayerPrefs.SetFloat("playerHealth", 100); //ensures that player starts with 100 hp, and that previous hp is not brought back
+    {        
         float temp = PlayerPrefs.GetFloat("playerHealth") / 100f;
-       barImage.fillAmount = 1f;
+        barImage.fillAmount = 1f;
     }
 
     // Update is called once per frame
