@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 7040809837211899412}
   - component: {fileID: 1668124582192474057}
   - component: {fileID: 7210128490952968394}
-  - component: {fileID: 4998027094887410660}
   - component: {fileID: 1742986038048761285}
   m_Layer: 0
   m_Name: PortalGun
@@ -19,7 +18,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7040809837211899412
 Transform:
   m_ObjectHideFlags: 0
@@ -80,19 +79,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!65 &4998027094887410660
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2549423564563996104}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1742986038048761285
 MonoBehaviour:
   m_ObjectHideFlags: 0

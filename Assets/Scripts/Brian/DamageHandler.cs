@@ -33,6 +33,7 @@ public class DamageHandler : MonoBehaviour
 
         if (collision.gameObject.name == "First person player")
         {
+            //GameObject.Find("HealthBarShrink").GetComponent<HealthBarShrink>.healed = true;
             hpbar.SetHealth(10);
             Debug.Log(PlayerPrefs.GetFloat("playerHealth"));
         }
