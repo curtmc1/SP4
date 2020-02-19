@@ -14,7 +14,6 @@ public class PortalGun : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Shoot");
             Instantiate(portalParticle, transform.position + 0.5f * transform.forward, transform.rotation);
 
             RaycastHit hit;
@@ -22,7 +21,6 @@ public class PortalGun : MonoBehaviour
             {
                 if (hit.transform.gameObject.tag == "Wall")
                 {
-                    Debug.Log("Hit");
                     GameObject p1 = GameObject.FindGameObjectWithTag("Portal1");
                     Destroy(p1);
                     Instantiate(portal1, hit.transform.position + 2 * hit.transform.forward, hit.transform.rotation);
@@ -32,7 +30,6 @@ public class PortalGun : MonoBehaviour
 
         if (Input.GetMouseButtonDown(1))
         {
-            Debug.Log("Shoot");
             Instantiate(portalParticle2, transform.position + 0.5f * transform.forward, transform.rotation);
 
             RaycastHit hit;
@@ -40,7 +37,6 @@ public class PortalGun : MonoBehaviour
             {
                 if (hit.transform.gameObject.tag == "Wall")
                 {
-                    Debug.Log("Hit");
                     GameObject p2 = GameObject.FindGameObjectWithTag("Portal2");
                     Destroy(p2);
                     Instantiate(portal2, hit.transform.position + 2 * hit.transform.forward, hit.transform.rotation);
