@@ -7,13 +7,15 @@ public class PortalGun : MonoBehaviour
     public GameObject portal1;
     public GameObject portal2;
 
+    public GameObject portalParticle;
+    public GameObject portalParticle2;
+
     private void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
             Debug.Log("Shoot");
-            //GameObject bul = Instantiate(bullet, transform.position + 2 * transform.forward, transform.rotation);
-            //bul.GetComponent<Rigidbody>().velocity = transform.forward * 30;
+            Instantiate(portalParticle, transform.position + 0.5f * transform.forward, transform.rotation);
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
@@ -31,8 +33,7 @@ public class PortalGun : MonoBehaviour
         if (Input.GetMouseButtonDown(1))
         {
             Debug.Log("Shoot");
-            //GameObject bul = Instantiate(bullet, transform.position + 2 * transform.forward, transform.rotation);
-            //bul.GetComponent<Rigidbody>().velocity = transform.forward * 30;
+            Instantiate(portalParticle2, transform.position + 0.5f * transform.forward, transform.rotation);
 
             RaycastHit hit;
             if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))

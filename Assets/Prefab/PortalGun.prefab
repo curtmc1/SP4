@@ -107,4 +107,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portal1: {fileID: 8466117012655462027, guid: 8b2fadbfbeb3b79409fbba7df99b0411, type: 3}
   portal2: {fileID: 6855509977811208359, guid: 597b34d6911049a429e12a96fbc837a4, type: 3}
-  bullet: {fileID: 569515065198195600, guid: 6654a0f3f449c4644a23ada46d88b09c, type: 3}
+  portalParticle: {fileID: 4773650412060497307, guid: fd07dd47d82a6bd4aafaed390062ebbd,
+    type: 3}
+  portalParticle2: {fileID: 3521921902648642366, guid: 96c37c2e384040041b32ff619fad5ecd,
+    type: 3}

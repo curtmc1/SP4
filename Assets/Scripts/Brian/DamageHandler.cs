@@ -39,8 +39,9 @@ public class DamageHandler : MonoBehaviour
 
         if (collision.gameObject.name == "Enemy")
         {
-            //hpbar.SetHealth(10);
-            Debug.Log("Damaged");
+            // MINUS ENEMY HEALTH HERE
+
+            Debug.Log("Enemy Damaged");
         }
 
         if (invulnPeriod > 0)

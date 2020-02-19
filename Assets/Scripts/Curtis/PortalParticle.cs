@@ -2,16 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class PortalParticle : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
     {
-        Destroy(gameObject, 5);
-    }
-
-    private void OnTriggerEnter(Collider collision)
-    {
-        Destroy(gameObject);
+        Destroy(gameObject, 1);
     }
 }
