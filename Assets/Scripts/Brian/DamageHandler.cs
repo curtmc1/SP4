@@ -39,8 +39,7 @@ public class DamageHandler : MonoBehaviour
 
         if (collision.gameObject.name == "Enemy")
         {
-            GameObject enemy = GameObject.Find("Enemy");
-            EnemyHealth enemyhp = enemy.GetComponent<EnemyHealth>();
+            EnemyHealth enemyhp = collision.gameObject.GetComponent<EnemyHealth>();
             enemyhp.health--;
             Debug.Log("Damaged");
         }
