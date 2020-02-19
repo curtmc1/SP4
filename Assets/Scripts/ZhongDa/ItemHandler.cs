@@ -6,6 +6,7 @@ using UnityEngine.EventSystems;
 
 public class ItemHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    public IInventoryItem Item { get; set; }
     public void OnBeginDrag(PointerEventData eventData)
     {
         HUD hud = GetComponentInParent<HUD>();
