@@ -36,7 +36,7 @@ public class Portal : MonoBehaviour
             if (gameObject == portal1)
             {
                 Debug.Log("Portal 1");
-                col.transform.position = portal2.transform.position + portal2.transform.forward * (col.transform.localScale.magnitude/2);
+                col.transform.position = portal2.transform.position + portal2.transform.forward * 3;
                 col.attachedRigidbody.velocity = portal2.transform.forward * col.attachedRigidbody.velocity.magnitude;
 
                 if (col.attachedRigidbody.velocity.x > MAX_VEL)

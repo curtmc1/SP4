@@ -13,47 +13,29 @@ public class HUD : MonoBehaviour
 	// Use this for initialization
 	void Start () {
         Inventory.ItemAdded += InventoryScript_ItemAdded;
-        //Inventory.ItemRemoved += Inventory_ItemRemoved;
+       // Inventory.ItemRemoved += Inventory_ItemRemoved;
 	}
 
     private void InventoryScript_ItemAdded(object sender, InventoryEventArgs e)
     {
         Transform inventoryPanel = transform.Find("InventoryPanel");
-        //int index = -1;
+
         foreach (Transform slot in inventoryPanel)
         {
-            //index++;
-
             // Border... Image
-            //Transform imageTransform = slot.GetChild(0).GetChild(0);
             //Transform textTransform = slot.GetChild(0).GetChild(1);
-            //Text txtCount = textTransform.GetComponent<Text>();
-            //ItemHandler itemDragHandler = imageTransform.GetComponent<ItemHandler>();
-            Image image = slot.GetChild(0).GetChild(0).GetComponent<Image>();
+            Transform imageTransform = slot.GetChild(0).GetChild(0);
+            Image image = imageTransform.GetComponentInChildren<Image>();
+           // ItemHandler itemDragHandler = imageTransform.GetComponent<ItemHandler>();
 
             if(image.enabled == false)
             {
                 image.enabled = true;
                 image.sprite = e.Item.Image;
+                //itemDragHandler.Item = e.Item;
+
                 break;
             }
-            //if(index == e.Item.Slot.Id)
-            //{
-            //    image.enabled = true;
-            //    image.sprite = e.Item.Image;
-
-            //    int itemCount = e.Item.Slot.Count;
-            //    if (itemCount > 1)
-            //        txtCount.text = itemCount.ToString();
-            //    else
-            //        txtCount.text = "";
-                         
-
-            //    // Store a reference to the item
-            //    itemDragHandler.Item = e.Item;
-
-            //    break;
-            //}
         }
     }
 
@@ -61,46 +43,20 @@ public class HUD : MonoBehaviour
     //{
     //    Transform inventoryPanel = transform.Find("InventoryPanel");
 
-    //    int index = -1;
     //    foreach (Transform slot in inventoryPanel)
     //    {
-    //        index++;
-
     //        Transform imageTransform = slot.GetChild(0).GetChild(0);
-    //        Transform textTransform = slot.GetChild(0).GetChild(1);
-
     //        Image image = imageTransform.GetComponent<Image>();
-    //        Text txtCount = textTransform.GetComponent<Text>();
-
     //        ItemHandler itemDragHandler = imageTransform.GetComponent<ItemHandler>();
 
     //        // We found the item in the UI
-    //        if (itemDragHandler.Item == null)
-    //            continue;
-
-    //        // Found the slot to remove from
-    //        if(e.Item.Slot.Id == index)
+    //        if (itemDragHandler.Item.Equals(e.Item))
     //        {
-    //            int itemCount = e.Item.Slot.Count;
-    //            itemDragHandler.Item = e.Item.Slot.FirstItem;
-
-    //            if(itemCount < 2)
-    //            {
-    //                txtCount.text = "";
-    //            }
-    //            else
-    //            {
-    //                txtCount.text = itemCount.ToString();
-    //            }
-
-    //            if(itemCount == 0)
-    //            {
-    //                image.enabled = false;
-    //                image.sprite = null;
-    //            }
+    //            image.enabled = false;
+    //            image.sprite = null;
+    //            itemDragHandler.Item = null;
     //            break;
     //        }
-           
     //    }
     //}
 
@@ -117,7 +73,7 @@ public class HUD : MonoBehaviour
 
     //    Text mpText = MessagePanel.transform.Find("Text").GetComponent<Text>();
     //    mpText.text = item.InteractText;
-        
+
 
     //    mIsMessagePanelOpened = true;
 

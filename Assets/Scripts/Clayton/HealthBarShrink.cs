@@ -19,7 +19,7 @@ public class HealthBarShrink : MonoBehaviour
         damaged = healed = false;
     }
 
-    private void SetHealth(float healthNormalized)
+    public void SetHealth(float healthNormalized) //changed to public so can be used outside of current script
     {
         //barImage.fillAmount = healthNormalized;
         PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") - healthNormalized);
@@ -37,8 +37,9 @@ public class HealthBarShrink : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //float temp = PlayerPrefs.GetFloat("playerHealth") / 100f;
-        barImage.fillAmount = 1f;
+        PlayerPrefs.SetFloat("playerHealth", 100); //ensures that player starts with 100 hp, and that previous hp is not brought back
+        float temp = PlayerPrefs.GetFloat("playerHealth") / 100f;
+       barImage.fillAmount = 1f;
     }
 
     // Update is called once per frame

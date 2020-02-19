@@ -37,7 +37,7 @@ public class PlayerCameraController : MonoBehaviour
         smoothedVelocity.y = Mathf.Lerp(smoothedVelocity.y, inputValue.y, 1f / smoothing);
 
         //Take current vector pos and add a new one
-        currentLookingPos += smoothedVelocity;
+        currentLookingPos += smoothedVelocity * Time.deltaTime;
         currentLookingPos.y = Mathf.Clamp(currentLookingPos.y, -60f, 60f);
 
         transform.localRotation = Quaternion.AngleAxis(-currentLookingPos.y, Vector3.right);
