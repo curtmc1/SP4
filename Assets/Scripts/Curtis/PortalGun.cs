@@ -6,7 +6,6 @@ public class PortalGun : MonoBehaviour
 {
     public GameObject portal1;
     public GameObject portal2;
-    public GameObject bullet;
 
     private void Update()
     {
