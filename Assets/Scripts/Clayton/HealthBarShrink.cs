@@ -9,11 +9,14 @@ public class HealthBarShrink : MonoBehaviour
     private Image barImage;
     private Image damagedBarImage;
     private float damagedHealthShrinkTimer;
+    public bool damaged;
+    public bool healed;
 
     private void Awake()
     {
         barImage = transform.Find("bar").GetComponent<Image>();
         damagedBarImage = transform.Find("damagedBar").GetComponent<Image>();
+        damaged = healed = false;
     }
 
     private void SetHealth(float healthNormalized)
@@ -24,16 +27,24 @@ public class HealthBarShrink : MonoBehaviour
         barImage.fillAmount = temp;
     }
 
+    private void UpdateBar()
+    {
+        //placeHolder = PlayerPrefs.GetFloat("playerHealth");
+        float temp = PlayerPrefs.GetFloat("playerHealth") / 100;
+        barImage.fillAmount = temp;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
-        float temp = PlayerPrefs.GetFloat("playerHealth") / 100f;
-        barImage.fillAmount = temp;
+        //float temp = PlayerPrefs.GetFloat("playerHealth") / 100f;
+        barImage.fillAmount = 1f;
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateBar();
         damagedHealthShrinkTimer -= Time.deltaTime;
         if (damagedHealthShrinkTimer < 0)
         {
@@ -44,19 +55,31 @@ public class HealthBarShrink : MonoBehaviour
             }
         }
 
+        if (damaged)
+        {
+            damagedHealthShrinkTimer = DAMAGED_HEALTH_SHRINK_TIMER;
+            damaged = false;
+        }
+
+        if (healed)
+        {
+            damagedBarImage.fillAmount = barImage.fillAmount;
+            healed = false;
+        }
+
         //Testing
         //heal
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            SetHealth(80f);
-            damagedBarImage.fillAmount = barImage.fillAmount;
+            PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") + 50);
+            healed = true;
         }
 
         //Damage
         if (Input.GetKeyDown(KeyCode.RightShift))
         {
-            damagedHealthShrinkTimer = DAMAGED_HEALTH_SHRINK_TIMER;
-            SetHealth(50f);
+            damaged = true;
+            PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") - 50);
         }
     }
 }
