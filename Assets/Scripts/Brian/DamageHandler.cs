@@ -37,6 +37,12 @@ public class DamageHandler : MonoBehaviour
             Debug.Log(PlayerPrefs.GetFloat("playerHealth"));
         }
 
+        if (collision.gameObject.name == "Enemy")
+        {
+            //hpbar.SetHealth(10);
+            Debug.Log("Damaged");
+        }
+
         if (invulnPeriod > 0)
         {
             invulnTimer = invulnPeriod;

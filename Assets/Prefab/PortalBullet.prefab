@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6599289269307484870}
   - component: {fileID: 730367789631242518}
   - component: {fileID: 3864433306056324653}
+  - component: {fileID: -7092646125999289294}
   m_Layer: 0
   m_Name: PortalBullet
   m_TagString: Untagged
@@ -122,3 +123,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24ebaac50c2119d46869612efc39f538, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &-7092646125999289294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 569515065198195600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebc338755cf0e6c4e858be80b9246322, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  invulnPeriod: 0
+  hpbar: {fileID: 0}
