@@ -72,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
             }
         }  
     }
-
     private bool IsGrounded()
     {
         //Use Raycast to check the distance between player and the ground
