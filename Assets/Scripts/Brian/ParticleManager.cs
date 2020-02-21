@@ -7,7 +7,14 @@ public class ParticleManager : MonoBehaviour
     ParticleSystem particles;
 
     // Start is called before the first frame update
-    void Start()
+    [System.Obsolete]
+    private IEnumerator Start()
+    {
+        yield return new WaitForSeconds(GetComponent<ParticleSystem>().duration);
+        Destroy(gameObject);
+    }
+    
+    void Awake()
     {
         Debug.Log(PlayerPrefs.GetInt("Graphics"));
         particles = (ParticleSystem)FindObjectOfType(typeof(ParticleSystem));

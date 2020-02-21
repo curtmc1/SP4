@@ -6,6 +6,8 @@ public class EnemyHealth : MonoBehaviour
 {
     public int health = 10;
 
+    public ParticleSystem deathEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,17 +21,18 @@ public class EnemyHealth : MonoBehaviour
         {
             Die();
 
-            //GameObject go = GameObject.FindWithTag("Enemy");
+            GameObject go = GameObject.FindWithTag("Enemy");
 
-            //if (go != null)
-            //{
-            //    Instantiate(deathEffect, transform.position, Quaternion.identity);
-            //}
+            if (go != null)
+            {
+                Instantiate(deathEffect, transform.position, Quaternion.identity);
+            }
         }
     }
 
     void Die()
     {
         Destroy(gameObject);
+        Destroy(transform.parent.gameObject);
     }
 }
