@@ -7,8 +7,8 @@ public class Portal : MonoBehaviour
     public GameObject portal1;
     public GameObject portal2;
 
-    private float MAX_VEL = 20.0f;
-    private float MIN_VEL = -20.0f;
+    private const float MAX_VEL = 20.0f;
+    private const float MIN_VEL = -20.0f;
 
     // Update is called once per frame
     void Update()
