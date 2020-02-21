@@ -7,12 +7,13 @@ public class DamageHandler : MonoBehaviour
     public float invulnPeriod = 0;
     float invulnTimer = 0;
 
-    public HealthBarShrink hpbar;
+    HealthBarShrink hpbar;
 
     // Start is called before the first frame update
     void Start()
     {
         Debug.Log(PlayerPrefs.GetFloat("playerHealth"));
+        hpbar = (HealthBarShrink)FindObjectOfType(typeof(HealthBarShrink));
     }
 
     // Update is called once per frame
@@ -29,11 +30,14 @@ public class DamageHandler : MonoBehaviour
         Debug.Log("HIT");
         Debug.Log(collision.gameObject);
 
-        if (collision.gameObject.name == "First person player")
+        if (hpbar)
         {
-            //GameObject.Find("HealthBarShrink").GetComponent<HealthBarShrink>.healed = true;
-            hpbar.SetHealth(10);
-            Debug.Log(PlayerPrefs.GetFloat("playerHealth"));
+            if (collision.gameObject.name == "First person player")
+            {
+                //GameObject.Find("HealthBarShrink").GetComponent<HealthBarShrink>.healed = true;
+                hpbar.SetHealth(10);
+                Debug.Log(PlayerPrefs.GetFloat("playerHealth"));
+            }
         }
 
         if (collision.gameObject.tag == "Enemy")

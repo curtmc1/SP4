@@ -24,7 +24,7 @@ public class EnemyStates : MonoBehaviour
     {
         currState = States.state_roam;
 
-        player = Manager.instance.player.transform;
+        player = Manager.instance.Player.transform;
     }
 
     // Update is called once per frame

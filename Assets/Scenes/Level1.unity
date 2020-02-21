@@ -1245,15 +1245,10 @@ PrefabInstance:
         type: 3}
       propertyPath: laser
       value: 
-      objectReference: {fileID: 1603044582}
+      objectReference: {fileID: 1171120667950038310, guid: 25cfa8e85ed14d944bec0ef27aac2738,
+        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59dad15f43d5dcc4fa3e2c1f00221e72, type: 3}
---- !u!1 &1603044582 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1171120666713104497, guid: b310c5c9035ae6a40ba03dbb745d5e42,
-    type: 3}
-  m_PrefabInstance: {fileID: 2030429180}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1631105541
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4773650412060497305}
   - component: {fileID: 4773650412060497304}
   - component: {fileID: -5577530174325244983}
+  - component: {fileID: -865180795031013364}
   m_Layer: 0
   m_Name: PortalParticle
-  m_TagString: Untagged
+  m_TagString: Particles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4764,5 +4765,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f4ef28a04e00d54d96639d300e33f26, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &-865180795031013364
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4773650412060497307}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0fcfcc4d2681145b82f526e7baa00c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
