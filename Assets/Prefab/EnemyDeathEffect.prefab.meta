@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<< HEAD:Assets/Prefab/WeaponManager.prefab.meta
-guid: 7cb00dbf985de0e409fc4eb3a67c6a63
-=======
 guid: c6e621faeeeb67c42ba1f5dd7d9cdfdc
->>>>>>> 20a81ab7ca27a330b6ce0fe14db8986e2a2e2da3:Assets/Prefab/EnemyDeathEffect.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 
