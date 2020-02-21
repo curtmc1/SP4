@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - Portal1
   - Portal2
+  - Particles
+  - Enemy
   layers:
   - Default
   - TransparentFX

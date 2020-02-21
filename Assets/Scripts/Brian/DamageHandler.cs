@@ -7,8 +7,6 @@ public class DamageHandler : MonoBehaviour
     public float invulnPeriod = 0;
     float invulnTimer = 0;
 
-    //public ParticleSystem deathEffect;
-
     public HealthBarShrink hpbar;
 
     // Start is called before the first frame update
