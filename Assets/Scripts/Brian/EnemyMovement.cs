@@ -13,8 +13,6 @@ public class EnemyMovement : MonoBehaviour
     Transform player;
     EnemyStates states;
 
-    //public float range = 10f;
-
     private static Vector3 GetRandomDir()
     {
         //Random direction for x or z axis
@@ -50,7 +48,6 @@ public class EnemyMovement : MonoBehaviour
         player = Manager.instance.Player.transform;
         startPos = transform.position;
         roamPos = GetRandomRoamPos();
-        //range = states.range;
         //Debug.Log(GetRandomRoamPos());
     }
 
@@ -81,6 +78,17 @@ public class EnemyMovement : MonoBehaviour
             {
                 FacePlayer();
             }
+        }
+        if (states.currState == States.state_shoot)
+        {
+            Vector3 moveDir = transform.position - player.transform.position;
+
+            nav.speed = 3f;
+
+            if (Vector3.Distance(player.position, moveDir) < states.range)
+                nav.SetDestination(moveDir);
+
+            FacePlayer();
         }
     }
 }

@@ -20,7 +20,7 @@ public class EnemyLaser : MonoBehaviour
     {
         cooldown -= Time.deltaTime;
 
-        if (states.currState == States.state_chase)
+        if (states.currState == States.state_shoot)
         {
             if (cooldown <= 0f)
             {

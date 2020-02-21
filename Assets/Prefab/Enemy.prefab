@@ -490,4 +490,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   invulnPeriod: 0
-  hpbar: {fileID: 0}

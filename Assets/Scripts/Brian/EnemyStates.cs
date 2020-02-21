@@ -6,6 +6,7 @@ public enum States
 {
     state_roam,
     state_chase,
+    state_shoot,
     state_dead
 }
 
@@ -37,8 +38,17 @@ public class EnemyStates : MonoBehaviour
             case States.state_roam:               
                 if (distanceaway < range)
                     currState = States.state_chase;
+                if (gameObject.name == ("EnemySoldier"))
+                {
+                    if (distanceaway < range)
+                        currState = States.state_shoot;
+                }
                 break;
             case States.state_chase:
+                if (distanceaway > range)
+                    currState = States.state_roam;
+                break;
+            case States.state_shoot:
                 if (distanceaway > range)
                     currState = States.state_roam;
                 break;
