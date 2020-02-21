@@ -69,18 +69,18 @@ public class HealthBarShrink : MonoBehaviour
         }
 
         //Testing
-        //heal
-        if (Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") + 50);
-            healed = true;
-        }
+        ////heal
+        //if (Input.GetKeyDown(KeyCode.LeftShift))
+        //{
+        //    PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") + 50);
+        //    healed = true;
+        //}
 
-        //Damage
-        if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            damaged = true;
-            PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") - 50);
-        }
+        ////Damage
+        //if (Input.GetKeyDown(KeyCode.RightShift))
+        //{
+        //    damaged = true;
+        //    PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") - 50);
+        //}
     }
 }
