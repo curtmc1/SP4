@@ -9,6 +9,8 @@ TagManager:
   - Portal2
   - Particles
   - Enemy
+  - Item
+  - WeaponManager
   layers:
   - Default
   - TransparentFX
