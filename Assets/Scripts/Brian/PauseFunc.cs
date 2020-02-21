@@ -26,6 +26,7 @@ public class PauseFunc : MonoBehaviour
     public void Resume()
     {
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
         PauseMenu.SetActive(false);
         Time.timeScale = 1f;
         GamePaused = false;
@@ -34,6 +35,7 @@ public class PauseFunc : MonoBehaviour
     void Pause()
     {
         Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         PauseMenu.SetActive(true);
         Time.timeScale = 0f;
         GamePaused = true;

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8262289533643137581}
   - component: {fileID: 8262289533643137582}
   - component: {fileID: 8262289533643137579}
+  - component: {fileID: 3427791891945756246}
   m_Layer: 0
   m_Name: EnemyDeathEffect
   m_TagString: Particles
@@ -4764,5 +4765,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cd0fcfcc4d2681145b82f526e7baa00c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &3427791891945756246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8262289533643137583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfe0dcca72c009c478bfee15fe03fddc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
