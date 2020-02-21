@@ -11,7 +11,7 @@ public class WeaponManager : MonoBehaviour
     private int prevWeapon;
 
     [SerializeField]
-    private Transform camera;
+    private new Transform camera;
 
     private void Start()
     {
