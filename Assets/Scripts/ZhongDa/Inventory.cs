@@ -1,51 +1,94 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    private const int slots = 6;
-    private List<IInventoryItem> mItems = new List<IInventoryItem>();
+    private bool inventEnabled;
+    
+    public GameObject inventory;
+    public GameObject slotHolder;
+    private GameObject[] slot;
+    
+    private int allSlots;
+    private int enabledSlots;
 
-    public event EventHandler<InventoryEventArgs> ItemAdded;
-    public event EventHandler<InventoryEventArgs> ItemRemoved;
-    //public event EventHandler<InventoryEventArgs> ItemUsed;
-
-    public void AddItem(IInventoryItem item)
+    void Start()
     {
-        if(mItems.Count < slots)
-        {
-            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
-            if(collider.enabled)
-            {
-                collider.enabled = false;
-                mItems.Add(item);
-                item.onPickup();
-            }
+        Cursor.visible = false;
+        allSlots = 40;
+        slot = new GameObject[allSlots];
 
-            if(ItemAdded != null)
+        for (int i = 0; i < allSlots; i++)
+        {
+            slot[i] = slotHolder.transform.GetChild(i).gameObject;
+
+            if(slot[i].GetComponent<Slot>().item == null)
             {
-                ItemAdded(this, new InventoryEventArgs(item));
+                slot[i].GetComponent<Slot>().empty = true;
             }
         }
     }
-
-    public void RemoveItem(IInventoryItem item)
+    void Update()
     {
-        if(mItems.Contains(item))
+        if(Input.GetKeyDown(KeyCode.I))
         {
-            mItems.Remove(item);
-            item.onDrop();
+           inventEnabled = !inventEnabled;
+        }
 
-            Collider collider = (item as MonoBehaviour).GetComponent<Collider>();
-            if (collider != null)
-                collider.enabled = true;
 
-            if(ItemRemoved != null)
+        if (inventEnabled == true)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            Cursor.visible = true;
+            inventory.SetActive(true);
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            inventory.SetActive(false);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if(other.tag == "Item")
+        {
+            GameObject itemPickedUp = other.gameObject;
+            Item item = itemPickedUp.GetComponent<Item>();
+
+            AddItem(itemPickedUp, item.id, item.type, item.description, item.icon);
+        }
+    }
+
+    void AddItem(GameObject itemObject, int itemID, string itemType, string itemDescription, Sprite itemIcon)
+    {
+        for(int i = 0; i < allSlots; i++)
+        {
+            if (slot[i].GetComponent<Slot>().empty)
             {
-                ItemRemoved(this, new InventoryEventArgs(item));
+
+
+                itemObject.GetComponent<Item>().pickedUp = true;
+
+                slot[i].GetComponent<Slot>().item = itemObject;
+                slot[i].GetComponent<Slot>().icon = itemIcon;
+                slot[i].GetComponent<Slot>().type = itemType;
+                slot[i].GetComponent<Slot>().id = itemID;
+                slot[i].GetComponent<Slot>().description = itemDescription;
+
+                itemObject.transform.parent = slot[i].transform;
+                itemObject.SetActive(false);
+
+                slot[i].GetComponent<Slot>().UpdateSlot();
+                slot[i].GetComponent<Slot>().empty = false;
             }
+            else
+            {
+                continue;
+            }
+            return;
         }
     }
 }

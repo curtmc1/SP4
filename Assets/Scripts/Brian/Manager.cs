@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
@@ -11,20 +12,16 @@ public class Manager : MonoBehaviour
     void Awake()
     {
         instance = this;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
     #endregion
 
-    private GameObject player;
+    GameObject player;
 
     public GameObject Player 
     {
         get { return player; }
         set { player = value;}
-    }
-
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
     }
 
     //if null do something
