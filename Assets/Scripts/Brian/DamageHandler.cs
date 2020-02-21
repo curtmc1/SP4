@@ -30,7 +30,7 @@ public class DamageHandler : MonoBehaviour
         Debug.Log("HIT");
         Debug.Log(collision.gameObject);
 
-        if (hpbar)
+        if (hpbar && gameObject.tag == "Enemy")
         {
             if (collision.gameObject.name == "First person player")
             {

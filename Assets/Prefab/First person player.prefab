@@ -453,7 +453,6 @@ GameObject:
   - component: {fileID: 3353939331310959428}
   - component: {fileID: 3353939331310959429}
   - component: {fileID: 3353939331310959426}
-  - component: {fileID: 1661202209}
   m_Layer: 0
   m_Name: First person player
   m_TagString: Player
@@ -572,20 +571,6 @@ MonoBehaviour:
   playerBody: {fileID: 0}
   jumpForce: 5
   raycastDistance: 2
---- !u!114 &1661202209
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3353939331310959427}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5bb0c29449728b49b8af918743d1fd7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inventory: {fileID: 0}
-  slotHolder: {fileID: 0}
 --- !u!1 &3353939331902171005
 GameObject:
   m_ObjectHideFlags: 0
