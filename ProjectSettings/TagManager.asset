@@ -11,6 +11,8 @@ TagManager:
   - Enemy
   - Item
   - WeaponManager
+  - Weapon
+  - ItemManager
   layers:
   - Default
   - TransparentFX

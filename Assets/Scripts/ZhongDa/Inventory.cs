@@ -53,7 +53,15 @@ public class Inventory : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "Item")
+        if (other.tag == "Weapon")
+        {
+            GameObject itemPickedUp = other.gameObject;
+            Item item = itemPickedUp.GetComponent<Item>();
+
+            AddItem(itemPickedUp, item.id, item.type, item.description, item.icon);
+        }
+
+        if (other.tag == "Item")
         {
             GameObject itemPickedUp = other.gameObject;
             Item item = itemPickedUp.GetComponent<Item>();
@@ -78,7 +86,7 @@ public class Inventory : MonoBehaviour
                 slot[i].GetComponent<Slot>().id = itemID;
                 slot[i].GetComponent<Slot>().description = itemDescription;
 
-                itemObject.transform.parent = slot[i].transform;
+                itemObject.transform.position = slot[i].transform.position;
                 itemObject.SetActive(false);
 
                 slot[i].GetComponent<Slot>().UpdateSlot();

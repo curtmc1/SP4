@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class HealthPot : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public GameObject healthPot;
+    private HealthBarShrink obj;
+    private float health = 30.0f;
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            //PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") + health);
+            //obj.GetComponent<HealthBarShrink>().healed = true;
+        }
     }
 }
