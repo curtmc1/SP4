@@ -171,7 +171,7 @@ MonoBehaviour:
   m_FillMethod: 0
   m_FillAmount: 1
   m_FillClockwise: 1
-  m_FillOrigin: 0
+  m_FillOrigin: 1
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4899958254509699159
@@ -317,7 +317,7 @@ GameObject:
   - component: {fileID: 3492662995952853105}
   - component: {fileID: 4019154735698769438}
   - component: {fileID: 6291141867309820860}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
