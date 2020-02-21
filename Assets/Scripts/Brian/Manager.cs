@@ -14,7 +14,18 @@ public class Manager : MonoBehaviour
     }
     #endregion
 
-    public GameObject player;
+    private GameObject player;
+
+    public GameObject Player 
+    {
+        get { return player; }
+        set { player = value;}
+    }
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
 
     //if null do something
 }
