@@ -23,30 +23,30 @@ public class ChatterManager : ChatterManagerBehavior
 
     public void writeMessage(InputField sender)
     {
-        //if (networkObject.IsServer)
-        //{
-        //    if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerName1")))
-        //        nameToSend = "Player 1";
-        //    else
-        //        nameToSend = PlayerPrefs.GetString("PlayerName1"); //Since player 1 is always the be host/ server
-        //}
-        //else
-        //{
-        //    if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerName2")))
-        //        nameToSend = "Player 2";
-        //    else
-        //        nameToSend = PlayerPrefs.GetString("PlayerName2");
-        //}
+        if (networkObject.IsServer)
+        {
+            if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerName1")))
+                nameToSend = "Player 1";
+            else
+                nameToSend = PlayerPrefs.GetString("PlayerName1"); //Since player 1 is always the be host/ server
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerName2")))
+                nameToSend = "Player 2";
+            else
+                nameToSend = PlayerPrefs.GetString("PlayerName2");
+        }
 
-        //if (!string.IsNullOrEmpty(sender.text) && sender.text.Trim().Length > 0)
-        //{
-        //    sender.text = sender.text.Replace("\r", string.Empty).Replace("\n", string.Empty);
-        //    networkObject.SendRpc(RPC_TRANSMIT_MESSAGE, Receivers.All, nameToSend, sender.text.Trim());
+        if (!string.IsNullOrEmpty(sender.text) && sender.text.Trim().Length > 0)
+        {
+            sender.text = sender.text.Replace("\r", string.Empty).Replace("\n", string.Empty);
+            networkObject.SendRpc(RPC_TRANSMIT_MESSAGE, Receivers.All, nameToSend, sender.text.Trim());
 
-        //    //Remove the text in the inputField
-        //    sender.text = string.Empty;
-        //    sender.ActivateInputField();
-        //}
+            //Remove the text in the inputField
+            sender.text = string.Empty;
+            sender.ActivateInputField();
+        }
     }
 
     public override void TransmitMessage(RpcArgs args)

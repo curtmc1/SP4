@@ -115,31 +115,31 @@ public class GunNetwork : GunBehavior
                     portalGun.p1HasShot = networkObject.p1HasShot;
                     portalGun.p2HasShot = networkObject.p2HasShot;
 
-                    #region ClientPortalInstantiation
-                    if (portalGun.p1HasShot && !shootOncePor1)
-                    {
-                        GameObject parti1 = Instantiate(portalParticle, portalGun.transform.position + 0.5f * portalGun.transform.forward, portalGun.transform.rotation);
-                        GameObject p1 = GameObject.FindGameObjectWithTag("Portal1");
-                        Destroy(p1);
-                        GameObject bul2 = Instantiate(portal1, networkObject.portPosition, networkObject.portRotation);
-                        Debug.Log("portal1 pos: " + networkObject.portPosition + " port Roatation " + networkObject.portRotation);
-                        shootOncePor1 = true;
-                    }
-                    else if (!portalGun.p1HasShot && shootOncePor1)
-                        shootOncePor1 = false;
+                    //#region ClientPortalInstantiation
+                    //if (portalGun.p1HasShot && !shootOncePor1)
+                    //{
+                    //    GameObject parti1 = Instantiate(portalParticle, portalGun.transform.position + 0.5f * portalGun.transform.forward, portalGun.transform.rotation);
+                    //    GameObject p1 = GameObject.FindGameObjectWithTag("Portal1");
+                    //    Destroy(p1);
+                    //    GameObject bul2 = Instantiate(portal1, networkObject.portPosition, networkObject.portRotation);
+                    //    Debug.Log("portal1 pos: " + networkObject.portPosition + " port Roatation " + networkObject.portRotation);
+                    //    shootOncePor1 = true;
+                    //}
+                    //else if (!portalGun.p1HasShot && shootOncePor1)
+                    //    shootOncePor1 = false;
 
-                    if (portalGun.p2HasShot && !shootOncePor2)
-                    {
-                        GameObject parti2 = Instantiate(portalParticle2, portalGun.transform.position + 0.5f * portalGun.transform.forward, portalGun.transform.rotation);
-                        GameObject p2 = GameObject.FindGameObjectWithTag("Portal2");
-                        Destroy(p2);
-                        GameObject bul3 = Instantiate(portal2, networkObject.portPosition, networkObject.portRotation);
-                        Debug.Log("portal2 pos: " + networkObject.portPosition + " port Roatation " + networkObject.portRotation);
-                        shootOncePor2 = true;
-                    }
-                    else if (!portalGun.p2HasShot && shootOncePor2)
-                        shootOncePor2 = false;
-                    #endregion
+                    //if (portalGun.p2HasShot && !shootOncePor2)
+                    //{
+                    //    GameObject parti2 = Instantiate(portalParticle2, portalGun.transform.position + 0.5f * portalGun.transform.forward, portalGun.transform.rotation);
+                    //    GameObject p2 = GameObject.FindGameObjectWithTag("Portal2");
+                    //    Destroy(p2);
+                    //    GameObject bul3 = Instantiate(portal2, networkObject.portPosition, networkObject.portRotation);
+                    //    Debug.Log("portal2 pos: " + networkObject.portPosition + " port Roatation " + networkObject.portRotation);
+                    //    shootOncePor2 = true;
+                    //}
+                    //else if (!portalGun.p2HasShot && shootOncePor2)
+                    //    shootOncePor2 = false;
+                    //#endregion
 
                 }
                 else if (weaponManager.CurrentWeaponChoice == 1)
