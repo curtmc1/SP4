@@ -6,7 +6,7 @@ public class HealthPot : MonoBehaviour
 {
     public GameObject healthPot;
     private HealthBarShrink obj;
-    private float health = 30.0f;
+    //private float health = 30.0f;
 
     void Update()
     {

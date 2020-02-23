@@ -136,6 +136,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 569515065198195600, guid: 6654a0f3f449c4644a23ada46d88b09c, type: 3}
+  hasShot: 0
 --- !u!1 &6550411024706339733
 GameObject:
   m_ObjectHideFlags: 0

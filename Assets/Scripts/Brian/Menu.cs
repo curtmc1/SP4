@@ -8,8 +8,8 @@ public class Menu : MonoBehaviour
     public void Play()
     {
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        SceneManager.LoadScene("Level1");
-        Cursor.visible = false;
+        SceneManager.LoadScene("MultiplayerMenu");
+        //Cursor.visible = false;
     }
 
     public void Quit()

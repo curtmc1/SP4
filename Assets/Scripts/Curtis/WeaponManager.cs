@@ -9,13 +9,45 @@ public class WeaponManager : MonoBehaviour
     private float scroll;
     private int currWeapon;
     private int prevWeapon;
+    private bool canScroll;
+
+    public bool GetCanScroll
+    {
+        get { return canScroll; }
+        set { canScroll = value; }
+    }
+
+    public void SetWeapon(int _currentWeapon)
+    {
+        currWeapon = _currentWeapon;
+
+        if (currWeapon != prevWeapon)
+        {
+            foreach (GameObject weapon in weapons)
+            {
+                weapon.SetActive(false);
+            }
+            weapons[_currentWeapon].SetActive(true);
+        }
+    }
+
+    public GameObject GetWeapon()
+    {
+        return weapons[currWeapon];
+    }
+
+    public int CurrentWeaponChoice
+    {
+        get { return currWeapon; }
+        set { currWeapon = value; }
+    }
 
     [SerializeField]
     private new Transform camera;
 
     private void Start()
     {
-        camera = transform.parent.GetChild(0);
+        camera = transform.parent.parent.GetChild(0);
         for(int i = 0; i < transform.childCount; ++i)
         {
             weapons.Add(transform.GetChild(i).gameObject);
@@ -26,11 +58,24 @@ public class WeaponManager : MonoBehaviour
         //weapons[1].SetActive(false);
     }
 
-    private void Update()
+     void Update()
     {
         transform.rotation = camera.rotation;
 
-        scroll = Input.GetAxis("Mouse ScrollWheel") / 0.1f;
+        if (canScroll)
+        {
+            scroll = Input.GetAxis("Mouse ScrollWheel") / 0.1f;
+
+            if (Input.GetKeyDown("1"))
+            {
+                currWeapon = 0;
+            }
+            if (Input.GetKeyDown("2"))
+            {
+                currWeapon = 1;
+            }
+        }
+
         prevWeapon = currWeapon;
         currWeapon += (int)scroll;
 
@@ -43,24 +88,7 @@ public class WeaponManager : MonoBehaviour
             currWeapon = 0;
         }
 
-        if (Input.GetKeyDown("1"))
-        {
-            currWeapon = 0;
-        }
-        if (Input.GetKeyDown("2"))
-        {
-            currWeapon = 1;
-        }
-
-        if (currWeapon != prevWeapon)
-        {
-            Debug.Log("change");
-            foreach (GameObject weapon in weapons)
-            {
-                weapon.SetActive(false);
-            }
-            weapons[currWeapon].SetActive(true);
-        }
+        SetWeapon(currWeapon);
 
 
         //switch (currWeapon)

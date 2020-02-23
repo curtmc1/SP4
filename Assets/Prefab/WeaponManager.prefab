@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2506863650845465120}
   - component: {fileID: 2506863650845465121}
+  - component: {fileID: 567742659922693617}
   m_Layer: 0
   m_Name: WeaponManager
   m_TagString: Untagged
@@ -47,6 +48,30 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapons: []
   camera: {fileID: 0}
+--- !u!114 &567742659922693617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2506863650845465127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50f64d82a9d55e04f8532dc2b54fbd42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ownerScripts:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: GunNetwork+ToggleEvent, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  bullet: {fileID: 569515065198195600, guid: 6654a0f3f449c4644a23ada46d88b09c, type: 3}
+  portal1: {fileID: 8466117012655462027, guid: 8b2fadbfbeb3b79409fbba7df99b0411, type: 3}
+  portal2: {fileID: 6855509977811208359, guid: 597b34d6911049a429e12a96fbc837a4, type: 3}
+  portalParticle: {fileID: 4773650412060497307, guid: fd07dd47d82a6bd4aafaed390062ebbd,
+    type: 3}
+  portalParticle2: {fileID: 3521921902648642366, guid: 96c37c2e384040041b32ff619fad5ecd,
+    type: 3}
 --- !u!1001 &2506863649312338335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -54,6 +79,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2506863650845465120}
     m_Modifications:
+    - target: {fileID: 2549423564563996104, guid: 02615c0b4feb8244aba22cbd24e3c2bd,
+        type: 3}
+      propertyPath: m_Name
+      value: PortalGun
+      objectReference: {fileID: 0}
+    - target: {fileID: 2549423564563996104, guid: 02615c0b4feb8244aba22cbd24e3c2bd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7040809837211899412, guid: 02615c0b4feb8244aba22cbd24e3c2bd,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -124,16 +159,6 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 1.1357038
       objectReference: {fileID: 0}
-    - target: {fileID: 2549423564563996104, guid: 02615c0b4feb8244aba22cbd24e3c2bd,
-        type: 3}
-      propertyPath: m_Name
-      value: PortalGun
-      objectReference: {fileID: 0}
-    - target: {fileID: 2549423564563996104, guid: 02615c0b4feb8244aba22cbd24e3c2bd,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02615c0b4feb8244aba22cbd24e3c2bd, type: 3}
 --- !u!4 &4863834869245847435 stripped
@@ -149,6 +174,16 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 2506863650845465120}
     m_Modifications:
+    - target: {fileID: 6550411024706339733, guid: ff8796f534690364b8998edbc48a069d,
+        type: 3}
+      propertyPath: m_Name
+      value: Pistol
+      objectReference: {fileID: 0}
+    - target: {fileID: 6550411024706339733, guid: ff8796f534690364b8998edbc48a069d,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6341302851578440313, guid: ff8796f534690364b8998edbc48a069d,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -202,16 +237,6 @@ PrefabInstance:
     - target: {fileID: 6341302851578440313, guid: ff8796f534690364b8998edbc48a069d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6550411024706339733, guid: ff8796f534690364b8998edbc48a069d,
-        type: 3}
-      propertyPath: m_Name
-      value: Pistol
-      objectReference: {fileID: 0}
-    - target: {fileID: 6550411024706339733, guid: ff8796f534690364b8998edbc48a069d,
-        type: 3}
-      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
