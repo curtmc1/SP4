@@ -12,7 +12,8 @@ public class OptionsMenu : MonoBehaviour
     public Dropdown resolutionDropDown;
     public Dropdown graphicsDropDown;
     public Toggle toggleMenu;
-    public Slider sliderRef;
+    public Slider sliderRef1;
+    public Slider sliderRef2;
 
     Resolution[] resolutions;
     Resolution resolution;
@@ -49,7 +50,8 @@ public class OptionsMenu : MonoBehaviour
         //if (PlayerPrefs.HasKey("Graphics"))
         resolution.width = PlayerPrefs.GetInt("ResolutionWidth");
         resolution.height = PlayerPrefs.GetInt("ResolutionHeight");
-        sliderRef.value = PlayerPrefs.GetFloat("MasterVolume");
+        sliderRef1.value = PlayerPrefs.GetFloat("MasterVolume");
+        sliderRef2.value = PlayerPrefs.GetFloat("LookSensitivity");
         graphicsDropDown.value =  PlayerPrefs.GetInt("Graphics");
         toggleMenu.isOn = PlayerPrefs.GetInt("bool") == 0 ? false : true;
     }
@@ -69,6 +71,11 @@ public class OptionsMenu : MonoBehaviour
         //Debug.Log(volume);
         audioMixer.SetFloat("MasterVolume", volume);
         PlayerPrefs.SetFloat("MasterVolume", volume);
+    }
+
+    public void SetSense(float sense)
+    {
+        PlayerPrefs.SetFloat("LookSensitivity", sense);
     }
 
     public void SetQuality(int index)

@@ -15,6 +15,7 @@ public class PlayerCameraController : MonoBehaviour
         player = transform.parent.gameObject;
         Cursor.lockState = CursorLockMode.Locked;
         //Cursor.visible = false; might use if have inventory
+        lookSensitivity = PlayerPrefs.GetFloat("LookSensitivity");
     }
 
     private void Update()
