@@ -27,7 +27,6 @@ public class Pistol : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            Debug.Log("Shoot");
             GameObject bul = Instantiate(bullet, transform.position, transform.rotation);
             bul.GetComponent<Rigidbody>().velocity = transform.forward * 30;
             hasShot = true;
