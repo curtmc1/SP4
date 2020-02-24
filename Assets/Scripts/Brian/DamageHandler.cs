@@ -13,12 +13,14 @@ public class DamageHandler : MonoBehaviour
     void Start()
     {
         //Debug.Log(PlayerPrefs.GetFloat("playerHealth"));
-        hpbar = (HealthBarShrink)FindObjectOfType(typeof(HealthBarShrink));
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!hpbar)
+            hpbar = (HealthBarShrink)FindObjectOfType(typeof(HealthBarShrink));
+
         if (invulnTimer > 0)
         {
             invulnTimer -= Time.deltaTime;
@@ -27,14 +29,13 @@ public class DamageHandler : MonoBehaviour
 
     void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("HIT");
-        Debug.Log(collision.gameObject);
+        //Debug.Log("HIT");
+        //Debug.Log(collision.gameObject);
 
         if (hpbar && gameObject.tag == "Enemy")
         {
-            if (collision.gameObject.name == "First person player")
+            if (collision.gameObject.tag == "Player")
             {
-                //GameObject.Find("HealthBarShrink").GetComponent<HealthBarShrink>.healed = true;
                 hpbar.SetHealth(10);
                 //Debug.Log(PlayerPrefs.GetFloat("playerHealth"));
             }
