@@ -7,6 +7,7 @@ public enum States
     state_roam,
     state_chase,
     state_shoot,
+    state_stalk,
     state_dead
 }
 
@@ -24,14 +25,17 @@ public class EnemyStates : MonoBehaviour
     void Start()
     {
         currState = States.state_roam;
-
-        player = Manager.instance.Player.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!player)
+            player = Manager.instance.Player.transform;
+
         distanceaway = Vector3.Distance(player.position, transform.position);
+
+        EnemyHealth enemyhp = GetComponent<EnemyHealth>();
 
         switch (currState)
         {
@@ -43,17 +47,40 @@ public class EnemyStates : MonoBehaviour
                     if (distanceaway < range)
                         currState = States.state_shoot;
                 }
-                break;
+                if (gameObject.name == ("EnemyStalker"))
+                {
+                    if (distanceaway < range)
+                        currState = States.state_stalk;
+                }
+                if (enemyhp.health <= 0)
+                    currState = States.state_dead;
+                    break;
             case States.state_chase:
                 if (distanceaway > range)
                     currState = States.state_roam;
+                if (enemyhp.health <= 0)
+                    currState = States.state_dead;
                 break;
             case States.state_shoot:
                 if (distanceaway > range)
                     currState = States.state_roam;
+                if (enemyhp.health <= 0)
+                    currState = States.state_dead;
+                break;
+            case States.state_stalk:
+                if (distanceaway > range)
+                    currState = States.state_roam;
+                if (enemyhp.health <= 0)
+                    currState = States.state_dead;
                 break;
             case States.state_dead:
+                Die();
                 break;
         }
+    }
+
+    void Die()
+    {
+        Destroy(transform.parent.gameObject);
     }
 }

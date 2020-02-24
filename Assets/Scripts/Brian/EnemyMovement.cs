@@ -13,6 +13,9 @@ public class EnemyMovement : MonoBehaviour
     Transform player;
     EnemyStates states;
 
+    float invisibleCoolDown = 1f;
+    bool invisible = false;
+
     private static Vector3 GetRandomDir()
     {
         //Random direction for x or z axis
@@ -36,8 +39,26 @@ public class EnemyMovement : MonoBehaviour
     {
         //face player
         Vector3 dir = (player.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.z));
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(dir.x, dir.y, dir.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+    }
+
+    void TurnInvisible()
+    {
+        gameObject.GetComponent<Renderer>().enabled = false;
+        gameObject.GetComponentInChildren<Canvas>().enabled = false;
+
+        invisibleCoolDown = 1f;
+        invisible = true;
+    }
+
+    void TurnVisible()
+    {
+        gameObject.GetComponent<Renderer>().enabled = true;
+        gameObject.GetComponentInChildren<Canvas>().enabled = true;
+
+        invisibleCoolDown = 1f;
+        invisible = false;
     }
 
     // Start is called before the first frame update
@@ -45,7 +66,7 @@ public class EnemyMovement : MonoBehaviour
     {
         nav = GetComponent<NavMeshAgent>();
         states = GetComponent<EnemyStates>();
-        player = Manager.instance.Player.transform;
+        //player = Manager.instance.Player.transform;
         startPos = transform.position;
         roamPos = GetRandomRoamPos();
         //Debug.Log(GetRandomRoamPos());
@@ -54,8 +75,12 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!player)
+            player = Manager.instance.Player.transform;
+
         float distanceaway = Vector3.Distance(player.position, transform.position);
         float distanceFromPosReached = 10f;
+        invisibleCoolDown -= Time.deltaTime;
 
         if (states.currState == States.state_roam)
         {
@@ -81,14 +106,32 @@ public class EnemyMovement : MonoBehaviour
         }
         if (states.currState == States.state_shoot)
         {
-            Vector3 moveDir = transform.position - player.transform.position;
+            FacePlayer();
 
             nav.speed = 3f;
 
+            Vector3 moveDir = transform.position - player.transform.position;
+
             if (Vector3.Distance(player.position, moveDir) < states.range)
                 nav.SetDestination(moveDir);
+        }
+        if (states.currState == States.state_stalk)
+        {
+            nav.speed = 1f;
+            nav.SetDestination(player.position);
 
-            FacePlayer();
+            if (invisibleCoolDown <= 0f)
+            {
+                if (!invisible)
+                    TurnInvisible();
+                else if (invisible)
+                    TurnVisible();
+            }
+
+            if (distanceaway < nav.stoppingDistance)
+            {
+                FacePlayer();
+            }
         }
     }
 }
