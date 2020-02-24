@@ -72,6 +72,11 @@ public class Item : MonoBehaviour
         }
     }
 
+    public void ItemUsed()
+    {
+        this.gameObject.SetActive(false);
+    }
+
     public void Update()
     {
         if(equipped)

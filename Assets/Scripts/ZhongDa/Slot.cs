@@ -29,6 +29,11 @@ public class Slot : MonoBehaviour, IPointerClickHandler
         slotIconGo.GetComponent<Image>().sprite = icon;
     }
 
+    public void RemoveSlot()
+    {
+        slotIconGo.GetComponent<Image>().sprite = null;
+    }
+
     public void UseItem()
     {
         item.GetComponent<Item>().ItemUsage();
