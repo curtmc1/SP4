@@ -14,6 +14,7 @@ public class EnemyMovement : MonoBehaviour
     EnemyStates states;
 
     float invisibleCoolDown = 1f;
+    bool invisible = false;
 
     private static Vector3 GetRandomDir()
     {
@@ -42,6 +43,24 @@ public class EnemyMovement : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
+    void TurnInvisible()
+    {
+        gameObject.GetComponent<Renderer>().enabled = false;
+        gameObject.GetComponentInChildren<Canvas>().enabled = false;
+
+        invisibleCoolDown = 1f;
+        invisible = true;
+    }
+
+    void TurnVisible()
+    {
+        gameObject.GetComponent<Renderer>().enabled = true;
+        gameObject.GetComponentInChildren<Canvas>().enabled = true;
+
+        invisibleCoolDown = 1f;
+        invisible = false;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +78,6 @@ public class EnemyMovement : MonoBehaviour
         float distanceaway = Vector3.Distance(player.position, transform.position);
         float distanceFromPosReached = 10f;
         invisibleCoolDown -= Time.deltaTime;
-        Debug.Log(invisibleCoolDown);
 
         if (states.currState == States.state_roam)
         {
@@ -104,21 +122,10 @@ public class EnemyMovement : MonoBehaviour
 
             if (invisibleCoolDown <= 0f)
             {
-                Debug.Log("TEST");
-                if (gameObject.GetComponent<Renderer>().enabled)
-                {
-                    Debug.Log("TEST1");
-                    gameObject.GetComponent<Renderer>().enabled = false;
-                    gameObject.GetComponentInChildren<Canvas>().enabled = false;
-                    invisibleCoolDown = 1f;
-                }
-                else
-                {
-                    Debug.Log("TEST2");
-                    gameObject.GetComponent<Renderer>().enabled = true;
-                    gameObject.GetComponentInChildren<Canvas>().enabled = true;
-                    invisibleCoolDown = 1f;
-                }
+                if (!invisible)
+                    TurnInvisible();
+                else if (invisible)
+                    TurnVisible();
             }
 
             if (distanceaway < nav.stoppingDistance)
