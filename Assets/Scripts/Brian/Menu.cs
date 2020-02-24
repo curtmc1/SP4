@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour
 {
+    // Start is called before the first frame update
+    void Start()
+    {
+        PlayerPrefs.SetString("LevelName", "Level1");
+    }
+
     public void Play()
     {
+        //Cursor.visible = false;
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene("MultiplayerMenu");
-        //Cursor.visible = false;
     }
 
     public void Quit()
