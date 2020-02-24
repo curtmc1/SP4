@@ -5,6 +5,7 @@ using UnityEngine;
 public enum States
 {
     state_roam,
+    state_underattack,
     state_chase,
     state_shoot,
     state_stalk,
@@ -25,14 +26,13 @@ public class EnemyStates : MonoBehaviour
     void Start()
     {
         currState = States.state_roam;
+
+        player = Manager.instance.Player.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (!player)
-            player = Manager.instance.Player.transform;
-
         distanceaway = Vector3.Distance(player.position, transform.position);
 
         EnemyHealth enemyhp = GetComponent<EnemyHealth>();

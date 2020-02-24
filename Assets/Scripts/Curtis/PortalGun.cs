@@ -74,10 +74,5 @@ public class PortalGun : MonoBehaviour
         }
         else
             p2HasShot = false;
-
-        if (Input.GetMouseButtonDown(2))
-        {
-            Debug.Log("Pick up");
-        }
     }
 }
