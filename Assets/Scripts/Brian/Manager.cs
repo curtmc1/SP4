@@ -8,19 +8,24 @@ public class Manager : MonoBehaviour
     #region Singleton
     public static Manager instance;
 
+    GameObject player;
+
     void Awake()
     {
-        instance = this;
-        player = GameObject.FindGameObjectWithTag("Player");
+        instance = this;        
     }
     #endregion
 
-    GameObject player;
-
-    public GameObject Player 
+    void Update()
+    {
+        if (!player)
+            player = GameObject.FindGameObjectWithTag("Player");
+    }
+    
+    public GameObject Player
     {
         get { return player; }
-        set { player = value;}
+        set { player = value; }
     }
 
     //if null do something

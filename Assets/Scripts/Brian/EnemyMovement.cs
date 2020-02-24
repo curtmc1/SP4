@@ -66,7 +66,7 @@ public class EnemyMovement : MonoBehaviour
     {
         nav = GetComponent<NavMeshAgent>();
         states = GetComponent<EnemyStates>();
-        player = Manager.instance.Player.transform;
+        //player = Manager.instance.Player.transform;
         startPos = transform.position;
         roamPos = GetRandomRoamPos();
         //Debug.Log(GetRandomRoamPos());
@@ -75,6 +75,9 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!player)
+            player = Manager.instance.Player.transform;
+
         float distanceaway = Vector3.Distance(player.position, transform.position);
         float distanceFromPosReached = 10f;
         invisibleCoolDown -= Time.deltaTime;
