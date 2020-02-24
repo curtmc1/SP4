@@ -5,6 +5,7 @@ using UnityEngine;
 public enum States
 {
     state_roam,
+    state_underattack,
     state_chase,
     state_shoot,
     state_stalk,
@@ -34,6 +35,8 @@ public class EnemyStates : MonoBehaviour
     {
         distanceaway = Vector3.Distance(player.position, transform.position);
 
+        EnemyHealth enemyhp = GetComponent<EnemyHealth>();
+
         switch (currState)
         {
             case States.state_roam:               
@@ -49,24 +52,35 @@ public class EnemyStates : MonoBehaviour
                     if (distanceaway < range)
                         currState = States.state_stalk;
                 }
-                break;
+                if (enemyhp.health <= 0)
+                    currState = States.state_dead;
+                    break;
             case States.state_chase:
                 if (distanceaway > range)
                     currState = States.state_roam;
+                if (enemyhp.health <= 0)
+                    currState = States.state_dead;
                 break;
             case States.state_shoot:
                 if (distanceaway > range)
                     currState = States.state_roam;
+                if (enemyhp.health <= 0)
+                    currState = States.state_dead;
                 break;
             case States.state_stalk:
                 if (distanceaway > range)
                     currState = States.state_roam;
+                if (enemyhp.health <= 0)
+                    currState = States.state_dead;
                 break;
             case States.state_dead:
-                //EnemyHealth enemyhp = GetComponent<EnemyHealth>();
-                //if (enemyhp.health <= 0)
-                //    Debug.Log("Die liao");
+                Die();
                 break;
         }
+    }
+
+    void Die()
+    {
+        Destroy(transform.parent.gameObject);
     }
 }

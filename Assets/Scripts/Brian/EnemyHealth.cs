@@ -8,31 +8,20 @@ public class EnemyHealth : MonoBehaviour
 
     public ParticleSystem deathEffect;
 
+    EnemyStates states;
+
     // Start is called before the first frame update
     void Start()
     {
-       
+        states = GetComponent<EnemyStates>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
+        if (states.currState == States.state_dead)
         {
-            Die();
-
-            GameObject go = GameObject.FindWithTag("Enemy");
-
-            if (go != null)
-            {
-                Instantiate(deathEffect, transform.position, Quaternion.identity);
-            }
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
-    }
-
-    void Die()
-    {
-        Destroy(gameObject);
-        Destroy(transform.parent.gameObject);
     }
 }

@@ -96,9 +96,6 @@ public class EnemyMovement : MonoBehaviour
             nav.speed = 5f;
             nav.SetDestination(player.position);
 
-            //gameObject.GetComponent<Renderer>().enabled = false;
-            //gameObject.GetComponentInChildren<Canvas>().enabled = false;
-
             if (distanceaway < nav.stoppingDistance)
             {
                 FacePlayer();
