@@ -7,6 +7,7 @@ public enum States
     state_roam,
     state_chase,
     state_shoot,
+    state_stalk,
     state_dead
 }
 
@@ -43,6 +44,11 @@ public class EnemyStates : MonoBehaviour
                     if (distanceaway < range)
                         currState = States.state_shoot;
                 }
+                if (gameObject.name == ("EnemyStalker"))
+                {
+                    if (distanceaway < range)
+                        currState = States.state_stalk;
+                }
                 break;
             case States.state_chase:
                 if (distanceaway > range)
@@ -52,7 +58,14 @@ public class EnemyStates : MonoBehaviour
                 if (distanceaway > range)
                     currState = States.state_roam;
                 break;
+            case States.state_stalk:
+                if (distanceaway > range)
+                    currState = States.state_roam;
+                break;
             case States.state_dead:
+                //EnemyHealth enemyhp = GetComponent<EnemyHealth>();
+                //if (enemyhp.health <= 0)
+                //    Debug.Log("Die liao");
                 break;
         }
     }

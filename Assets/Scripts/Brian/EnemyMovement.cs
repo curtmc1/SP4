@@ -13,6 +13,8 @@ public class EnemyMovement : MonoBehaviour
     Transform player;
     EnemyStates states;
 
+    float invisibleCoolDown = 1f;
+
     private static Vector3 GetRandomDir()
     {
         //Random direction for x or z axis
@@ -36,7 +38,7 @@ public class EnemyMovement : MonoBehaviour
     {
         //face player
         Vector3 dir = (player.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(dir.x, 0, dir.z));
+        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(dir.x, dir.y, dir.z));
         transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
     }
 
@@ -56,6 +58,8 @@ public class EnemyMovement : MonoBehaviour
     {
         float distanceaway = Vector3.Distance(player.position, transform.position);
         float distanceFromPosReached = 10f;
+        invisibleCoolDown -= Time.deltaTime;
+        Debug.Log(invisibleCoolDown);
 
         if (states.currState == States.state_roam)
         {
@@ -74,6 +78,9 @@ public class EnemyMovement : MonoBehaviour
             nav.speed = 5f;
             nav.SetDestination(player.position);
 
+            //gameObject.GetComponent<Renderer>().enabled = false;
+            //gameObject.GetComponentInChildren<Canvas>().enabled = false;
+
             if (distanceaway < nav.stoppingDistance)
             {
                 FacePlayer();
@@ -81,14 +88,43 @@ public class EnemyMovement : MonoBehaviour
         }
         if (states.currState == States.state_shoot)
         {
-            Vector3 moveDir = transform.position - player.transform.position;
+            FacePlayer();
 
             nav.speed = 3f;
 
+            Vector3 moveDir = transform.position - player.transform.position;
+
             if (Vector3.Distance(player.position, moveDir) < states.range)
                 nav.SetDestination(moveDir);
+        }
+        if (states.currState == States.state_stalk)
+        {
+            nav.speed = 1f;
+            nav.SetDestination(player.position);
 
-            FacePlayer();
+            if (invisibleCoolDown <= 0f)
+            {
+                Debug.Log("TEST");
+                if (gameObject.GetComponent<Renderer>().enabled)
+                {
+                    Debug.Log("TEST1");
+                    gameObject.GetComponent<Renderer>().enabled = false;
+                    gameObject.GetComponentInChildren<Canvas>().enabled = false;
+                    invisibleCoolDown = 1f;
+                }
+                else
+                {
+                    Debug.Log("TEST2");
+                    gameObject.GetComponent<Renderer>().enabled = true;
+                    gameObject.GetComponentInChildren<Canvas>().enabled = true;
+                    invisibleCoolDown = 1f;
+                }
+            }
+
+            if (distanceaway < nav.stoppingDistance)
+            {
+                FacePlayer();
+            }
         }
     }
 }

@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour
 {
-    //script for testing
     #region Singleton
     public static Manager instance;
 
