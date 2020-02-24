@@ -27,12 +27,15 @@ public class EnemyStates : MonoBehaviour
     {
         currState = States.state_roam;
 
-        player = Manager.instance.Player.transform;
+        //player = Manager.instance.Player.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (!player)
+            player = Manager.instance.Player.transform;
+
         distanceaway = Vector3.Distance(player.position, transform.position);
 
         EnemyHealth enemyhp = GetComponent<EnemyHealth>();
