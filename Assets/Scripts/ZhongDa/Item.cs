@@ -10,7 +10,6 @@ public class Item : MonoBehaviour
     public Sprite icon;
     public bool pickedUp;
 
-
     [HideInInspector]
     public bool equipped;
     [HideInInspector]
@@ -73,15 +72,9 @@ public class Item : MonoBehaviour
         }
     }
 
-    public void ItemUsed()
-    {
-        //equipped = false;
-        this.gameObject.SetActive(false);
-    }
-
     public void Update()
     {
-        if (equipped)
+        if(equipped)
         {
             if (Input.GetKeyDown(KeyCode.F))
                 equipped = false;
