@@ -43,7 +43,7 @@ public class PlayerNetwork : PlayerBehavior
 
         if (!networkObject.IsOwner)
         {
-            playerCamera.GetComponent<AudioListener>().enabled = false;
+            Destroy(playerCamera.GetComponent<AudioListener>());
             playerCamera.gameObject.SetActive(false);
         }
         else if (networkObject.IsOwner)

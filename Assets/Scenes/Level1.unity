@@ -906,7 +906,7 @@ GameObject:
   - component: {fileID: 450683187}
   - component: {fileID: 450683186}
   m_Layer: 0
-  m_Name: Spawner
+  m_Name: Player Spawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -924,7 +924,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e982aa848ed8dae49b3884d0c7d604f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 8737888371035463552, guid: 45301692c80f7ba40a7842378676af23, type: 3}
 --- !u!4 &450683187
 Transform:
   m_ObjectHideFlags: 0
@@ -1409,6 +1408,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3b15afc25547c7343b938d0547f9b956, type: 3}
+--- !u!1 &816206527
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 816206529}
+  - component: {fileID: 816206528}
+  m_Layer: 0
+  m_Name: AI Spawner (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &816206528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816206527}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02214eff99b36cd4081bc85f8d1b97a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - infinite: 0
+    enemyCount: 1
+    timeBetweenSpawns: 1
+  - infinite: 0
+    enemyCount: 1
+    timeBetweenSpawns: 1
+--- !u!4 &816206529
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 816206527}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 10.5, y: 1.5, z: 4.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 23
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &871471619
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1834,6 +1883,56 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 57f4e24e81fd6644fa40e372f8b8ff29, type: 3}
+--- !u!1 &1311340668
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1311340670}
+  - component: {fileID: 1311340669}
+  m_Layer: 0
+  m_Name: AI Spawner
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1311340669
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311340668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02214eff99b36cd4081bc85f8d1b97a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - infinite: 0
+    enemyCount: 1
+    timeBetweenSpawns: 1
+  - infinite: 0
+    enemyCount: 1
+    timeBetweenSpawns: 1
+--- !u!4 &1311340670
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1311340668}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -30.6, y: 1.5, z: 9.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 22
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1367715137
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2325,7 +2424,7 @@ PrefabInstance:
     - target: {fileID: 8737888371035463552, guid: 45301692c80f7ba40a7842378676af23,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8737888371035463552, guid: 45301692c80f7ba40a7842378676af23,
         type: 3}
@@ -2387,22 +2486,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6295679509144410436, guid: 45301692c80f7ba40a7842378676af23,
+    - target: {fileID: 8737888372708663483, guid: 45301692c80f7ba40a7842378676af23,
         type: 3}
-      propertyPath: hpbar
-      value: 
-      objectReference: {fileID: 979596592}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4023677001485485286, guid: 45301692c80f7ba40a7842378676af23,
         type: 3}
       propertyPath: deathEffect
       value: 
       objectReference: {fileID: 8262289533643137581, guid: c6e621faeeeb67c42ba1f5dd7d9cdfdc,
         type: 3}
-    - target: {fileID: 8737888372708663483, guid: 45301692c80f7ba40a7842378676af23,
+    - target: {fileID: 6295679509144410436, guid: 45301692c80f7ba40a7842378676af23,
         type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: hpbar
+      value: 
+      objectReference: {fileID: 979596592}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 45301692c80f7ba40a7842378676af23, type: 3}
 --- !u!1 &1750028020

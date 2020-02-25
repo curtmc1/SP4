@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using BeardedManStudios.Forge.Networking.Unity;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -15,6 +16,18 @@ public class EnemyMovement : MonoBehaviour
 
     float invisibleCoolDown = 1f;
     bool invisible = false;
+
+    public float GetInvisibleCoolDown
+    {
+        get { return invisibleCoolDown; }
+        set { invisibleCoolDown = value;}
+    }
+
+    public bool GetInvisible
+    {
+        get { return invisible; }
+        set { invisible = value; }
+    }
 
     private static Vector3 GetRandomDir()
     {

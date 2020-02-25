@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedInterpol("{\"inter\":[0.15,0.15]")]
-	public partial class BulletNetworkObject : NetworkObject
+	[GeneratedInterpol("{\"inter\":[0,0,0]")]
+	public partial class AISpawnerNetworkObject : NetworkObject
 	{
-		public const int IDENTITY = 3;
+		public const int IDENTITY = 2;
 
 		private byte[] _dirtyFields = new byte[1];
 
@@ -18,7 +18,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		[ForgeGeneratedField]
 		private Vector3 _position;
 		public event FieldEvent<Vector3> positionChanged;
-		public InterpolateVector3 positionInterpolation = new InterpolateVector3() { LerpT = 0.15f, Enabled = true };
+		public InterpolateVector3 positionInterpolation = new InterpolateVector3() { LerpT = 0f, Enabled = false };
 		public Vector3 position
 		{
 			get { return _position; }
@@ -49,7 +49,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		[ForgeGeneratedField]
 		private Quaternion _rotation;
 		public event FieldEvent<Quaternion> rotationChanged;
-		public InterpolateQuaternion rotationInterpolation = new InterpolateQuaternion() { LerpT = 0.15f, Enabled = true };
+		public InterpolateQuaternion rotationInterpolation = new InterpolateQuaternion() { LerpT = 0f, Enabled = false };
 		public Quaternion rotation
 		{
 			get { return _rotation; }
@@ -77,6 +77,37 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			if (rotationChanged != null) rotationChanged(_rotation, timestep);
 			if (fieldAltered != null) fieldAltered("rotation", _rotation, timestep);
 		}
+		[ForgeGeneratedField]
+		private float _spawnTimer;
+		public event FieldEvent<float> spawnTimerChanged;
+		public InterpolateFloat spawnTimerInterpolation = new InterpolateFloat() { LerpT = 0f, Enabled = false };
+		public float spawnTimer
+		{
+			get { return _spawnTimer; }
+			set
+			{
+				// Don't do anything if the value is the same
+				if (_spawnTimer == value)
+					return;
+
+				// Mark the field as dirty for the network to transmit
+				_dirtyFields[0] |= 0x4;
+				_spawnTimer = value;
+				hasDirtyFields = true;
+			}
+		}
+
+		public void SetspawnTimerDirty()
+		{
+			_dirtyFields[0] |= 0x4;
+			hasDirtyFields = true;
+		}
+
+		private void RunChange_spawnTimer(ulong timestep)
+		{
+			if (spawnTimerChanged != null) spawnTimerChanged(_spawnTimer, timestep);
+			if (fieldAltered != null) fieldAltered("spawnTimer", _spawnTimer, timestep);
+		}
 
 		protected override void OwnershipChanged()
 		{
@@ -88,6 +119,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		{
 			positionInterpolation.current = positionInterpolation.target;
 			rotationInterpolation.current = rotationInterpolation.target;
+			spawnTimerInterpolation.current = spawnTimerInterpolation.target;
 		}
 
 		public override int UniqueIdentity { get { return IDENTITY; } }
@@ -96,6 +128,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		{
 			UnityObjectMapper.Instance.MapBytes(data, _position);
 			UnityObjectMapper.Instance.MapBytes(data, _rotation);
+			UnityObjectMapper.Instance.MapBytes(data, _spawnTimer);
 
 			return data;
 		}
@@ -110,6 +143,10 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			rotationInterpolation.current = _rotation;
 			rotationInterpolation.target = _rotation;
 			RunChange_rotation(timestep);
+			_spawnTimer = UnityObjectMapper.Instance.Map<float>(payload);
+			spawnTimerInterpolation.current = _spawnTimer;
+			spawnTimerInterpolation.target = _spawnTimer;
+			RunChange_spawnTimer(timestep);
 		}
 
 		protected override BMSByte SerializeDirtyFields()
@@ -121,6 +158,8 @@ namespace BeardedManStudios.Forge.Networking.Generated
 				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _position);
 			if ((0x2 & _dirtyFields[0]) != 0)
 				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _rotation);
+			if ((0x4 & _dirtyFields[0]) != 0)
+				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _spawnTimer);
 
 			// Reset all the dirty fields
 			for (int i = 0; i < _dirtyFields.Length; i++)
@@ -163,6 +202,19 @@ namespace BeardedManStudios.Forge.Networking.Generated
 					RunChange_rotation(timestep);
 				}
 			}
+			if ((0x4 & readDirtyFlags[0]) != 0)
+			{
+				if (spawnTimerInterpolation.Enabled)
+				{
+					spawnTimerInterpolation.target = UnityObjectMapper.Instance.Map<float>(data);
+					spawnTimerInterpolation.Timestep = timestep;
+				}
+				else
+				{
+					_spawnTimer = UnityObjectMapper.Instance.Map<float>(data);
+					RunChange_spawnTimer(timestep);
+				}
+			}
 		}
 
 		public override void InterpolateUpdate()
@@ -180,6 +232,11 @@ namespace BeardedManStudios.Forge.Networking.Generated
 				_rotation = (Quaternion)rotationInterpolation.Interpolate();
 				//RunChange_rotation(rotationInterpolation.Timestep);
 			}
+			if (spawnTimerInterpolation.Enabled && !spawnTimerInterpolation.current.UnityNear(spawnTimerInterpolation.target, 0.0015f))
+			{
+				_spawnTimer = (float)spawnTimerInterpolation.Interpolate();
+				//RunChange_spawnTimer(spawnTimerInterpolation.Timestep);
+			}
 		}
 
 		private void Initialize()
@@ -189,9 +246,9 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		}
 
-		public BulletNetworkObject() : base() { Initialize(); }
-		public BulletNetworkObject(NetWorker networker, INetworkBehavior networkBehavior = null, int createCode = 0, byte[] metadata = null) : base(networker, networkBehavior, createCode, metadata) { Initialize(); }
-		public BulletNetworkObject(NetWorker networker, uint serverId, FrameStream frame) : base(networker, serverId, frame) { Initialize(); }
+		public AISpawnerNetworkObject() : base() { Initialize(); }
+		public AISpawnerNetworkObject(NetWorker networker, INetworkBehavior networkBehavior = null, int createCode = 0, byte[] metadata = null) : base(networker, networkBehavior, createCode, metadata) { Initialize(); }
+		public AISpawnerNetworkObject(NetWorker networker, uint serverId, FrameStream frame) : base(networker, serverId, frame) { Initialize(); }
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}

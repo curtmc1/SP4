@@ -5,9 +5,9 @@ using BeardedManStudios.Forge.Networking.Unity;
 
 public class Spawner : MonoBehaviour
 {
-    private float spawnTimerAI;
+    //private float spawnTimerAI;
 
-    public GameObject enemy;
+    //public GameObject enemy;
 
     // Start is called before the first frame update
     private void Start()
