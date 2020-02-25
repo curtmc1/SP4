@@ -12,7 +12,7 @@ public class Manager : MonoBehaviour
 
     void Awake()
     {
-        instance = this;        
+        instance = this;
     }
     #endregion
 
@@ -21,11 +21,11 @@ public class Manager : MonoBehaviour
         if (!player)
             player = GameObject.FindGameObjectWithTag("Player");
     }
-    
-    public GameObject Player
+
+    public GameObject Player 
     {
         get { return player; }
-        set { player = value; }
+        set { player = value;}
     }
 
     //if null do something

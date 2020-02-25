@@ -25,6 +25,10 @@ public class WeaponManager : MonoBehaviour
         {
             foreach (GameObject weapon in weapons)
             {
+                if (weapon.GetComponent<PortalGun>())
+                {
+                    weapon.GetComponent<PortalGun>().GetIsHeld = false;
+                }
                 weapon.SetActive(false);
             }
             weapons[_currentWeapon].SetActive(true);
@@ -52,10 +56,7 @@ public class WeaponManager : MonoBehaviour
         {
             weapons.Add(transform.GetChild(i).gameObject);
         }
-
         currWeapon = 0;
-        //weapons[0].SetActive(true);
-        //weapons[1].SetActive(false);
     }
 
      void Update()
@@ -89,18 +90,5 @@ public class WeaponManager : MonoBehaviour
         }
 
         SetWeapon(currWeapon);
-
-
-        //switch (currWeapon)
-        //{
-        //    case 0:
-        //        weapons[0].SetActive(true);
-        //        weapons[1].SetActive(false);
-        //        break;
-        //    case 1:
-        //        weapons[1].SetActive(true);
-        //        weapons[0].SetActive(false);
-        //        break;
-        //}
     }
 }

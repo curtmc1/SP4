@@ -15,6 +15,9 @@ public class PortalGun : MonoBehaviour
     public bool p2HasShot;
     public Vector3 portPos;
     public Quaternion portRotation;
+    private new GameObject camera;
+    private GameObject objectHeld;
+    private bool isHeld;
 
     public bool GetCanShoot
     {
@@ -22,13 +25,23 @@ public class PortalGun : MonoBehaviour
         set { canShoot = value; }
     }
 
+    public bool GetIsHeld
+    {
+        get { return isHeld; }
+        set { isHeld = value; }
+    }
+
     private void Start()
     {
         p1HasShot = p2HasShot = false;
+        camera = transform.parent.parent.parent.GetChild(0).gameObject;
+        isHeld = false;
     }
 
     void Update()
     {
+        Ray ray = camera.transform.GetComponent<Camera>().ScreenPointToRay(Input.mousePosition);
+
         if (!canShoot) return;
 
         if (Input.GetMouseButtonDown(0))
@@ -36,15 +49,15 @@ public class PortalGun : MonoBehaviour
             Instantiate(portalParticle, transform.position + 0.5f * transform.forward, transform.rotation);
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 if (hit.transform.gameObject.tag == "Wall")
                 {
                     GameObject p1 = GameObject.FindGameObjectWithTag("Portal1");
                     Destroy(p1);
-                    portPos = hit.transform.position + 2 * hit.transform.forward;
+                    portPos = hit.point + 2 * hit.transform.forward;
                     portRotation = hit.transform.rotation;
-                    Instantiate(portal1, hit.transform.position + 2 * hit.transform.forward, hit.transform.rotation);
+                    Instantiate(portal1, hit.point + 2 * hit.transform.forward, hit.transform.rotation);
                     p1HasShot = true;
                 }
             }
@@ -58,15 +71,15 @@ public class PortalGun : MonoBehaviour
             Instantiate(portalParticle2, transform.position + 0.5f * transform.forward, transform.rotation);
 
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
+            if (Physics.Raycast(ray, out hit, Mathf.Infinity))
             {
                 if (hit.transform.gameObject.tag == "Wall")
                 {
                     GameObject p2 = GameObject.FindGameObjectWithTag("Portal2");
                     Destroy(p2);
-                    portPos = hit.transform.position + 2 * hit.transform.forward;
+                    portPos = hit.point + 2 * hit.transform.forward;
                     portRotation = hit.transform.rotation;
-                    Instantiate(portal2, hit.transform.position + 2 * hit.transform.forward, hit.transform.rotation);
+                    Instantiate(portal2, hit.point + 2 * hit.transform.forward, hit.transform.rotation);
                     p2HasShot = true;
                 }
             }
@@ -77,7 +90,36 @@ public class PortalGun : MonoBehaviour
 
         if (Input.GetMouseButtonDown(2))
         {
-            Debug.Log("Pick up");
+            isHeld = !isHeld;
+
+            if (isHeld)
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(ray, out hit, 5))
+                {
+                    if (hit.transform.GetComponent<Rigidbody>() != null)
+                    {
+                        objectHeld = hit.transform.gameObject;
+                        hit.transform.position = camera.transform.position + 2 * camera.transform.forward;
+                    }
+                }
+            }
+        }
+
+        if (!isHeld)
+        {
+            objectHeld = null;
+        }
+
+        if (objectHeld)
+        {
+            objectHeld.transform.position = camera.transform.position + 2 * camera.transform.forward;
+
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                isHeld = false;
+                objectHeld.GetComponent<Rigidbody>().velocity = 10 * camera.transform.forward;
+            }
         }
     }
 }

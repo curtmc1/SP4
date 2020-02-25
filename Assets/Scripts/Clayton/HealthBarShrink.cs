@@ -28,6 +28,13 @@ public class HealthBarShrink : MonoBehaviour
         barImage.fillAmount = temp;
     }
 
+    public void IncreaseHealth(float healthNormalized) //changed to public so can be used outside of current script
+    {
+        PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") + healthNormalized);
+        float temp = PlayerPrefs.GetFloat("playerHealth") / 100;
+        barImage.fillAmount = temp;
+    }
+
     private void UpdateBar()
     {
         //placeHolder = PlayerPrefs.GetFloat("playerHealth");

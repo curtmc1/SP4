@@ -4,16 +4,41 @@ using UnityEngine;
 
 public class HealthPot : MonoBehaviour
 {
-    public GameObject healthPot;
-    private HealthBarShrink obj;
-    //private float health = 30.0f;
+    private HealthBarShrink hpbar;
+    public GameObject item;
+    [HideInInspector]
+    public GameObject itemManager;
+    public bool playerItem;
+    public int id;
+
+    void Start()
+    {
+        hpbar = (HealthBarShrink)FindObjectOfType(typeof(HealthBarShrink));
+
+        itemManager = GameObject.FindGameObjectWithTag("ItemManager");
+        if (!playerItem)
+        {
+            int allItems = itemManager.transform.childCount;
+
+            for (int i = 0; i < allItems; i++)
+            {
+                if (itemManager.transform.GetChild(i).gameObject.GetComponent<Item>().id == id)
+                {
+                    item = itemManager.transform.GetChild(i).gameObject;
+                }
+            }
+        }
+    }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))
+        Item itemOnHand = item.GetComponent<Item>();
+
+        if (Input.GetKeyUp(KeyCode.G))
         {
-            //PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") + health);
-            //obj.GetComponent<HealthBarShrink>().healed = true;
+            hpbar.IncreaseHealth(10);
+            item.gameObject.SetActive(false);
+            item.GetComponent<Inventory>().RemoveItem(item, itemOnHand.id, itemOnHand.type, itemOnHand.description, itemOnHand.icon);
         }
     }
 }

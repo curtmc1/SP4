@@ -130,7 +130,7 @@ public class EnemyMovement : MonoBehaviour
         }
         if (states.currState == States.state_stalk)
         {
-            nav.speed = 1f;
+            nav.speed = 1.5f;
             nav.SetDestination(player.position);
 
             if (invisibleCoolDown <= 0f)

@@ -6,6 +6,7 @@ using UnityEngine;
 public enum States
 {
     state_roam,
+    state_underattack,
     state_chase,
     state_shoot,
     state_stalk,
