@@ -55,9 +55,9 @@ public class PortalGun : MonoBehaviour
                 {
                     GameObject p1 = GameObject.FindGameObjectWithTag("Portal1");
                     Destroy(p1);
-                    portPos = hit.transform.position + 2 * hit.transform.forward;
+                    portPos = hit.point + 2 * hit.transform.forward;
                     portRotation = hit.transform.rotation;
-                    Instantiate(portal1, hit.transform.position + 2 * hit.transform.forward, hit.transform.rotation);
+                    Instantiate(portal1, hit.point + 2 * hit.transform.forward, hit.transform.rotation);
                     p1HasShot = true;
                 }
             }
@@ -77,9 +77,9 @@ public class PortalGun : MonoBehaviour
                 {
                     GameObject p2 = GameObject.FindGameObjectWithTag("Portal2");
                     Destroy(p2);
-                    portPos = hit.transform.position + 2 * hit.transform.forward;
+                    portPos = hit.point + 2 * hit.transform.forward;
                     portRotation = hit.transform.rotation;
-                    Instantiate(portal2, hit.transform.position + 2 * hit.transform.forward, hit.transform.rotation);
+                    Instantiate(portal2, hit.point + 2 * hit.transform.forward, hit.transform.rotation);
                     p2HasShot = true;
                 }
             }
