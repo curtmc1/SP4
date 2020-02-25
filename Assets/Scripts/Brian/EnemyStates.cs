@@ -44,6 +44,11 @@ public class EnemyStates : AINetwork
         if (!player)
             player = Manager.instance.Player.transform;
 
+        //foreach (GameObject target in Manager.instance.Player)
+        //{
+        //    player = target.transform;
+        //}
+
         distanceaway = Vector3.Distance(player.position, transform.position);
 
         EnemyHealth enemyhp = GetComponent<EnemyHealth>();

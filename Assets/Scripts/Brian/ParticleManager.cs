@@ -9,7 +9,7 @@ public class ParticleManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log(PlayerPrefs.GetInt("Graphics"));
+        //Debug.Log(PlayerPrefs.GetInt("Graphics"));
         particles = (ParticleSystem)FindObjectOfType(typeof(ParticleSystem));
         SetQuality();
     }

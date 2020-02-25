@@ -91,6 +91,11 @@ public class EnemyMovement : MonoBehaviour
         if (!player)
             player = Manager.instance.Player.transform;
 
+        //foreach (GameObject target in Manager.instance.Player)
+        //{
+        //    player = target.transform;
+        //}
+
         float distanceaway = Vector3.Distance(player.position, transform.position);
         float distanceFromPosReached = 10f;
         invisibleCoolDown -= Time.deltaTime;
