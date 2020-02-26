@@ -8,12 +8,14 @@ using UnityEngine.UI;
 public class OptionsMenu : MonoBehaviour
 {
     public AudioMixer audioMixer;
+    public AudioMixer musicMixer;
     public ParticleSystem particles;
     public Dropdown resolutionDropDown;
     public Dropdown graphicsDropDown;
     public Toggle toggleMenu;
     public Slider sliderRef1;
     public Slider sliderRef2;
+    public Slider sliderRef3;
 
     Resolution[] resolutions;
     Resolution resolution;
@@ -52,6 +54,7 @@ public class OptionsMenu : MonoBehaviour
         resolution.height = PlayerPrefs.GetInt("ResolutionHeight");
         sliderRef1.value = PlayerPrefs.GetFloat("MasterVolume");
         sliderRef2.value = PlayerPrefs.GetFloat("LookSensitivity");
+        sliderRef3.value = PlayerPrefs.GetFloat("MusicVolume");
         graphicsDropDown.value =  PlayerPrefs.GetInt("Graphics");
         toggleMenu.isOn = PlayerPrefs.GetInt("bool") == 0 ? false : true;
     }
@@ -66,11 +69,18 @@ public class OptionsMenu : MonoBehaviour
         PlayerPrefs.SetInt("ResolutionHeight", resolution.height);
     }
 
-    public void SetVolume(float volume)
+    public void SetSFXVolume(float volume)
     {
         //Debug.Log(volume);
         audioMixer.SetFloat("MasterVolume", volume);
         PlayerPrefs.SetFloat("MasterVolume", volume);
+    }
+
+    public void SetMusicVolume(float volume)
+    {
+        //Debug.Log(volume);
+        musicMixer.SetFloat("MusicVolume", volume);
+        PlayerPrefs.SetFloat("MusicVolume", volume);
     }
 
     public void SetSense(float sense)
