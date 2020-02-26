@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class DamageHandler : MonoBehaviour
 {
-    public float invulnPeriod = 0;
-    float invulnTimer = 0;
+    public float invulnPeriod = 0f;
+    float invulnTimer = 0f;
 
     HealthBarShrink hpbar;
 
@@ -13,6 +13,11 @@ public class DamageHandler : MonoBehaviour
     void Start()
     {
         //Debug.Log(PlayerPrefs.GetFloat("playerHealth"));
+
+        if (invulnPeriod > 0f)
+        {
+            invulnTimer = invulnPeriod;
+        }
     }
 
     // Update is called once per frame
@@ -21,26 +26,32 @@ public class DamageHandler : MonoBehaviour
         if (!hpbar)
             hpbar = (HealthBarShrink)FindObjectOfType(typeof(HealthBarShrink));
 
-        if (invulnTimer > 0)
+        if (invulnTimer > 0f)
         {
             invulnTimer -= Time.deltaTime;
         }
     }
 
-    void OnTriggerEnter(Collider collision)
+    void OnTriggerStay(Collider collision)
     {
         //Debug.Log("HIT");
         //Debug.Log(collision.gameObject);
 
+        //Enemy attack Player
         if (hpbar && gameObject.tag == "Enemy")
         {
             if (collision.gameObject.tag == "Player")
             {
-                hpbar.SetHealth(10);
+                if (invulnTimer <= 0f)
+                {
+                    hpbar.SetHealth(10);
+                    invulnTimer = invulnPeriod;
+                }
                 //Debug.Log(PlayerPrefs.GetFloat("playerHealth"));
             }
         }
 
+        //Bullet hit Enemy
         if (collision.gameObject.tag == "Enemy")
         {
             EnemyHealth enemyhp = collision.gameObject.GetComponent<EnemyHealth>();
@@ -53,12 +64,6 @@ public class DamageHandler : MonoBehaviour
             EnemyHealth enemyhp = collision.gameObject.GetComponentInParent<EnemyHealth>();
             enemyhp.health -= 3;
             //Debug.Log("Damaged");
-        }
-
-        if (invulnPeriod > 0)
-        {
-            invulnTimer = invulnPeriod;
-            //gameObject.layer = 10;
         }
     }
 }

@@ -116,7 +116,7 @@ public class EnemyMovement : MonoBehaviour
             if (Vector3.Distance(roamPos, transform.position) < distanceFromPosReached)
             {
                 roamPos = GetRandomRoamPos();
-                Debug.Log(GetRandomRoamPos());
+                //Debug.Log(GetRandomRoamPos());
             }
         }
         if (states.currState == States.state_chase)
