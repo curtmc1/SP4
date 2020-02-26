@@ -104,16 +104,17 @@ public class Inventory : MonoBehaviour
     {
         for (int i = 0; i < allSlots; i++)
         {
-            if (slot[i].GetComponent<Slot>().empty)
+            if (!slot[i].GetComponent<Slot>().empty)
             {
+                itemObject.GetComponent<Item>().pickedUp = false;
+
                 slot[i].GetComponent<Slot>().item = itemObject;
                 slot[i].GetComponent<Slot>().icon = itemIcon;
                 slot[i].GetComponent<Slot>().type = itemType;
                 slot[i].GetComponent<Slot>().id = itemID;
                 slot[i].GetComponent<Slot>().description = itemDescription;
 
-                itemObject.transform.position = slot[i].transform.position;
-
+                //itemObject.transform.position = slot[i].transform.position;
                 slot[i].GetComponent<Slot>().RemoveSlot();
                 slot[i].GetComponent<Slot>().empty = true;
             }

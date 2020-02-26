@@ -74,7 +74,16 @@ public class Item : MonoBehaviour
 
     public void ItemUsed()
     {
-        this.gameObject.SetActive(false);
+        //itemManager = GameObject.FindGameObjectWithTag("ItemManager");
+        //int allItems = itemManager.transform.childCount;
+        //for (int i = 0; i < allItems; i++)
+        //{
+        //    if (itemManager.transform.GetChild(i).gameObject.GetComponent<Item>().id == id)
+        //    {
+        //        Destroy(itemManager.transform.gameObject);
+        //    }
+        //}
+        this.gameObject.SetActive(false);   
     }
 
     public void Update()

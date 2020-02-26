@@ -5,7 +5,7 @@ using UnityEngine;
 public class HealthPot : MonoBehaviour
 {
     private HealthBarShrink hpbar;
-    //public GameObject item;
+    private Item item;
     //[HideInInspector]
     //public GameObject itemManager;
     //public bool playerItem;
@@ -14,7 +14,7 @@ public class HealthPot : MonoBehaviour
     void Start()
     {
         hpbar = (HealthBarShrink)FindObjectOfType(typeof(HealthBarShrink));
-
+        item = (Item)FindObjectOfType(typeof(Item));
         //itemManager = GameObject.FindGameObjectWithTag("ItemManager");
         //if (!playerItem)
         //{
@@ -32,8 +32,6 @@ public class HealthPot : MonoBehaviour
 
     void Update()
     {
-        //Item itemOnHand = item.GetComponent<Item>();
-
         if (Input.GetKeyUp(KeyCode.G))
         {
             hpbar.IncreaseHealth(10);
