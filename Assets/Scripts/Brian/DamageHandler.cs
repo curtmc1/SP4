@@ -47,6 +47,13 @@ public class DamageHandler : MonoBehaviour
             enemyhp.health--;
             //Debug.Log("Damaged");
         }
+        else if (collision.gameObject.tag == "EnemyHead")
+        {
+            SoundManager.PlaySound("headshotsound");
+            EnemyHealth enemyhp = collision.gameObject.GetComponentInParent<EnemyHealth>();
+            enemyhp.health -= 3;
+            //Debug.Log("Damaged");
+        }
 
         if (invulnPeriod > 0)
         {
