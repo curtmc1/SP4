@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static AudioClip pistolsound;
+    public static AudioClip pistolsound, headshotsound;
     static AudioSource audiosource;
 
     // Start is called before the first frame update
     void Start()
     {
         pistolsound = Resources.Load<AudioClip>("pistol");
+        headshotsound = Resources.Load<AudioClip>("headshot");
         audiosource = GetComponent<AudioSource>();
     }
 
@@ -26,6 +27,9 @@ public class SoundManager : MonoBehaviour
         {
             case "pistolsound":
                 audiosource.PlayOneShot(pistolsound);
+                break;
+            case "headshotsound":
+                audiosource.PlayOneShot(headshotsound);
                 break;
         }
     }
