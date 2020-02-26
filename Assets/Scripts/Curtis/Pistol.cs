@@ -38,6 +38,7 @@ public class Pistol : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0) && timer > 0.5f && ammo > 0)
         {
+            SoundManager.PlaySound("pistolsound");
             GameObject bul = Instantiate(bullet, transform.position, transform.rotation);
             bul.GetComponent<Rigidbody>().velocity = transform.forward * 30;
             ammo--;
