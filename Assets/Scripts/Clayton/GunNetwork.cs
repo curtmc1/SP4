@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using BeardedManStudios.Forge.Networking.Generated;
+using BeardedManStudios.Forge.Networking.Unity;
 using UnityEngine.Events;
+using BeardedManStudios.Forge.Networking;
 
 public class GunNetwork : GunBehavior
 {
@@ -26,26 +28,22 @@ public class GunNetwork : GunBehavior
     private bool shootOncePor1;
     private bool shootOncePor2;
 
+    private void Awake()
+    {
+        shootOncePis = assignOwnerPis = assignClientPis = assignOwnerPor = assignClientPor = shootOncePor1 = shootOncePor2 = false;
+
+        weaponManager = GetComponentInChildren<WeaponManager>();
+    }
+
     protected override void NetworkStart()
     {
         base.NetworkStart();
         ownerScripts.Invoke(networkObject.IsOwner);
-
-        weaponManager = GetComponentInChildren<WeaponManager>();
-
-        if (!networkObject.IsOwner)
-        {
-            weaponManager.GetCanScroll = false;
-        }
-        else if (networkObject.IsOwner)
-        {
+            
+        if (networkObject.IsOwner) //If owner of the window then can scroll
             weaponManager.GetCanScroll = true;
-        }
-    }
-
-    private void Start()
-    {
-        shootOncePis = assignOwnerPis = assignClientPis = assignOwnerPor = assignClientPor = shootOncePor1 = shootOncePor2 = false;
+        else
+           weaponManager.GetCanScroll = false;
     }
 
     // Update is called once per frame
@@ -57,13 +55,13 @@ public class GunNetwork : GunBehavior
             networkObject.rotation = transform.rotation;
             networkObject.gunChoice = weaponManager.CurrentWeaponChoice;
 
-            if (weaponManager.GetWeapon().activeSelf)
+            if (weaponManager.GetWeapon().activeSelf) //If that particular weapon is active
             {
-                if (weaponManager.CurrentWeaponChoice == 0)
+                if (weaponManager.CurrentWeaponChoice == 0) //If weapon is portal
                 {
                     assignOwnerPor = true;
 
-                    if (assignOwnerPor)
+                    if (assignOwnerPor) //assgin once
                     {
                         portalGun = GetComponentInChildren<PortalGun>();
                         portalGun.GetCanShoot = true;
@@ -73,7 +71,7 @@ public class GunNetwork : GunBehavior
                     networkObject.p1HasShot = portalGun.p1HasShot;
                     networkObject.p2HasShot = portalGun.p2HasShot;
 
-                    if (portalGun.p1HasShot || portalGun.p2HasShot)
+                    if (portalGun.p1HasShot || portalGun.p2HasShot) //If player 1 has shot in window 1
                     {
                         networkObject.portPosition = portalGun.portPos;
                         networkObject.portRotation = portalGun.portRotation;
@@ -106,7 +104,7 @@ public class GunNetwork : GunBehavior
                 {
                     assignClientPor = true;
 
-                    if (assignClientPor)
+                    if (assignClientPor) //Assign once
                     {
                         portalGun = GetComponentInChildren<PortalGun>();
                         portalGun.GetCanShoot = false;
@@ -116,7 +114,7 @@ public class GunNetwork : GunBehavior
                     portalGun.p2HasShot = networkObject.p2HasShot;
 
                     #region ClientPortalInstantiation
-                    if (portalGun.p1HasShot && !shootOncePor1)
+                    if (portalGun.p1HasShot && !shootOncePor1) //If player 1 has shot in window 1, duplicate and sync in window 2
                     {
                         GameObject parti1 = Instantiate(portalParticle, portalGun.transform.position + 0.5f * portalGun.transform.forward, portalGun.transform.rotation);
                         GameObject p1 = GameObject.FindGameObjectWithTag("Portal1");
@@ -158,7 +156,8 @@ public class GunNetwork : GunBehavior
                     if (pistol.hasShot && !shootOncePis)
                     {
                         GameObject bul = Instantiate(bullet, pistol.transform.position, pistol.transform.rotation);
-                        bul.GetComponent<Rigidbody>().velocity = transform.forward * 30;
+                        bul.GetComponent<Rigidbody>().velocity = pistol.transform.forward * 30;
+                        //networkObject.SendRpc(RPC_SHOOT, Receivers.AllBuffered, pistol.transform.position, pistol.transform.rotation, pistol.transform.forward);
                         shootOncePis = true;
                     }
                     else if (!pistol.hasShot && shootOncePis)
@@ -168,5 +167,15 @@ public class GunNetwork : GunBehavior
                 }
             }
         }
+    }
+
+    public override void Shoot(RpcArgs args)
+    {
+        //Vector3 pos = args.GetNext<Vector3>();
+        //Quaternion rot = args.GetNext<Quaternion>();
+        //Vector3 forward = args.GetNext<Vector3>();
+
+        //GameObject bul = Instantiate(bullet, pos, rot);
+        //bul.GetComponent<Rigidbody>().velocity = forward * 30;
     }
 }

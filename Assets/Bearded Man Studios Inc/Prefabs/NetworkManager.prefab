@@ -43,7 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbe5b082a785e7641bf1a62b930a3f5a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AINetworkObject: []
+  AINetworkObject:
+  - {fileID: 8737888371035463552, guid: 45301692c80f7ba40a7842378676af23, type: 3}
+  - {fileID: 2540765443084824191, guid: 59dad15f43d5dcc4fa3e2c1f00221e72, type: 3}
+  AISpawnerNetworkObject: []
   BulletNetworkObject: []
   ChatManagerNetworkObject:
   - {fileID: 0}

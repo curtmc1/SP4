@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using BeardedManStudios.Forge.Networking.Unity;
 
 public class EnemyMovement : MonoBehaviour
 {
@@ -15,6 +16,18 @@ public class EnemyMovement : MonoBehaviour
 
     float invisibleCoolDown = 1f;
     bool invisible = false;
+
+    public float GetInvisibleCoolDown
+    {
+        get { return invisibleCoolDown; }
+        set { invisibleCoolDown = value;}
+    }
+
+    public bool GetInvisible
+    {
+        get { return invisible; }
+        set { invisible = value; }
+    }
 
     private static Vector3 GetRandomDir()
     {
@@ -48,6 +61,10 @@ public class EnemyMovement : MonoBehaviour
         gameObject.GetComponent<Renderer>().enabled = false;
         gameObject.GetComponentInChildren<Canvas>().enabled = false;
 
+        gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        gameObject.transform.GetChild(1).gameObject.SetActive(false);
+        gameObject.transform.GetChild(2).gameObject.SetActive(false);
+
         invisibleCoolDown = 1f;
         invisible = true;
     }
@@ -56,6 +73,10 @@ public class EnemyMovement : MonoBehaviour
     {
         gameObject.GetComponent<Renderer>().enabled = true;
         gameObject.GetComponentInChildren<Canvas>().enabled = true;
+
+        gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        gameObject.transform.GetChild(1).gameObject.SetActive(true);
+        gameObject.transform.GetChild(2).gameObject.SetActive(true);
 
         invisibleCoolDown = 1f;
         invisible = false;
@@ -66,7 +87,6 @@ public class EnemyMovement : MonoBehaviour
     {
         nav = GetComponent<NavMeshAgent>();
         states = GetComponent<EnemyStates>();
-        //player = Manager.instance.Player.transform;
         startPos = transform.position;
         roamPos = GetRandomRoamPos();
         //Debug.Log(GetRandomRoamPos());
@@ -77,6 +97,11 @@ public class EnemyMovement : MonoBehaviour
     {
         if (!player)
             player = Manager.instance.Player.transform;
+
+        //foreach (GameObject target in Manager.instance.Player)
+        //{
+        //    player = target.transform;
+        //}
 
         float distanceaway = Vector3.Distance(player.position, transform.position);
         float distanceFromPosReached = 10f;
@@ -108,7 +133,7 @@ public class EnemyMovement : MonoBehaviour
         {
             FacePlayer();
 
-            nav.speed = 3f;
+            nav.speed = 7f;
 
             Vector3 moveDir = transform.position - player.transform.position;
 
@@ -117,7 +142,7 @@ public class EnemyMovement : MonoBehaviour
         }
         if (states.currState == States.state_stalk)
         {
-            nav.speed = 1f;
+            nav.speed = 1.5f;
             nav.SetDestination(player.position);
 
             if (invisibleCoolDown <= 0f)

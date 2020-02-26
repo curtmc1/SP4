@@ -76,8 +76,7 @@ public class MultiplayerMenu : MonoBehaviour
 
 		PlayerPrefs.SetString("PlayerName2", playerName.text);
 		PlayerPrefs.SetString("PlayerName", playerName.text); //Set player name
-		PlayerPrefs.SetInt("PlayerNum", 2);
-
+		PlayerPrefs.SetString("color", "player2");
 
 		if (connectUsingMatchmaking)
 		{
@@ -149,7 +148,7 @@ public class MultiplayerMenu : MonoBehaviour
 
 		PlayerPrefs.SetString("PlayerName1", playerName.text);
 		PlayerPrefs.SetString("PlayerName", playerName.text); //Set player name
-		PlayerPrefs.SetInt("PlayerNum", 1);
+		PlayerPrefs.SetString("color", "player1");
 
 		if (useTCP)
 		{
@@ -219,7 +218,8 @@ public class MultiplayerMenu : MonoBehaviour
 		if (networker is IServer)
 		{
 			if (!DontChangeSceneOnConnect)
-				SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                SceneManager.LoadScene(PlayerPrefs.GetString("LevelName"));       
 			else
 				NetworkObject.Flush(networker); //Called because we are already in the correct scene!
 		}

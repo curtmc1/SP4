@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedInterpol("{\"inter\":[0.15,0.15,0,0,0]")]
+	[GeneratedInterpol("{\"inter\":[0.15,0.15,0,0,0,0,0.15,0.15]")]
 	public partial class AINetworkObject : NetworkObject
 	{
-		public const int IDENTITY = 1;
+		public const int IDENTITY = 15;
 
 		private byte[] _dirtyFields = new byte[1];
 
@@ -78,37 +78,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			if (fieldAltered != null) fieldAltered("rotation", _rotation, timestep);
 		}
 		[ForgeGeneratedField]
-		private int _damage;
-		public event FieldEvent<int> damageChanged;
-		public Interpolated<int> damageInterpolation = new Interpolated<int>() { LerpT = 0f, Enabled = false };
-		public int damage
-		{
-			get { return _damage; }
-			set
-			{
-				// Don't do anything if the value is the same
-				if (_damage == value)
-					return;
-
-				// Mark the field as dirty for the network to transmit
-				_dirtyFields[0] |= 0x4;
-				_damage = value;
-				hasDirtyFields = true;
-			}
-		}
-
-		public void SetdamageDirty()
-		{
-			_dirtyFields[0] |= 0x4;
-			hasDirtyFields = true;
-		}
-
-		private void RunChange_damage(ulong timestep)
-		{
-			if (damageChanged != null) damageChanged(_damage, timestep);
-			if (fieldAltered != null) fieldAltered("damage", _damage, timestep);
-		}
-		[ForgeGeneratedField]
 		private int _health;
 		public event FieldEvent<int> healthChanged;
 		public Interpolated<int> healthInterpolation = new Interpolated<int>() { LerpT = 0f, Enabled = false };
@@ -122,7 +91,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 					return;
 
 				// Mark the field as dirty for the network to transmit
-				_dirtyFields[0] |= 0x8;
+				_dirtyFields[0] |= 0x4;
 				_health = value;
 				hasDirtyFields = true;
 			}
@@ -130,7 +99,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		public void SethealthDirty()
 		{
-			_dirtyFields[0] |= 0x8;
+			_dirtyFields[0] |= 0x4;
 			hasDirtyFields = true;
 		}
 
@@ -140,35 +109,159 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			if (fieldAltered != null) fieldAltered("health", _health, timestep);
 		}
 		[ForgeGeneratedField]
-		private int _states;
-		public event FieldEvent<int> statesChanged;
-		public Interpolated<int> statesInterpolation = new Interpolated<int>() { LerpT = 0f, Enabled = false };
-		public int states
+		private bool _dead;
+		public event FieldEvent<bool> deadChanged;
+		public Interpolated<bool> deadInterpolation = new Interpolated<bool>() { LerpT = 0f, Enabled = false };
+		public bool dead
 		{
-			get { return _states; }
+			get { return _dead; }
 			set
 			{
 				// Don't do anything if the value is the same
-				if (_states == value)
+				if (_dead == value)
 					return;
 
 				// Mark the field as dirty for the network to transmit
-				_dirtyFields[0] |= 0x10;
-				_states = value;
+				_dirtyFields[0] |= 0x8;
+				_dead = value;
 				hasDirtyFields = true;
 			}
 		}
 
-		public void SetstatesDirty()
+		public void SetdeadDirty()
+		{
+			_dirtyFields[0] |= 0x8;
+			hasDirtyFields = true;
+		}
+
+		private void RunChange_dead(ulong timestep)
+		{
+			if (deadChanged != null) deadChanged(_dead, timestep);
+			if (fieldAltered != null) fieldAltered("dead", _dead, timestep);
+		}
+		[ForgeGeneratedField]
+		private float _invisibleCoolDown;
+		public event FieldEvent<float> invisibleCoolDownChanged;
+		public InterpolateFloat invisibleCoolDownInterpolation = new InterpolateFloat() { LerpT = 0f, Enabled = false };
+		public float invisibleCoolDown
+		{
+			get { return _invisibleCoolDown; }
+			set
+			{
+				// Don't do anything if the value is the same
+				if (_invisibleCoolDown == value)
+					return;
+
+				// Mark the field as dirty for the network to transmit
+				_dirtyFields[0] |= 0x10;
+				_invisibleCoolDown = value;
+				hasDirtyFields = true;
+			}
+		}
+
+		public void SetinvisibleCoolDownDirty()
 		{
 			_dirtyFields[0] |= 0x10;
 			hasDirtyFields = true;
 		}
 
-		private void RunChange_states(ulong timestep)
+		private void RunChange_invisibleCoolDown(ulong timestep)
 		{
-			if (statesChanged != null) statesChanged(_states, timestep);
-			if (fieldAltered != null) fieldAltered("states", _states, timestep);
+			if (invisibleCoolDownChanged != null) invisibleCoolDownChanged(_invisibleCoolDown, timestep);
+			if (fieldAltered != null) fieldAltered("invisibleCoolDown", _invisibleCoolDown, timestep);
+		}
+		[ForgeGeneratedField]
+		private bool _invisible;
+		public event FieldEvent<bool> invisibleChanged;
+		public Interpolated<bool> invisibleInterpolation = new Interpolated<bool>() { LerpT = 0f, Enabled = false };
+		public bool invisible
+		{
+			get { return _invisible; }
+			set
+			{
+				// Don't do anything if the value is the same
+				if (_invisible == value)
+					return;
+
+				// Mark the field as dirty for the network to transmit
+				_dirtyFields[0] |= 0x20;
+				_invisible = value;
+				hasDirtyFields = true;
+			}
+		}
+
+		public void SetinvisibleDirty()
+		{
+			_dirtyFields[0] |= 0x20;
+			hasDirtyFields = true;
+		}
+
+		private void RunChange_invisible(ulong timestep)
+		{
+			if (invisibleChanged != null) invisibleChanged(_invisible, timestep);
+			if (fieldAltered != null) fieldAltered("invisible", _invisible, timestep);
+		}
+		[ForgeGeneratedField]
+		private float _distanceaway;
+		public event FieldEvent<float> distanceawayChanged;
+		public InterpolateFloat distanceawayInterpolation = new InterpolateFloat() { LerpT = 0.15f, Enabled = true };
+		public float distanceaway
+		{
+			get { return _distanceaway; }
+			set
+			{
+				// Don't do anything if the value is the same
+				if (_distanceaway == value)
+					return;
+
+				// Mark the field as dirty for the network to transmit
+				_dirtyFields[0] |= 0x40;
+				_distanceaway = value;
+				hasDirtyFields = true;
+			}
+		}
+
+		public void SetdistanceawayDirty()
+		{
+			_dirtyFields[0] |= 0x40;
+			hasDirtyFields = true;
+		}
+
+		private void RunChange_distanceaway(ulong timestep)
+		{
+			if (distanceawayChanged != null) distanceawayChanged(_distanceaway, timestep);
+			if (fieldAltered != null) fieldAltered("distanceaway", _distanceaway, timestep);
+		}
+		[ForgeGeneratedField]
+		private float _range;
+		public event FieldEvent<float> rangeChanged;
+		public InterpolateFloat rangeInterpolation = new InterpolateFloat() { LerpT = 0.15f, Enabled = true };
+		public float range
+		{
+			get { return _range; }
+			set
+			{
+				// Don't do anything if the value is the same
+				if (_range == value)
+					return;
+
+				// Mark the field as dirty for the network to transmit
+				_dirtyFields[0] |= 0x80;
+				_range = value;
+				hasDirtyFields = true;
+			}
+		}
+
+		public void SetrangeDirty()
+		{
+			_dirtyFields[0] |= 0x80;
+			hasDirtyFields = true;
+		}
+
+		private void RunChange_range(ulong timestep)
+		{
+			if (rangeChanged != null) rangeChanged(_range, timestep);
+			if (fieldAltered != null) fieldAltered("range", _range, timestep);
 		}
 
 		protected override void OwnershipChanged()
@@ -181,9 +274,12 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		{
 			positionInterpolation.current = positionInterpolation.target;
 			rotationInterpolation.current = rotationInterpolation.target;
-			damageInterpolation.current = damageInterpolation.target;
 			healthInterpolation.current = healthInterpolation.target;
-			statesInterpolation.current = statesInterpolation.target;
+			deadInterpolation.current = deadInterpolation.target;
+			invisibleCoolDownInterpolation.current = invisibleCoolDownInterpolation.target;
+			invisibleInterpolation.current = invisibleInterpolation.target;
+			distanceawayInterpolation.current = distanceawayInterpolation.target;
+			rangeInterpolation.current = rangeInterpolation.target;
 		}
 
 		public override int UniqueIdentity { get { return IDENTITY; } }
@@ -192,9 +288,12 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		{
 			UnityObjectMapper.Instance.MapBytes(data, _position);
 			UnityObjectMapper.Instance.MapBytes(data, _rotation);
-			UnityObjectMapper.Instance.MapBytes(data, _damage);
 			UnityObjectMapper.Instance.MapBytes(data, _health);
-			UnityObjectMapper.Instance.MapBytes(data, _states);
+			UnityObjectMapper.Instance.MapBytes(data, _dead);
+			UnityObjectMapper.Instance.MapBytes(data, _invisibleCoolDown);
+			UnityObjectMapper.Instance.MapBytes(data, _invisible);
+			UnityObjectMapper.Instance.MapBytes(data, _distanceaway);
+			UnityObjectMapper.Instance.MapBytes(data, _range);
 
 			return data;
 		}
@@ -209,18 +308,30 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			rotationInterpolation.current = _rotation;
 			rotationInterpolation.target = _rotation;
 			RunChange_rotation(timestep);
-			_damage = UnityObjectMapper.Instance.Map<int>(payload);
-			damageInterpolation.current = _damage;
-			damageInterpolation.target = _damage;
-			RunChange_damage(timestep);
 			_health = UnityObjectMapper.Instance.Map<int>(payload);
 			healthInterpolation.current = _health;
 			healthInterpolation.target = _health;
 			RunChange_health(timestep);
-			_states = UnityObjectMapper.Instance.Map<int>(payload);
-			statesInterpolation.current = _states;
-			statesInterpolation.target = _states;
-			RunChange_states(timestep);
+			_dead = UnityObjectMapper.Instance.Map<bool>(payload);
+			deadInterpolation.current = _dead;
+			deadInterpolation.target = _dead;
+			RunChange_dead(timestep);
+			_invisibleCoolDown = UnityObjectMapper.Instance.Map<float>(payload);
+			invisibleCoolDownInterpolation.current = _invisibleCoolDown;
+			invisibleCoolDownInterpolation.target = _invisibleCoolDown;
+			RunChange_invisibleCoolDown(timestep);
+			_invisible = UnityObjectMapper.Instance.Map<bool>(payload);
+			invisibleInterpolation.current = _invisible;
+			invisibleInterpolation.target = _invisible;
+			RunChange_invisible(timestep);
+			_distanceaway = UnityObjectMapper.Instance.Map<float>(payload);
+			distanceawayInterpolation.current = _distanceaway;
+			distanceawayInterpolation.target = _distanceaway;
+			RunChange_distanceaway(timestep);
+			_range = UnityObjectMapper.Instance.Map<float>(payload);
+			rangeInterpolation.current = _range;
+			rangeInterpolation.target = _range;
+			RunChange_range(timestep);
 		}
 
 		protected override BMSByte SerializeDirtyFields()
@@ -233,11 +344,17 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			if ((0x2 & _dirtyFields[0]) != 0)
 				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _rotation);
 			if ((0x4 & _dirtyFields[0]) != 0)
-				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _damage);
-			if ((0x8 & _dirtyFields[0]) != 0)
 				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _health);
+			if ((0x8 & _dirtyFields[0]) != 0)
+				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _dead);
 			if ((0x10 & _dirtyFields[0]) != 0)
-				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _states);
+				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _invisibleCoolDown);
+			if ((0x20 & _dirtyFields[0]) != 0)
+				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _invisible);
+			if ((0x40 & _dirtyFields[0]) != 0)
+				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _distanceaway);
+			if ((0x80 & _dirtyFields[0]) != 0)
+				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _range);
 
 			// Reset all the dirty fields
 			for (int i = 0; i < _dirtyFields.Length; i++)
@@ -282,19 +399,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			}
 			if ((0x4 & readDirtyFlags[0]) != 0)
 			{
-				if (damageInterpolation.Enabled)
-				{
-					damageInterpolation.target = UnityObjectMapper.Instance.Map<int>(data);
-					damageInterpolation.Timestep = timestep;
-				}
-				else
-				{
-					_damage = UnityObjectMapper.Instance.Map<int>(data);
-					RunChange_damage(timestep);
-				}
-			}
-			if ((0x8 & readDirtyFlags[0]) != 0)
-			{
 				if (healthInterpolation.Enabled)
 				{
 					healthInterpolation.target = UnityObjectMapper.Instance.Map<int>(data);
@@ -306,17 +410,69 @@ namespace BeardedManStudios.Forge.Networking.Generated
 					RunChange_health(timestep);
 				}
 			}
-			if ((0x10 & readDirtyFlags[0]) != 0)
+			if ((0x8 & readDirtyFlags[0]) != 0)
 			{
-				if (statesInterpolation.Enabled)
+				if (deadInterpolation.Enabled)
 				{
-					statesInterpolation.target = UnityObjectMapper.Instance.Map<int>(data);
-					statesInterpolation.Timestep = timestep;
+					deadInterpolation.target = UnityObjectMapper.Instance.Map<bool>(data);
+					deadInterpolation.Timestep = timestep;
 				}
 				else
 				{
-					_states = UnityObjectMapper.Instance.Map<int>(data);
-					RunChange_states(timestep);
+					_dead = UnityObjectMapper.Instance.Map<bool>(data);
+					RunChange_dead(timestep);
+				}
+			}
+			if ((0x10 & readDirtyFlags[0]) != 0)
+			{
+				if (invisibleCoolDownInterpolation.Enabled)
+				{
+					invisibleCoolDownInterpolation.target = UnityObjectMapper.Instance.Map<float>(data);
+					invisibleCoolDownInterpolation.Timestep = timestep;
+				}
+				else
+				{
+					_invisibleCoolDown = UnityObjectMapper.Instance.Map<float>(data);
+					RunChange_invisibleCoolDown(timestep);
+				}
+			}
+			if ((0x20 & readDirtyFlags[0]) != 0)
+			{
+				if (invisibleInterpolation.Enabled)
+				{
+					invisibleInterpolation.target = UnityObjectMapper.Instance.Map<bool>(data);
+					invisibleInterpolation.Timestep = timestep;
+				}
+				else
+				{
+					_invisible = UnityObjectMapper.Instance.Map<bool>(data);
+					RunChange_invisible(timestep);
+				}
+			}
+			if ((0x40 & readDirtyFlags[0]) != 0)
+			{
+				if (distanceawayInterpolation.Enabled)
+				{
+					distanceawayInterpolation.target = UnityObjectMapper.Instance.Map<float>(data);
+					distanceawayInterpolation.Timestep = timestep;
+				}
+				else
+				{
+					_distanceaway = UnityObjectMapper.Instance.Map<float>(data);
+					RunChange_distanceaway(timestep);
+				}
+			}
+			if ((0x80 & readDirtyFlags[0]) != 0)
+			{
+				if (rangeInterpolation.Enabled)
+				{
+					rangeInterpolation.target = UnityObjectMapper.Instance.Map<float>(data);
+					rangeInterpolation.Timestep = timestep;
+				}
+				else
+				{
+					_range = UnityObjectMapper.Instance.Map<float>(data);
+					RunChange_range(timestep);
 				}
 			}
 		}
@@ -336,20 +492,35 @@ namespace BeardedManStudios.Forge.Networking.Generated
 				_rotation = (Quaternion)rotationInterpolation.Interpolate();
 				//RunChange_rotation(rotationInterpolation.Timestep);
 			}
-			if (damageInterpolation.Enabled && !damageInterpolation.current.UnityNear(damageInterpolation.target, 0.0015f))
-			{
-				_damage = (int)damageInterpolation.Interpolate();
-				//RunChange_damage(damageInterpolation.Timestep);
-			}
 			if (healthInterpolation.Enabled && !healthInterpolation.current.UnityNear(healthInterpolation.target, 0.0015f))
 			{
 				_health = (int)healthInterpolation.Interpolate();
 				//RunChange_health(healthInterpolation.Timestep);
 			}
-			if (statesInterpolation.Enabled && !statesInterpolation.current.UnityNear(statesInterpolation.target, 0.0015f))
+			if (deadInterpolation.Enabled && !deadInterpolation.current.UnityNear(deadInterpolation.target, 0.0015f))
 			{
-				_states = (int)statesInterpolation.Interpolate();
-				//RunChange_states(statesInterpolation.Timestep);
+				_dead = (bool)deadInterpolation.Interpolate();
+				//RunChange_dead(deadInterpolation.Timestep);
+			}
+			if (invisibleCoolDownInterpolation.Enabled && !invisibleCoolDownInterpolation.current.UnityNear(invisibleCoolDownInterpolation.target, 0.0015f))
+			{
+				_invisibleCoolDown = (float)invisibleCoolDownInterpolation.Interpolate();
+				//RunChange_invisibleCoolDown(invisibleCoolDownInterpolation.Timestep);
+			}
+			if (invisibleInterpolation.Enabled && !invisibleInterpolation.current.UnityNear(invisibleInterpolation.target, 0.0015f))
+			{
+				_invisible = (bool)invisibleInterpolation.Interpolate();
+				//RunChange_invisible(invisibleInterpolation.Timestep);
+			}
+			if (distanceawayInterpolation.Enabled && !distanceawayInterpolation.current.UnityNear(distanceawayInterpolation.target, 0.0015f))
+			{
+				_distanceaway = (float)distanceawayInterpolation.Interpolate();
+				//RunChange_distanceaway(distanceawayInterpolation.Timestep);
+			}
+			if (rangeInterpolation.Enabled && !rangeInterpolation.current.UnityNear(rangeInterpolation.target, 0.0015f))
+			{
+				_range = (float)rangeInterpolation.Interpolate();
+				//RunChange_range(rangeInterpolation.Timestep);
 			}
 		}
 

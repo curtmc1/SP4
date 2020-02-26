@@ -27,6 +27,10 @@ namespace BeardedManStudios.Forge.Networking.Generated
 						availableCallback = true;
 						obj = new AINetworkObject(networker, id, frame);
 						break;
+					case AISpawnerNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new AISpawnerNetworkObject(networker, id, frame);
+						break;
 					case BulletNetworkObject.IDENTITY:
 						availableCallback = true;
 						obj = new BulletNetworkObject(networker, id, frame);

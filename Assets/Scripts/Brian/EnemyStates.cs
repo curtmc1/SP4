@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using BeardedManStudios.Forge.Networking.Unity;
 using UnityEngine;
 
 public enum States
@@ -12,7 +13,7 @@ public enum States
     state_dead
 }
 
-public class EnemyStates : MonoBehaviour
+public class EnemyStates : AINetwork
 {
     public States currState;
 
@@ -21,13 +22,20 @@ public class EnemyStates : MonoBehaviour
     public float range = 10f;
 
     float distanceaway = 0f;
+    public event System.Action OnDeath;
+    public bool dead;
+
+    public float GetDistanceaway
+    {
+        get { return distanceaway; }
+        set { distanceaway = value; }
+    }
 
     // Start is called before the first frame update
     void Start()
     {
         currState = States.state_roam;
-
-        //player = Manager.instance.Player.transform;
+        dead = false;
     }
 
     // Update is called once per frame
@@ -35,6 +43,11 @@ public class EnemyStates : MonoBehaviour
     {
         if (!player)
             player = Manager.instance.Player.transform;
+
+        //foreach (GameObject target in Manager.instance.Player)
+        //{
+        //    player = target.transform;
+        //}
 
         distanceaway = Vector3.Distance(player.position, transform.position);
 
@@ -56,25 +69,37 @@ public class EnemyStates : MonoBehaviour
                         currState = States.state_stalk;
                 }
                 if (enemyhp.health <= 0)
+                {
+                    dead = true;
                     currState = States.state_dead;
+                }
                     break;
             case States.state_chase:
                 if (distanceaway > range)
                     currState = States.state_roam;
                 if (enemyhp.health <= 0)
+                {
+                    dead = true;
                     currState = States.state_dead;
+                }
                 break;
             case States.state_shoot:
                 if (distanceaway > range)
                     currState = States.state_roam;
                 if (enemyhp.health <= 0)
+                {
+                    dead = true;
                     currState = States.state_dead;
+                }
                 break;
             case States.state_stalk:
                 if (distanceaway > range)
                     currState = States.state_roam;
                 if (enemyhp.health <= 0)
+                {
+                    dead = true;
                     currState = States.state_dead;
+                }
                 break;
             case States.state_dead:
                 Die();
@@ -84,6 +109,7 @@ public class EnemyStates : MonoBehaviour
 
     void Die()
     {
+        OnDeath?.Invoke();
         Destroy(transform.parent.gameObject);
     }
 }

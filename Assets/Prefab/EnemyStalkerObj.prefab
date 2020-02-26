@@ -29,7 +29,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7975470015161002398}
-  m_RootOrder: 1
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!96 &8603302769030647139
 TrailRenderer:
@@ -136,6 +136,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7975470016843110041}
+  - component: {fileID: 8560195565752550312}
   m_Layer: 0
   m_Name: EnemyStalkerObj
   m_TagString: Untagged
@@ -158,6 +159,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8560195565752550312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7975470016843110040}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 967af37bf83e88a4181140349157b673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deathEffect: {fileID: 8262289533643137581, guid: c6e621faeeeb67c42ba1f5dd7d9cdfdc,
+    type: 3}
 --- !u!1001 &1728722064584965088
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -225,6 +240,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8742375522312655484, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8742375522312655484, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: a95ee0aabaddf6340bcc9d68480c35d4, type: 2}
+    - target: {fileID: 8742375522312655427, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+        type: 3}
+      propertyPath: m_Radius
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 4019154735698769438, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
         type: 3}
       propertyPath: deathEffect
@@ -236,16 +266,20 @@ PrefabInstance:
       propertyPath: hpbar
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 8742375522312655484, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+    - target: {fileID: 2625664617442740288, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
         type: 3}
-      propertyPath: m_Enabled
+      propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 8742375522312655484, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+    - target: {fileID: 6251133347911377866, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
         type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: a95ee0aabaddf6340bcc9d68480c35d4, type: 2}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 555818118, guid: cbe8d9ea31cfa7f41996aa492cbfabfb, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 731918594, guid: cbe8d9ea31cfa7f41996aa492cbfabfb, type: 3}
       propertyPath: m_FillOrigin
       value: 1
