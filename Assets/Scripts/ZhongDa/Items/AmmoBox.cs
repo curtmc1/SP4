@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class AmmoBox : MonoBehaviour
 {
-    // Start is called before the first frame update
+    private Pistol gun;
     void Start()
     {
-        
+        gun = (Pistol)FindObjectOfType(typeof(Pistol));
     }
-
-    // Update is called once per frame
-    void Update()
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if(other.tag == "Player")
+        {
+            gun.Ammo += 10;
+            Destroy(this.gameObject);
+            Debug.Log(gun.Ammo);
+        }
     }
 }
