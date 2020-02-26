@@ -8,6 +8,7 @@ public class HealthBarShrink : MonoBehaviour
     private const float DAMAGED_HEALTH_SHRINK_TIMER = 1f;
     private Image barImage;
     private Image damagedBarImage;
+    private Image damagedWarning;
     private float damagedHealthShrinkTimer;
     public bool damaged;
     public bool healed;
@@ -17,6 +18,8 @@ public class HealthBarShrink : MonoBehaviour
         PlayerPrefs.SetFloat("playerHealth", 100); //ensures that player starts with 100 hp, and that previous hp is not brought back
         barImage = transform.Find("bar").GetComponent<Image>();
         damagedBarImage = transform.Find("damagedBar").GetComponent<Image>();
+        damagedWarning = transform.Find("damagedWarning").GetComponent<Image>();
+        damagedWarning.gameObject.SetActive(false);
         damaged = healed = false;
     }
 
@@ -26,6 +29,7 @@ public class HealthBarShrink : MonoBehaviour
         PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") - healthNormalized);
         float temp = PlayerPrefs.GetFloat("playerHealth") / 100;
         barImage.fillAmount = temp;
+        damaged = true;
     }
 
     public void IncreaseHealth(float healthNormalized) //changed to public so can be used outside of current script
@@ -33,6 +37,7 @@ public class HealthBarShrink : MonoBehaviour
         PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") + healthNormalized);
         float temp = PlayerPrefs.GetFloat("playerHealth") / 100;
         barImage.fillAmount = temp;
+        healed = true;
     }
 
     private void UpdateBar()
@@ -60,7 +65,10 @@ public class HealthBarShrink : MonoBehaviour
             {
                 float shrinkSpeed = 1f;
                 damagedBarImage.fillAmount -= shrinkSpeed * Time.deltaTime;
+                damagedWarning.gameObject.SetActive(true);
             }
+            else
+                damagedWarning.gameObject.SetActive(false);
         }
 
         if (damaged)
@@ -74,20 +82,5 @@ public class HealthBarShrink : MonoBehaviour
             damagedBarImage.fillAmount = barImage.fillAmount;
             healed = false;
         }
-
-        //Testing
-        ////heal
-        //if (Input.GetKeyDown(KeyCode.LeftShift))
-        //{
-        //    PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") + 50);
-        //    healed = true;
-        //}
-
-        ////Damage
-        //if (Input.GetKeyDown(KeyCode.RightShift))
-        //{
-        //    damaged = true;
-        //    PlayerPrefs.SetFloat("playerHealth", PlayerPrefs.GetFloat("playerHealth") - 50);
-        //}
     }
 }
