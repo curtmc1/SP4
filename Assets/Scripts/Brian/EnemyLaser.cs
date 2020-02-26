@@ -5,7 +5,8 @@ using UnityEngine;
 public class EnemyLaser : MonoBehaviour
 {
     public GameObject laser;
-    private float cooldown = 5f;
+    private float cooldown = 2f;
+    private float laserspeed = 50f;
 
     EnemyStates states;
 
@@ -24,9 +25,9 @@ public class EnemyLaser : MonoBehaviour
         {
             if (cooldown <= 0f)
             {
-                GameObject las = Instantiate(laser, transform.position, transform.rotation);
-                las.GetComponent<Rigidbody>().velocity = transform.forward * 30;
-                cooldown = 5f;
+                GameObject las = Instantiate(laser, transform.GetChild(4).position, transform.rotation);
+                las.GetComponent<Rigidbody>().velocity = transform.forward * laserspeed;
+                cooldown = 2f;
             }
         }
     }
