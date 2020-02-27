@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Audio;
 
 public class Menu : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class Menu : MonoBehaviour
 
     public void Quit()
     {
-        Debug.Log("Quit Game.");
+        //Debug.Log("Quit Game.");
         Application.Quit();
     }
 }

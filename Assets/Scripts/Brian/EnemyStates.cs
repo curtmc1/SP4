@@ -41,21 +41,30 @@ public class EnemyStates : AINetwork
     // Update is called once per frame
     void Update()
     {
-        if (!player)
-            player = Manager.instance.Player.transform;
+        //if (!player)
+        //    player = Manager.instance.Player.transform;
+
+        for (int i = 0; i < Manager.instance.Player.Length; i++)
+        {
+            float dist = Vector3.Distance(Manager.instance.Player[i].transform.position, transform.position);
+
+            if (dist < 20)
+                player = Manager.instance.Player[i].transform;
+        }
 
         //foreach (GameObject target in Manager.instance.Player)
         //{
         //    player = target.transform;
         //}
 
-        distanceaway = Vector3.Distance(player.position, transform.position);
+        if (player != null)
+            distanceaway = Vector3.Distance(player.position, transform.position);
 
         EnemyHealth enemyhp = GetComponent<EnemyHealth>();
 
         switch (currState)
         {
-            case States.state_roam:               
+            case States.state_roam:
                 if (distanceaway < range)
                     currState = States.state_chase;
                 if (gameObject.name == ("EnemySoldier"))
@@ -73,7 +82,9 @@ public class EnemyStates : AINetwork
                     dead = true;
                     currState = States.state_dead;
                 }
-                    break;
+                break;
+            case States.state_underattack:
+                break;
             case States.state_chase:
                 if (distanceaway > range)
                     currState = States.state_roam;

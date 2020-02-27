@@ -4,11 +4,12 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[\"Vector3\", \"Quaternion\", \"Vector3\"]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[\"position\", \"rotation\", \"forward\"]]")]
+	[GeneratedRPC("{\"types\":[[\"Vector3\", \"Quaternion\", \"Vector3\", \"string\"][\"Vector3\", \"Quaternion\"]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[\"position\", \"rotation\", \"forward\", \"portal\"][\"position\", \"rotation\"]]")]
 	public abstract partial class GunBehavior : NetworkBehavior
 	{
 		public const byte RPC_SHOOT = 0 + 5;
+		public const byte RPC_OBJECT = 1 + 5;
 		
 		public GunNetworkObject networkObject = null;
 
@@ -22,7 +23,8 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			networkObject.AttachedBehavior = this;
 
 			base.SetupHelperRpcs(networkObject);
-			networkObject.RegisterRpc("Shoot", Shoot, typeof(Vector3), typeof(Quaternion), typeof(Vector3));
+			networkObject.RegisterRpc("Shoot", Shoot, typeof(Vector3), typeof(Quaternion), typeof(Vector3), typeof(string));
+			networkObject.RegisterRpc("Object", Object, typeof(Vector3), typeof(Quaternion));
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -104,8 +106,15 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		/// Vector3 position
 		/// Quaternion rotation
 		/// Vector3 forward
+		/// string portal
 		/// </summary>
 		public abstract void Shoot(RpcArgs args);
+		/// <summary>
+		/// Arguments:
+		/// Vector3 position
+		/// Quaternion rotation
+		/// </summary>
+		public abstract void Object(RpcArgs args);
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}

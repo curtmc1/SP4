@@ -14,14 +14,9 @@ public class PlayerNetwork : PlayerBehavior
     [SerializeField] private GameObject playerModel;
     [SerializeField] private GameObject playerHUD;
     [SerializeField] ToggleEvent ownerScripts;
+    [SerializeField] private ParticleSystem speedParticle;
     private string playerName;
-    //public string PlayerName { get { return playerName; } }
     private Camera playerCamera;
-
-    public bool IsNotOwner()
-    {
-        return !networkObject.IsOwner;
-    }
 
     public void Naming()
     {
@@ -45,10 +40,8 @@ public class PlayerNetwork : PlayerBehavior
         {
             Destroy(playerCamera.GetComponent<AudioListener>());
             playerCamera.gameObject.SetActive(false);
-        }
-        else if (networkObject.IsOwner)
-        {
-            playerHUD.SetActive(true);
+            playerHUD.SetActive(false);
+            speedParticle.gameObject.SetActive(false);
         }
 
         Naming();
@@ -67,6 +60,7 @@ public class PlayerNetwork : PlayerBehavior
             //Receive all NCW fields and use them
             transform.position = networkObject.position;
             playerModel.transform.rotation = networkObject.rotation;
+            speedParticle.gameObject.SetActive(false);
         }
     }
 

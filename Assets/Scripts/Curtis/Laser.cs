@@ -20,6 +20,10 @@ public class Laser : MonoBehaviour
         {
             if (hit.collider)
             {
+                if (hit.transform.tag == "Player")
+                {
+                    hit.transform.GetComponentInChildren<HealthBarShrink>().SetHealth(10);
+                }
                 laser.SetPosition(1, hit.point);
             }
         }

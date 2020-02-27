@@ -6,8 +6,9 @@ public class DamageHandler : MonoBehaviour
 {
     public float invulnPeriod = 0f;
     float invulnTimer = 0f;
+    //public bool hit = false;
 
-    HealthBarShrink hpbar;
+    //HealthBarShrink hpbar;
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +24,8 @@ public class DamageHandler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!hpbar)
-            hpbar = (HealthBarShrink)FindObjectOfType(typeof(HealthBarShrink));
+        //if (!hpbar)
+        //    hpbar = (HealthBarShrink)FindObjectOfType(typeof(HealthBarShrink));
 
         if (invulnTimer > 0f)
         {
@@ -38,13 +39,14 @@ public class DamageHandler : MonoBehaviour
         //Debug.Log(collision.gameObject);
 
         //Enemy attack Player
-        if (hpbar && gameObject.tag == "Enemy")
+        if (/*hpbar && */gameObject.tag == "Enemy")
         {
             if (collision.gameObject.tag == "Player")
             {
                 if (invulnTimer <= 0f)
                 {
-                    hpbar.SetHealth(10);
+                    //hpbar.SetHealth(10);
+                    collision.gameObject.GetComponentInChildren<HealthBarShrink>().SetHealth(10);
                     invulnTimer = invulnPeriod;
                 }
                 //Debug.Log(PlayerPrefs.GetFloat("playerHealth"));
@@ -54,16 +56,14 @@ public class DamageHandler : MonoBehaviour
         //Bullet hit Enemy
         if (collision.gameObject.tag == "Enemy")
         {
-            EnemyHealth enemyhp = collision.gameObject.GetComponent<EnemyHealth>();
-            enemyhp.health--;
-            //Debug.Log("Damaged");
+            collision.gameObject.GetComponent<EnemyHealth>().health--;
         }
         else if (collision.gameObject.tag == "EnemyHead")
         {
             SoundManager.PlaySound("headshotsound");
-            EnemyHealth enemyhp = collision.gameObject.GetComponentInParent<EnemyHealth>();
-            enemyhp.health -= 3;
-            //Debug.Log("Damaged");
+            //EnemyHealth enemyhp = collision.gameObject.GetComponentInParent<EnemyHealth>();
+            //enemyhp.health -= 3;
+            collision.gameObject.GetComponentInParent<EnemyHealth>().health -= 3;
         }
     }
 }
