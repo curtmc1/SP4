@@ -55,15 +55,15 @@ public class DamageHandler : MonoBehaviour
         //Bullet hit Enemy
         if (collision.gameObject.tag == "Enemy")
         {
-            EnemyHealth enemyhp = collision.gameObject.GetComponent<EnemyHealth>();
-            enemyhp.health--;
+            collision.gameObject.GetComponent<EnemyHealth>().health--;
             //Debug.Log("Damaged");
         }
         else if (collision.gameObject.tag == "EnemyHead")
         {
             SoundManager.PlaySound("headshotsound");
-            EnemyHealth enemyhp = collision.gameObject.GetComponentInParent<EnemyHealth>();
-            enemyhp.health -= 3;
+            //EnemyHealth enemyhp = collision.gameObject.GetComponentInParent<EnemyHealth>();
+            //enemyhp.health -= 3;
+            collision.gameObject.GetComponentInParent<EnemyHealth>().health-=3;
             //Debug.Log("Damaged");
         }
     }
