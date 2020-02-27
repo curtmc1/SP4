@@ -6,13 +6,10 @@ using UnityEngine.Audio;
 
 public class Menu : MonoBehaviour
 {
-    public AudioMixer musicMixer;
-
     // Start is called before the first frame update
     void Start()
     {
         PlayerPrefs.SetString("LevelName", "Level1");
-        musicMixer.SetFloat("MusicVolume", PlayerPrefs.GetFloat("MusicVolume"));
     }
 
     public void Play()
@@ -24,7 +21,7 @@ public class Menu : MonoBehaviour
 
     public void Quit()
     {
-        Debug.Log("Quit Game.");
+        //Debug.Log("Quit Game.");
         Application.Quit();
     }
 }
