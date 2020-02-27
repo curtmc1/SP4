@@ -21,7 +21,7 @@ public class EnemyStates : AINetwork
 
     public float range = 10f;
 
-    float distanceaway = 0f;
+    float distanceaway = float.MaxValue; //changed to max value, if default value below 20, enemy will spawn in attack state instead of roam
     public event System.Action OnDeath;
     public bool dead;
 
@@ -41,9 +41,6 @@ public class EnemyStates : AINetwork
     // Update is called once per frame
     void Update()
     {
-        //if (!player)
-        //    player = Manager.instance.Player.transform;
-
         for (int i = 0; i < Manager.instance.Player.Length; i++)
         {
             float dist = Vector3.Distance(Manager.instance.Player[i].transform.position, transform.position);
@@ -51,11 +48,6 @@ public class EnemyStates : AINetwork
             if (dist < 20)
                 player = Manager.instance.Player[i].transform;
         }
-
-        //foreach (GameObject target in Manager.instance.Player)
-        //{
-        //    player = target.transform;
-        //}
 
         if (player != null)
             distanceaway = Vector3.Distance(player.position, transform.position);
