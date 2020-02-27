@@ -6,37 +6,26 @@ public class HealthPot : MonoBehaviour
 {
     private HealthBarShrink hpbar;
     private Item item;
-    //[HideInInspector]
-    //public GameObject itemManager;
-    //public bool playerItem;
-    //public int id;
+    private bool canHeal = false;
+    private float coolDown = 5.0f;
+    private float coolDownTimer;
 
     void Start()
     {
         hpbar = (HealthBarShrink)FindObjectOfType(typeof(HealthBarShrink));
-        item = (Item)FindObjectOfType(typeof(Item));
-        //itemManager = GameObject.FindGameObjectWithTag("ItemManager");
-        //if (!playerItem)
-        //{
-        //    int allItems = itemManager.transform.childCount;
-
-        //    for (int i = 0; i < allItems; i++)
-        //    {
-        //        if (itemManager.transform.GetChild(i).gameObject.GetComponent<Item>().id == id)
-        //        {
-        //            item = itemManager.transform.GetChild(i).gameObject;
-        //        }
-        //    }
-        //}
     }
 
     void Update()
     {
-        if (Input.GetKeyUp(KeyCode.G))
+        if (coolDownTimer > 0.0f)
+            coolDownTimer -= Time.deltaTime;
+        if (coolDownTimer < 0)
+            coolDownTimer = 0.0f;
+
+        if (Input.GetKeyUp(KeyCode.G) && coolDownTimer == 0)
         {
-            hpbar.IncreaseHealth(10);
-            Destroy(this.gameObject);
-            //item.GetComponent<Inventory>().RemoveItem(item, itemOnHand.id, itemOnHand.type, itemOnHand.description, itemOnHand.icon);
+            hpbar.IncreaseHealth(20);
+            coolDownTimer = coolDown;
         }
     }
 }

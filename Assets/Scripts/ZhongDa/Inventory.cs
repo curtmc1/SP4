@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    private bool inventEnabled;
+    private bool cursorEnabled;
     
     public GameObject inventory;
     public GameObject slotHolder;
@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        allSlots = 40;
+        allSlots = 6;
         slot = new GameObject[allSlots];
 
         for (int i = 0; i < allSlots; i++)
@@ -31,23 +31,40 @@ public class Inventory : MonoBehaviour
     }
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.I))
+        //if(Input.GetKeyDown(KeyCode.I))
+        //{
+        //   Cursor.lockState = CursorLockMode.None;
+        //    Cursor.visible = true;
+        //}
+
+
+        //if (inventEnabled == true)
+        //{
+        //    
+        //    inventory.SetActive(true);
+        //}
+        //else
+        //{
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //    Cursor.visible = false;
+        //    inventory.SetActive(false);
+        //}
+
+        if (Input.GetKeyDown(KeyCode.I))
         {
-           inventEnabled = !inventEnabled;
+            cursorEnabled = !cursorEnabled;
+
         }
 
-
-        if (inventEnabled == true)
+        if (cursorEnabled == true)
         {
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
-            inventory.SetActive(true);
         }
         else
         {
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
-            inventory.SetActive(false);
         }
     }
 
@@ -97,27 +114,6 @@ public class Inventory : MonoBehaviour
                 continue;
             }
             return;
-        }
-    }
-
-    public void RemoveItem(GameObject itemObject, int itemID, string itemType, string itemDescription, Sprite itemIcon)
-    {
-        for (int i = 0; i < allSlots; i++)
-        {
-            if (!slot[i].GetComponent<Slot>().empty)
-            {
-                itemObject.GetComponent<Item>().pickedUp = false;
-
-                slot[i].GetComponent<Slot>().item = itemObject;
-                slot[i].GetComponent<Slot>().icon = itemIcon;
-                slot[i].GetComponent<Slot>().type = itemType;
-                slot[i].GetComponent<Slot>().id = itemID;
-                slot[i].GetComponent<Slot>().description = itemDescription;
-
-                //itemObject.transform.position = slot[i].transform.position;
-                slot[i].GetComponent<Slot>().RemoveSlot();
-                slot[i].GetComponent<Slot>().empty = true;
-            }
         }
     }
 }

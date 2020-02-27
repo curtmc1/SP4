@@ -55,6 +55,8 @@ public class Item : MonoBehaviour
         }
     }
 
+    [SerializeField]
+    private new Transform camera;
     public void ItemUsage()
     {
         //weapon
@@ -62,6 +64,7 @@ public class Item : MonoBehaviour
         {
             weapon.SetActive(true);
             weapon.GetComponent<Item>().equipped = true;
+            transform.rotation = camera.rotation;
         }
 
         //items
@@ -69,6 +72,7 @@ public class Item : MonoBehaviour
         {
             item.SetActive(true);
             item.GetComponent<Item>().equipped = true;
+            transform.rotation = camera.rotation;
         }
     }
 
