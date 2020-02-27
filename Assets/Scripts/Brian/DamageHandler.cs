@@ -6,6 +6,7 @@ public class DamageHandler : MonoBehaviour
 {
     public float invulnPeriod = 0f;
     float invulnTimer = 0f;
+    //public bool hit = false;
 
     //HealthBarShrink hpbar;
 
@@ -56,15 +57,13 @@ public class DamageHandler : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             collision.gameObject.GetComponent<EnemyHealth>().health--;
-            //Debug.Log("Damaged");
         }
         else if (collision.gameObject.tag == "EnemyHead")
         {
             SoundManager.PlaySound("headshotsound");
             //EnemyHealth enemyhp = collision.gameObject.GetComponentInParent<EnemyHealth>();
             //enemyhp.health -= 3;
-            collision.gameObject.GetComponentInParent<EnemyHealth>().health-=3;
-            //Debug.Log("Damaged");
+            collision.gameObject.GetComponentInParent<EnemyHealth>().health -= 3;
         }
     }
 }

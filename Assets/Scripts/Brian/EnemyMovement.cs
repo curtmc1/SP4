@@ -17,6 +17,8 @@ public class EnemyMovement : MonoBehaviour
     float invisibleCoolDown = 1f;
     bool invisible = false;
 
+    float distanceaway = 0f;
+
     public float GetInvisibleCoolDown
     {
         get { return invisibleCoolDown; }
@@ -51,9 +53,12 @@ public class EnemyMovement : MonoBehaviour
     void FacePlayer()
     {
         //face player
-        Vector3 dir = (player.position - transform.position).normalized;
-        Quaternion lookRotation = Quaternion.LookRotation(new Vector3(dir.x, dir.y, dir.z));
-        transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        if (player != null)
+        {
+            Vector3 dir = (player.position - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(dir.x, dir.y, dir.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
     }
 
     void TurnInvisible()
@@ -111,7 +116,9 @@ public class EnemyMovement : MonoBehaviour
         //    player = target.transform;
         //}
 
-        float distanceaway = Vector3.Distance(player.position, transform.position);
+        if (player != null)
+            distanceaway = Vector3.Distance(player.position, transform.position);
+
         float distanceFromPosReached = 10f;
         invisibleCoolDown -= Time.deltaTime;
 
@@ -143,10 +150,13 @@ public class EnemyMovement : MonoBehaviour
 
             nav.speed = 7f;
 
-            Vector3 moveDir = transform.position - player.transform.position;
+            if (player != null)
+            {
+                Vector3 moveDir = transform.position - player.transform.position;
 
-            if (Vector3.Distance(player.position, moveDir) < states.range)
-                nav.SetDestination(moveDir);
+                if (Vector3.Distance(player.position, moveDir) < states.range)
+                    nav.SetDestination(moveDir);
+            }
         }
         if (states.currState == States.state_stalk)
         {
@@ -166,5 +176,5 @@ public class EnemyMovement : MonoBehaviour
                 FacePlayer();
             }
         }
-    }
+    }       
 }
