@@ -14,7 +14,7 @@ public class EnemyMovement : MonoBehaviour
     Transform player;
     EnemyStates states;
 
-    float invisibleCoolDown = 1f;
+    float invisibleCoolDown = 5f;
     bool invisible = false;
 
     float distanceaway = 0f;
@@ -70,7 +70,7 @@ public class EnemyMovement : MonoBehaviour
         gameObject.transform.GetChild(1).gameObject.SetActive(false);
         gameObject.transform.GetChild(2).gameObject.SetActive(false);
 
-        invisibleCoolDown = 1f;
+        invisibleCoolDown = 5f;
         invisible = true;
     }
 
@@ -100,9 +100,6 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (!player)
-        //    player = Manager.instance.Player.transform;
-
         for (int i = 0; i < Manager.instance.Player.Length; i++)
         {
             float dist = Vector3.Distance(Manager.instance.Player[i].transform.position, transform.position);
@@ -110,11 +107,6 @@ public class EnemyMovement : MonoBehaviour
             if (dist < 20)
                 player = Manager.instance.Player[i].transform;
         }
-
-        //foreach (GameObject target in Manager.instance.Player)
-        //{
-        //    player = target.transform;
-        //}
 
         if (player != null)
             distanceaway = Vector3.Distance(player.position, transform.position);
@@ -137,7 +129,9 @@ public class EnemyMovement : MonoBehaviour
         if (states.currState == States.state_chase)
         {
             nav.speed = 5f;
-            nav.SetDestination(player.position);
+
+            if (player != null)
+                nav.SetDestination(player.position);
 
             if (distanceaway < nav.stoppingDistance)
             {
@@ -160,8 +154,10 @@ public class EnemyMovement : MonoBehaviour
         }
         if (states.currState == States.state_stalk)
         {
-            nav.speed = 1.5f;
-            nav.SetDestination(player.position);
+            nav.speed = 3f;
+
+            if (player != null)
+                nav.SetDestination(player.position);
 
             if (invisibleCoolDown <= 0f)
             {
