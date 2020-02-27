@@ -201,5 +201,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b32b26cf06ded654b92d5318afd733d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  coolDownText: {fileID: 6690296435410782636, guid: c8fc35be88fc920499beb78a7c9a108a,
-    type: 3}
+  healthPot: {fileID: 7272293671570253034}
