@@ -46,6 +46,7 @@ MonoBehaviour:
   AINetworkObject:
   - {fileID: 8737888371035463552, guid: 45301692c80f7ba40a7842378676af23, type: 3}
   - {fileID: 2540765443084824191, guid: 59dad15f43d5dcc4fa3e2c1f00221e72, type: 3}
+  - {fileID: 7975470016843110040, guid: e7fe7f35de9864547b2731e4de2c82e8, type: 3}
   AISpawnerNetworkObject: []
   BulletNetworkObject: []
   ChatManagerNetworkObject:
@@ -63,6 +64,4 @@ MonoBehaviour:
   - {fileID: 2077197284143736358, guid: 21f71e800579b384f82f0458f47ac89a, type: 3}
   SetUpPlayerNetworkObject: []
   TestNetworkObject: []
-  player1: {fileID: 2100000, guid: b4a5ea0b7270d0d428f4be60a480f101, type: 2}
-  player2: {fileID: 2100000, guid: 82ff40f45923de3479a582c0ea8fa615, type: 2}
   automaticScenes: 1

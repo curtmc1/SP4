@@ -67,15 +67,6 @@ public class GunNetwork : GunBehavior
                         portalGun.GetCanShoot = true;
                         assignOwnerPor = false;
                     }
-
-                    networkObject.p1HasShot = portalGun.p1HasShot;
-                    networkObject.p2HasShot = portalGun.p2HasShot;
-
-                    if (portalGun.p1HasShot || portalGun.p2HasShot) //If player 1 has shot in window 1
-                    {
-                        networkObject.portPosition = portalGun.portPos;
-                        networkObject.portRotation = portalGun.portRotation;
-                    }
                 }
                 else if (weaponManager.CurrentWeaponChoice == 1)
                 {
@@ -87,7 +78,6 @@ public class GunNetwork : GunBehavior
                         pistol.GetCanShoot = true;
                         assignOwnerPis = false;
                     }
-                    networkObject.hasShot = pistol.hasShot;
                 }
             }
         }
@@ -110,35 +100,6 @@ public class GunNetwork : GunBehavior
                         portalGun.GetCanShoot = false;
                         assignClientPor = false;
                     }
-                    portalGun.p1HasShot = networkObject.p1HasShot;
-                    portalGun.p2HasShot = networkObject.p2HasShot;
-
-                    #region ClientPortalInstantiation
-                    if (portalGun.p1HasShot && !shootOncePor1) //If player 1 has shot in window 1, duplicate and sync in window 2
-                    {
-                        GameObject parti1 = Instantiate(portalParticle, portalGun.transform.position + 0.5f * portalGun.transform.forward, portalGun.transform.rotation);
-                        GameObject p1 = GameObject.FindGameObjectWithTag("Portal1");
-                        Destroy(p1);
-                        GameObject bul2 = Instantiate(portal1, networkObject.portPosition, networkObject.portRotation);
-                        Debug.Log("portal1 pos: " + networkObject.portPosition + " port Roatation " + networkObject.portRotation);
-                        shootOncePor1 = true;
-                    }
-                    else if (!portalGun.p1HasShot && shootOncePor1)
-                        shootOncePor1 = false;
-
-                    if (portalGun.p2HasShot && !shootOncePor2)
-                    {
-                        GameObject parti2 = Instantiate(portalParticle2, portalGun.transform.position + 0.5f * portalGun.transform.forward, portalGun.transform.rotation);
-                        GameObject p2 = GameObject.FindGameObjectWithTag("Portal2");
-                        Destroy(p2);
-                        GameObject bul3 = Instantiate(portal2, networkObject.portPosition, networkObject.portRotation);
-                        Debug.Log("portal2 pos: " + networkObject.portPosition + " port Roatation " + networkObject.portRotation);
-                        shootOncePor2 = true;
-                    }
-                    else if (!portalGun.p2HasShot && shootOncePor2)
-                        shootOncePor2 = false;
-                    #endregion
-
                 }
                 else if (weaponManager.CurrentWeaponChoice == 1)
                 {
@@ -150,32 +111,12 @@ public class GunNetwork : GunBehavior
                         pistol.GetCanShoot = false;
                         assignClientPis = false;
                     }
-                    pistol.hasShot = networkObject.hasShot;
-
-                    #region ClientBulletInstantiation
-                    if (pistol.hasShot && !shootOncePis)
-                    {
-                        GameObject bul = Instantiate(bullet, pistol.transform.position, pistol.transform.rotation);
-                        bul.GetComponent<Rigidbody>().velocity = pistol.transform.forward * 30;
-                        //networkObject.SendRpc(RPC_SHOOT, Receivers.AllBuffered, pistol.transform.position, pistol.transform.rotation, pistol.transform.forward);
-                        shootOncePis = true;
-                    }
-                    else if (!pistol.hasShot && shootOncePis)
-                        shootOncePis = false;
-                    #endregion
-
                 }
             }
         }
     }
 
-    public override void Shoot(RpcArgs args)
+    public override void Shoot(RpcArgs args) //Do nothing. Cannot removed because of the GunBehavior it inherited from. It is used in other class
     {
-        //Vector3 pos = args.GetNext<Vector3>();
-        //Quaternion rot = args.GetNext<Quaternion>();
-        //Vector3 forward = args.GetNext<Vector3>();
-
-        //GameObject bul = Instantiate(bullet, pos, rot);
-        //bul.GetComponent<Rigidbody>().velocity = forward * 30;
     }
 }

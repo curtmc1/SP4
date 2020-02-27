@@ -24,8 +24,7 @@ namespace BeardedManStudios.Forge.Networking.Unity
 		public GameObject[] PlayerNetworkObject = null;
 		public GameObject[] SetUpPlayerNetworkObject = null;
 		public GameObject[] TestNetworkObject = null;
-		public Material player1;
-		public Material player2;
+		public GameObject[] EnvironmentalNetworkObject = null;
 
 		protected virtual void SetupObjectCreatedEvent()
 		{
@@ -365,6 +364,29 @@ namespace BeardedManStudios.Forge.Networking.Unity
 						objectInitialized(newObj, obj);
 				});
 			}
+			else if (obj is EnvironmentalNetworkObject)
+			{
+				MainThreadManager.Run(() =>
+				{
+					NetworkBehavior newObj = null;
+					if (!NetworkBehavior.skipAttachIds.TryGetValue(obj.NetworkId, out newObj))
+					{
+						if (EnvironmentalNetworkObject.Length > 0 && EnvironmentalNetworkObject[obj.CreateCode] != null)
+						{
+							var go = Instantiate(EnvironmentalNetworkObject[obj.CreateCode]);
+							newObj = go.GetComponent<EnvironmentalBehavior>();
+						}
+					}
+
+					if (newObj == null)
+						return;
+						
+					newObj.Initialize(obj);
+
+					if (objectInitialized != null)
+						objectInitialized(newObj, obj);
+				});
+			}
 		}
 
 		protected virtual void InitializedObject(INetworkBehavior behavior, NetworkObject obj)
@@ -538,6 +560,18 @@ namespace BeardedManStudios.Forge.Networking.Unity
 			var netBehavior = go.GetComponent<TestBehavior>();
 			var obj = netBehavior.CreateNetworkObject(Networker, index);
 			go.GetComponent<TestBehavior>().networkObject = (TestNetworkObject)obj;
+
+			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+		[Obsolete("Use InstantiateEnvironmental instead, its shorter and easier to type out ;)")]
+		public EnvironmentalBehavior InstantiateEnvironmentalNetworkObject(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(EnvironmentalNetworkObject[index]);
+			var netBehavior = go.GetComponent<EnvironmentalBehavior>();
+			var obj = netBehavior.CreateNetworkObject(Networker, index);
+			go.GetComponent<EnvironmentalBehavior>().networkObject = (EnvironmentalNetworkObject)obj;
 
 			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
 			
@@ -1118,12 +1152,6 @@ namespace BeardedManStudios.Forge.Networking.Unity
 		public PlayerBehavior InstantiatePlayer(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
 		{
 			var go = Instantiate(PlayerNetworkObject[index]);
-
-			if (NetworkManager.Instance.IsServer)
-				PlayerNetworkObject[index].GetComponent<Renderer>().material = player2;
-			else
-				PlayerNetworkObject[index].GetComponent<Renderer>().material = player1;
-
 			var netBehavior = go.GetComponent<PlayerBehavior>();
 
 			NetworkObject obj = null;
@@ -1259,6 +1287,57 @@ namespace BeardedManStudios.Forge.Networking.Unity
 			}
 
 			go.GetComponent<TestBehavior>().networkObject = (TestNetworkObject)obj;
+
+			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+		/// <summary>
+		/// Instantiate an instance of Environmental
+		/// </summary>
+		/// <returns>
+		/// A local instance of EnvironmentalBehavior
+		/// </returns>
+		/// <param name="index">The index of the Environmental prefab in the NetworkManager to Instantiate</param>
+		/// <param name="position">Optional parameter which defines the position of the created GameObject</param>
+		/// <param name="rotation">Optional parameter which defines the rotation of the created GameObject</param>
+		/// <param name="sendTransform">Optional Parameter to send transform data to other connected clients on Instantiation</param>
+		public EnvironmentalBehavior InstantiateEnvironmental(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(EnvironmentalNetworkObject[index]);
+			var netBehavior = go.GetComponent<EnvironmentalBehavior>();
+
+			NetworkObject obj = null;
+			if (!sendTransform && position == null && rotation == null)
+				obj = netBehavior.CreateNetworkObject(Networker, index);
+			else
+			{
+				metadata.Clear();
+
+				if (position == null && rotation == null)
+				{
+					byte transformFlags = 0x1 | 0x2;
+					ObjectMapper.Instance.MapBytes(metadata, transformFlags);
+					ObjectMapper.Instance.MapBytes(metadata, go.transform.position, go.transform.rotation);
+				}
+				else
+				{
+					byte transformFlags = 0x0;
+					transformFlags |= (byte)(position != null ? 0x1 : 0x0);
+					transformFlags |= (byte)(rotation != null ? 0x2 : 0x0);
+					ObjectMapper.Instance.MapBytes(metadata, transformFlags);
+
+					if (position != null)
+						ObjectMapper.Instance.MapBytes(metadata, position.Value);
+
+					if (rotation != null)
+						ObjectMapper.Instance.MapBytes(metadata, rotation.Value);
+				}
+
+				obj = netBehavior.CreateNetworkObject(Networker, index, metadata.CompressBytes());
+			}
+
+			go.GetComponent<EnvironmentalBehavior>().networkObject = (EnvironmentalNetworkObject)obj;
 
 			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
 			

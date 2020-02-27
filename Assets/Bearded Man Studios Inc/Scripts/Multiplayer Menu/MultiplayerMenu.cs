@@ -218,8 +218,8 @@ public class MultiplayerMenu : MonoBehaviour
 		if (networker is IServer)
 		{
 			if (!DontChangeSceneOnConnect)
-                //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-                SceneManager.LoadScene(PlayerPrefs.GetString("LevelName"));       
+                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+                //SceneManager.LoadScene(PlayerPrefs.GetString("LevelName"));       
 			else
 				NetworkObject.Flush(networker); //Called because we are already in the correct scene!
 		}

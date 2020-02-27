@@ -95,8 +95,16 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!player)
-            player = Manager.instance.Player.transform;
+        //if (!player)
+        //    player = Manager.instance.Player.transform;
+
+        for (int i = 0; i < Manager.instance.Player.Length; i++)
+        {
+            float dist = Vector3.Distance(Manager.instance.Player[i].transform.position, transform.position);
+
+            if (dist < 20)
+                player = Manager.instance.Player[i].transform;
+        }
 
         //foreach (GameObject target in Manager.instance.Player)
         //{
