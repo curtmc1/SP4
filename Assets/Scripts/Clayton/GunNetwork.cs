@@ -119,4 +119,8 @@ public class GunNetwork : GunBehavior
     public override void Shoot(RpcArgs args) //Do nothing. Cannot removed because of the GunBehavior it inherited from. It is used in other class
     {
     }
+
+    public override void Object(RpcArgs args)
+    {
+    }
 }

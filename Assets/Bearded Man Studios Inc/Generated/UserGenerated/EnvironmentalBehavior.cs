@@ -4,10 +4,12 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[]")]
-	[GeneratedRPCVariableNames("{\"types\":[]")]
+	[GeneratedRPC("{\"types\":[[\"Vector3\", \"Quaternion\"][\"Vector3\", \"Quaternion\"]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[\"position\", \"rotation\"][\"position\", \"rotation\"]]")]
 	public abstract partial class EnvironmentalBehavior : NetworkBehavior
 	{
+		public const byte RPC_UPDATE_SERVER = 0 + 5;
+		public const byte RPC_UPDATE_CLIENT = 1 + 5;
 		
 		public EnvironmentalNetworkObject networkObject = null;
 
@@ -21,6 +23,8 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			networkObject.AttachedBehavior = this;
 
 			base.SetupHelperRpcs(networkObject);
+			networkObject.RegisterRpc("UpdateServer", UpdateServer, typeof(Vector3), typeof(Quaternion));
+			networkObject.RegisterRpc("UpdateClient", UpdateClient, typeof(Vector3), typeof(Quaternion));
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -97,6 +101,18 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			networkObject.SnapInterpolations();
 		}
 
+		/// <summary>
+		/// Arguments:
+		/// Vector3 position
+		/// Quaternion rotation
+		/// </summary>
+		public abstract void UpdateServer(RpcArgs args);
+		/// <summary>
+		/// Arguments:
+		/// Vector3 position
+		/// Quaternion rotation
+		/// </summary>
+		public abstract void UpdateClient(RpcArgs args);
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}

@@ -67,4 +67,8 @@ public class Pistol : GunBehavior
         GameObject bul = Instantiate(bullet, pos, rot);
         bul.GetComponent<Rigidbody>().velocity = forward;
     }
+
+    public override void Object(RpcArgs args)
+    {
+    }
 }

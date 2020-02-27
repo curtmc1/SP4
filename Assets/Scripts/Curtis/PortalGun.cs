@@ -101,29 +101,34 @@ public class PortalGun : GunBehavior
                 {
                     if (hit.transform.GetComponent<Rigidbody>() != null)
                     {
+                        objectHeld = hit.transform.gameObject;
+
                         if (networkObject.IsServer)
                         {
-                            //hit.transform.gameObject.GetComponent<EnvironmentalObject>().isServer = true;
-                            isServer = true;
+                            objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isServer = true;
+                            //isServer = true;
                         }
                         if (!networkObject.IsServer)
                         {
-                           // hit.transform.gameObject.GetComponent<EnvironmentalObject>().isClient = true;
-                            isClient = true;
+                            objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isClient = true;
+                            //isClient = true;
                         }
-                        
-                        objectHeld = hit.transform.gameObject;
+
                         hit.transform.position = camera.transform.position + 2 * camera.transform.forward;
                     }
                 }
             }
         }
 
-        if (!isHeld)
+        if (!isHeld && objectHeld)
         {
-            objectHeld = null;
+            if (objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isServer)
+            objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isServer = false;
+            if (objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isClient)
+            objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isClient = false;
             isServer = false;
             isClient = false;
+            objectHeld = null;
         }
 
         if (objectHeld)
@@ -159,5 +164,9 @@ public class PortalGun : GunBehavior
             Destroy(p2);
             Instantiate(portal2, pos, rot);
         }
+    }
+
+    public override void Object(RpcArgs args)
+    {
     }
 }
