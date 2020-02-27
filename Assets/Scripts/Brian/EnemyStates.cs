@@ -57,13 +57,14 @@ public class EnemyStates : AINetwork
         //    player = target.transform;
         //}
 
-        distanceaway = Vector3.Distance(player.position, transform.position);
+        if (player != null)
+            distanceaway = Vector3.Distance(player.position, transform.position);
 
         EnemyHealth enemyhp = GetComponent<EnemyHealth>();
 
         switch (currState)
         {
-            case States.state_roam:               
+            case States.state_roam:
                 if (distanceaway < range)
                     currState = States.state_chase;
                 if (gameObject.name == ("EnemySoldier"))
@@ -81,7 +82,9 @@ public class EnemyStates : AINetwork
                     dead = true;
                     currState = States.state_dead;
                 }
-                    break;
+                break;
+            case States.state_underattack:
+                break;
             case States.state_chase:
                 if (distanceaway > range)
                     currState = States.state_roam;
