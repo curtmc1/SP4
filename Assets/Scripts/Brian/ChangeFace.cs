@@ -28,5 +28,7 @@ public class ChangeFace : MonoBehaviour
             gameObject.transform.GetChild(0).gameObject.SetActive(false);
             gameObject.transform.GetChild(1).gameObject.SetActive(true);
         }
+
+        transform.position = transform.parent.position + new Vector3(0f, 1.125f, 0f);
     }
 }
