@@ -43,10 +43,6 @@ public class Slot : MonoBehaviour
         Graphic graphic = GetComponent<Graphic>();
         graphic.CrossFadeColor(color, _button.colors.fadeDuration, true, true);
     }
-    //public void OnPointerClick(PointerEventData pointerEventData)
-    //{
-    //    UseItem();
-    //}
     public void UpdateSlot()
     {
         slotIconGo.GetComponent<Image>().sprite = icon;
