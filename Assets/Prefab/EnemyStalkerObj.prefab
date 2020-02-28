@@ -240,6 +240,21 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6251133347911377866, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 200963441690448136, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 200963441690448136, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 555818118, guid: cbe8d9ea31cfa7f41996aa492cbfabfb, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -249,26 +264,20 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 6251133347911377866, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4019154735698769438, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
-        type: 3}
-      propertyPath: deathEffect
-      value: 
-      objectReference: {fileID: 8262289533643137581, guid: c6e621faeeeb67c42ba1f5dd7d9cdfdc,
-        type: 3}
-    - target: {fileID: 3492662995952853105, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
-        type: 3}
-      propertyPath: range
-      value: 15
-      objectReference: {fileID: 0}
     - target: {fileID: 6291141867309820860, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
         type: 3}
       propertyPath: hpbar
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8742375522312655427, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+        type: 3}
+      propertyPath: m_Radius
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8742375522312655427, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+        type: 3}
+      propertyPath: m_Center.z
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 8742375522312655484, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
         type: 3}
@@ -280,15 +289,26 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: a95ee0aabaddf6340bcc9d68480c35d4, type: 2}
-    - target: {fileID: 8742375522312655427, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+    - target: {fileID: 4166468300898402447, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
         type: 3}
-      propertyPath: m_Radius
-      value: 0.5
+      propertyPath: m_LocalPosition.z
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8742375522312655427, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+    - target: {fileID: 3492662995952853105, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
         type: 3}
-      propertyPath: m_Center.z
-      value: 0.75
+      propertyPath: range
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 4019154735698769438, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+        type: 3}
+      propertyPath: deathEffect
+      value: 
+      objectReference: {fileID: 8262289533643137581, guid: c6e621faeeeb67c42ba1f5dd7d9cdfdc,
+        type: 3}
+    - target: {fileID: 5378747772439769773, guid: cbe8d9ea31cfa7f41996aa492cbfabfb,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 731918594, guid: cbe8d9ea31cfa7f41996aa492cbfabfb, type: 3}
       propertyPath: m_FillOrigin
