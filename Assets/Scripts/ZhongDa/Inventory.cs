@@ -16,7 +16,7 @@ public class Inventory : MonoBehaviour
     void Start()
     {
         Cursor.visible = false;
-        allSlots = 6;
+        allSlots = 5;
         slot = new GameObject[allSlots];
 
         for (int i = 0; i < allSlots; i++)
@@ -31,25 +31,6 @@ public class Inventory : MonoBehaviour
     }
     void Update()
     {
-        //if(Input.GetKeyDown(KeyCode.I))
-        //{
-        //   Cursor.lockState = CursorLockMode.None;
-        //    Cursor.visible = true;
-        //}
-
-
-        //if (inventEnabled == true)
-        //{
-        //    
-        //    inventory.SetActive(true);
-        //}
-        //else
-        //{
-        //    Cursor.lockState = CursorLockMode.Locked;
-        //    Cursor.visible = false;
-        //    inventory.SetActive(false);
-        //}
-
         if (Input.GetKeyDown(KeyCode.I))
         {
             cursorEnabled = !cursorEnabled;
