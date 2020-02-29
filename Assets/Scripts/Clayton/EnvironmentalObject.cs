@@ -8,65 +8,58 @@ public class EnvironmentalObject : EnvironmentalBehavior
 {
     public bool isServer;
     public bool isClient;
-
+    public string naming;
+    private bool forServer;
+    private bool forClient;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        isServer = isClient = false;
+        isServer = isClient = forServer = forClient = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //if (networkObject.IsServer)
-        //{
-        //    //Server side
-
-        //    if (isServer) //if server pick up
-        //        networkObject.SendRpc(RPC_UPDATE_CLIENT, Receivers.AllBuffered, transform.position, transform.rotation);
-        //}
-        //else
-        //{
-        //    //Client side
-        //    if (isClient) //if client pick up
-        //        networkObject.SendRpc(RPC_UPDATE_SERVER, Receivers.AllBuffered, transform.position, transform.rotation);
-        //}
-
         if (networkObject.IsServer)
         {
-            //Server side
-
-            if (isServer) //if server pick up
+            if (isServer)
             {
-                networkObject.SendRpc(RPC_UPDATE_CLIENT, Receivers.AllBuffered, transform.position, transform.rotation);
-                //networkObject.position = transform.position;
-                //networkObject.rotation = transform.rotation;
+                networkObject.SendRpc(RPC_UPDATE_CLIENT, Receivers.AllBuffered, transform.position, transform.rotation, isServer);
+                forServer = true;
             }
-            //else
-            //{
-            //    transform.position = networkObject.position;
-            //    transform.rotation = networkObject.rotation;
-            //}
-
+            else if (!isServer && !isClient)
+            {
+                if (gameObject.GetComponent<Rigidbody>().velocity != Vector3.zero && forServer)
+                    networkObject.SendRpc(RPC_UPDATE_CLIENT, Receivers.AllBuffered, transform.position, transform.rotation, isServer);
+                else
+                {
+                    forServer = false;
+                    networkObject.SendRpc(RPC_USE_GRAVITY_CLIENT, Receivers.AllBuffered, true);
+                }
+            }
         }
         else
         {
-            //Client side
-            if (isClient) //if client pick up
+            if (isClient)
             {
-                networkObject.SendRpc(RPC_UPDATE_SERVER, Receivers.AllBuffered, transform.position, transform.rotation);
-                //networkObject.position = transform.position;
-                //networkObject.rotation = transform.rotation;
+                networkObject.SendRpc(RPC_UPDATE_SERVER, Receivers.AllBuffered, transform.position, transform.rotation, isClient);
+                forClient = true;
             }
-            //else
-            //{
-            //    transform.position = networkObject.position;
-            //    transform.rotation = networkObject.rotation;
-            //}
-
+            else if (!isServer && !isClient)
+            {
+                if (gameObject.GetComponent<Rigidbody>().velocity != Vector3.zero && forClient)
+                    networkObject.SendRpc(RPC_UPDATE_SERVER, Receivers.AllBuffered, transform.position, transform.rotation, isClient);
+                else
+                {
+                    forClient = false;
+                    networkObject.SendRpc(RPC_USE_GRAVITY_SERVER, Receivers.AllBuffered, true);
+                }
+            }
         }
+
+        //Debug.Log(" isServer: " + isServer + ", isClient: " + isClient + ", Naming: " + naming + ", Velocity: " + gameObject.GetComponent<Rigidbody>().velocity); 
     }
 
     public override void UpdateServer(RpcArgs args)
@@ -76,9 +69,12 @@ public class EnvironmentalObject : EnvironmentalBehavior
 
         Vector3 pos = args.GetNext<Vector3>();
         Quaternion rot = args.GetNext<Quaternion>();
+        bool trueOrNot = args.GetNext<bool>();
 
         if (!isServer)
         {
+            isClient = trueOrNot;
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
             transform.position = pos;
             transform.rotation = rot;
         }
@@ -91,11 +87,42 @@ public class EnvironmentalObject : EnvironmentalBehavior
 
         Vector3 pos = args.GetNext<Vector3>();
         Quaternion rot = args.GetNext<Quaternion>();
+        bool trueOrNot = args.GetNext<bool>();
 
         if (!isClient)
         {
+            isServer = trueOrNot;
+            gameObject.GetComponent<Rigidbody>().useGravity = false;
             transform.position = pos;
             transform.rotation = rot;
+        }
+    }
+
+    public override void UseGravityServer(RpcArgs args)
+    {
+        //For server to update Gravity
+        if (!networkObject.IsServer) return;
+
+        bool gravity = args.GetNext<bool>();
+
+        if (!isServer)
+        {
+            if (gameObject.GetComponent<Rigidbody>().useGravity == false)
+                gameObject.GetComponent<Rigidbody>().useGravity = true;
+        }
+    }
+
+    public override void UseGravityClient(RpcArgs args)
+    {
+        //For Client to update Gravity
+        if (networkObject.IsServer) return;
+
+        bool gravity = args.GetNext<bool>();
+
+        if (!isClient)
+        {
+            if (gameObject.GetComponent<Rigidbody>().useGravity == false)
+                gameObject.GetComponent<Rigidbody>().useGravity = true;
         }
     }
 }

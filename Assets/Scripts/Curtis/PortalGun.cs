@@ -17,8 +17,6 @@ public class PortalGun : GunBehavior
     private GameObject objectHeld;
     private bool isHeld;
     private Vector3 pos;
-    public bool isServer;
-    public bool isClient;
 
     PortalUI portUI;
 
@@ -40,7 +38,6 @@ public class PortalGun : GunBehavior
         isHeld = false;
         portUI = gameObject.transform.parent.parent.GetComponentInChildren<PortalUI>();
         portUI.ammo = 30;
-        isServer = isClient = false;
     }
 
     void Update()
@@ -105,13 +102,18 @@ public class PortalGun : GunBehavior
 
                         if (networkObject.IsServer)
                         {
+                            //objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().naming = "Server";
+                            objectHeld.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
                             objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isServer = true;
-                            //isServer = true;
+                            objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isClient = false;
                         }
+
                         if (!networkObject.IsServer)
                         {
+                            //objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().naming = "Client";
+                            objectHeld.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
                             objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isClient = true;
-                            //isClient = true;
+                            objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isServer = false;
                         }
 
                         hit.transform.position = camera.transform.position + 2 * camera.transform.forward;
@@ -123,11 +125,13 @@ public class PortalGun : GunBehavior
         if (!isHeld && objectHeld)
         {
             if (objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isServer)
-            objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isServer = false;
+                objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isServer = false;
+
             if (objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isClient)
-            objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isClient = false;
-            isServer = false;
-            isClient = false;
+                objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isClient = false;
+
+            objectHeld.transform.gameObject.GetComponent<Rigidbody>().useGravity = true;
+
             objectHeld = null;
         }
 
@@ -138,6 +142,7 @@ public class PortalGun : GunBehavior
             if (Input.GetKeyDown(KeyCode.E))
             {
                 isHeld = false;
+                objectHeld.transform.gameObject.GetComponent<Rigidbody>().useGravity = true;
                 objectHeld.GetComponent<Rigidbody>().velocity = 10 * camera.transform.forward;
             }
         }

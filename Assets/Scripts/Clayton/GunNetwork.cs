@@ -24,13 +24,10 @@ public class GunNetwork : GunBehavior
     private bool assignClientPis;
     private bool assignOwnerPor;
     private bool assignClientPor;
-    private bool shootOncePis;
-    private bool shootOncePor1;
-    private bool shootOncePor2;
 
     private void Awake()
     {
-        shootOncePis = assignOwnerPis = assignClientPis = assignOwnerPor = assignClientPor = shootOncePor1 = shootOncePor2 = false;
+        assignOwnerPis = assignClientPis = assignOwnerPor = assignClientPor = false;
 
         weaponManager = GetComponentInChildren<WeaponManager>();
     }

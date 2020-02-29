@@ -49,7 +49,13 @@ public class Pistol : GunBehavior
             GameObject bul = Instantiate(bullet, transform.position, transform.rotation);
             bul.GetComponent<Rigidbody>().velocity = transform.forward * 30;
             vel = transform.forward * 30;
-            networkObject.SendRpc(RPC_SHOOT, Receivers.AllBuffered, transform.position, transform.rotation, vel);
+
+            if (networkObject.IsServer)
+                bul.GetComponent<Bullet>().naming = "Server";
+            if (!networkObject.IsServer)
+                bul.GetComponent<Bullet>().naming = "Client";
+
+            networkObject.SendRpc(RPC_SHOOT, Receivers.AllBuffered, transform.position, transform.rotation, vel, bul.GetComponent<Bullet>().naming);
 
             ammo--;
             timer = 0.0f;
@@ -63,9 +69,11 @@ public class Pistol : GunBehavior
         Vector3 pos = args.GetNext<Vector3>();
         Quaternion rot = args.GetNext<Quaternion>();
         Vector3 forward = args.GetNext<Vector3>();
+        string name = args.GetNext<string>();
 
         GameObject bul = Instantiate(bullet, pos, rot);
         bul.GetComponent<Rigidbody>().velocity = forward;
+        bul.GetComponent<Bullet>().naming = name;
     }
 
     public override void Object(RpcArgs args)

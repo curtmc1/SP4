@@ -7,9 +7,9 @@ using UnityEngine.Events;
 
 public class AINetwork : AIBehavior
 {
-    EnemyMovement enemyMovement;
+    //EnemyMovement enemyMovement;
     EnemyStates enemyStates;
-    EnemyHealth enemyHealth;
+    //EnemyHealth enemyHealth;
     public ParticleSystem deathEffect;
 
     protected override void NetworkStart()
@@ -18,17 +18,17 @@ public class AINetwork : AIBehavior
 
         if (!networkObject.IsServer) //Disable stuff if AI doesn't belong to server
         {
-            enemyMovement.enabled = false;
+            //enemyMovement.enabled = false;
             enemyStates.enabled = false;
-            enemyHealth.enabled = false;
+            //enemyHealth.enabled = false;
         }
     }
 
     private void Awake()
     {
-        enemyMovement = GetComponentInChildren<EnemyMovement>();
+        //enemyMovement = GetComponentInChildren<EnemyMovement>();
         enemyStates = GetComponentInChildren<EnemyStates>();
-        enemyHealth = GetComponentInChildren<EnemyHealth>();
+        //enemyHealth = GetComponentInChildren<EnemyHealth>();
     }
 
     // Update is called once per frame
@@ -38,11 +38,11 @@ public class AINetwork : AIBehavior
         {
             networkObject.position = transform.GetChild(0).transform.position;
             networkObject.rotation = transform.GetChild(0).transform.rotation;
-            networkObject.health = enemyHealth.health;
+            //networkObject.health = enemyHealth.health;
             networkObject.dead = enemyStates.dead;
 
-            networkObject.invisibleCoolDown = enemyMovement.GetInvisibleCoolDown;
-            networkObject.invisible = enemyMovement.GetInvisible;
+            //networkObject.invisibleCoolDown = enemyMovement.GetInvisibleCoolDown;
+            //networkObject.invisible = enemyMovement.GetInvisible;
             networkObject.distanceaway = enemyStates.GetDistanceaway;
             networkObject.range = enemyStates.range;
         }
@@ -50,19 +50,15 @@ public class AINetwork : AIBehavior
         {
             transform.GetChild(0).transform.position = networkObject.position;
             transform.GetChild(0).transform.rotation = networkObject.rotation;
-            enemyHealth.health = networkObject.health;
+            //enemyHealth.health = networkObject.health;
             enemyStates.dead = networkObject.dead;
 
-            enemyMovement.GetInvisibleCoolDown = networkObject.invisibleCoolDown;
-            enemyMovement.GetInvisible = networkObject.invisible;
+            //enemyMovement.GetInvisibleCoolDown = networkObject.invisibleCoolDown;
+            //enemyMovement.GetInvisible = networkObject.invisible;
             enemyStates.GetDistanceaway = networkObject.distanceaway;
             enemyStates.range = networkObject.range;
 
-            if (enemyStates.dead)
-            {
-                Instantiate(deathEffect, transform.GetChild(0).transform.position, Quaternion.identity);
-                Destroy(gameObject);
-            }
+            if (enemyStates.dead) Destroy(gameObject);
         }
     }
 }

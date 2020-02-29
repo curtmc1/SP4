@@ -13,7 +13,7 @@ public enum States
     state_dead
 }
 
-public class EnemyStates : AINetwork
+public class EnemyStates : MonoBehaviour
 {
     public States currState;
 
@@ -41,6 +41,8 @@ public class EnemyStates : AINetwork
     // Update is called once per frame
     void Update()
     {
+        //if (!NetworkManager.Instance.IsServer) return;
+
         for (int i = 0; i < Manager.instance.Player.Length; i++)
         {
             float dist = Vector3.Distance(Manager.instance.Player[i].transform.position, transform.position);

@@ -42,6 +42,26 @@ public class PlayerMovement : MonoBehaviour // VIOR not viour
     void Update()
     {
         Jump();
+
+        //Shift to increase speed when walking
+        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        {
+            if (Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                speedParticle.gameObject.SetActive(true);
+                speed *= 2;
+            }
+            if (Input.GetKeyUp(KeyCode.RightShift) || Input.GetKeyUp(KeyCode.LeftShift))
+            {
+                speed = tempSpeed;
+                speedParticle.gameObject.SetActive(false);
+            }
+        }
+        else
+        {
+            speed = tempSpeed;
+            speedParticle.gameObject.SetActive(false);
+        }
     }
 
     private void FixedUpdate()
@@ -51,19 +71,6 @@ public class PlayerMovement : MonoBehaviour // VIOR not viour
 
     private void Move() //Movement
     {
-        //Shift to increase speed
-        if (Input.GetKeyDown(KeyCode.RightShift) || Input.GetKeyDown(KeyCode.LeftShift))
-        {
-            speedParticle.gameObject.SetActive(true);
-            speed *= 2;
-        }
-
-        if (Input.GetKeyUp(KeyCode.RightShift) || Input.GetKeyUp(KeyCode.LeftShift))
-        {
-            speed = tempSpeed;
-            speedParticle.gameObject.SetActive(false);
-        }
-
         float x = Input.GetAxis("Horizontal");
         float z = Input.GetAxis("Vertical");
 
@@ -72,20 +79,20 @@ public class PlayerMovement : MonoBehaviour // VIOR not viour
         Vector3 newPosition = playerBody.position + playerBody.transform.TransformDirection(movement);
         playerBody.MovePosition(newPosition);
 
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            float force = 100;
-            RaycastHit hit;
-            if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
-            {
-                if (hit.transform.gameObject.tag == "Player" || hit.transform.gameObject.tag == "Enemy")
-                {
-                   // Debug.Log("powerrrrrrrrrrrr");
-                    //Vector3 dir = playerBody.position - hit.collider.gameObject.transform.position;
-                    //hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(-dir * force);
-                }
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.Q))
+        //{
+        //    float force = 100;
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
+        //    {
+        //        if (hit.transform.gameObject.tag == "Player" || hit.transform.gameObject.tag == "Enemy")
+        //        {
+        //           // Debug.Log("powerrrrrrrrrrrr");
+        //            //Vector3 dir = playerBody.position - hit.collider.gameObject.transform.position;
+        //            //hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(-dir * force);
+        //        }
+        //    }
+        //}
     }
 
     private void Jump()

@@ -1379,10 +1379,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba63ec8ec9e13144a73be82d60f1b18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deathEffect: {fileID: 0}
   currState: 0
   range: 10
   dead: 0
+  deathEffect: {fileID: 8262289533643137581, guid: c6e621faeeeb67c42ba1f5dd7d9cdfdc,
+    type: 3}
 --- !u!114 &4019154735698769438
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1396,7 +1397,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 10
-  deathEffect: {fileID: 0}
+  deathEffect: {fileID: 8262289533643137581, guid: c6e621faeeeb67c42ba1f5dd7d9cdfdc,
+    type: 3}
 --- !u!114 &6291141867309820860
 MonoBehaviour:
   m_ObjectHideFlags: 0

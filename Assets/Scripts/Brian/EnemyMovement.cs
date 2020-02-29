@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-using BeardedManStudios.Forge.Networking.Unity;
+using BeardedManStudios.Forge.Networking;
+using BeardedManStudios.Forge.Networking.Generated;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyMovement : EnemyMovementBehavior
 {
     //make distance reach smaller
     private Vector3 startPos;
@@ -71,6 +72,8 @@ public class EnemyMovement : MonoBehaviour
         gameObject.transform.GetChild(2).gameObject.SetActive(false);
         gameObject.transform.GetChild(3).gameObject.SetActive(false);
 
+        networkObject.SendRpc(RPC_INVISIBLE_OR_NOT, Receivers.AllBuffered, false, false, false, false, false);
+
         invisibleCoolDown = 5f;
         invisible = true;
     }
@@ -84,6 +87,8 @@ public class EnemyMovement : MonoBehaviour
         gameObject.transform.GetChild(1).gameObject.SetActive(true);
         gameObject.transform.GetChild(2).gameObject.SetActive(true);
         gameObject.transform.GetChild(3).gameObject.SetActive(true);
+
+        networkObject.SendRpc(RPC_INVISIBLE_OR_NOT, Receivers.AllBuffered, true, true, true, true, true);
 
         invisibleCoolDown = 1f;
         invisible = false;
@@ -102,6 +107,8 @@ public class EnemyMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!networkObject.IsServer) return;
+
         for (int i = 0; i < Manager.instance.Player.Length; i++)
         {
             float dist = Vector3.Distance(Manager.instance.Player[i].transform.position, transform.position);
@@ -174,5 +181,23 @@ public class EnemyMovement : MonoBehaviour
                 FacePlayer();
             }
         }
-    }       
+    }
+
+    public override void InvisibleOrNot(RpcArgs args)
+    {
+        if (networkObject.IsServer) return;
+
+        bool renderer = args.GetNext<bool>();
+        bool childZero = args.GetNext<bool>();
+        bool childOne = args.GetNext<bool>();
+        bool childTwo = args.GetNext<bool>();
+        bool childThree = args.GetNext<bool>();
+
+        gameObject.GetComponent<Renderer>().enabled = renderer;
+
+        gameObject.transform.GetChild(0).gameObject.SetActive(childZero);
+        gameObject.transform.GetChild(1).gameObject.SetActive(childOne);
+        gameObject.transform.GetChild(2).gameObject.SetActive(childTwo);
+        gameObject.transform.GetChild(3).gameObject.SetActive(childThree);
+    }
 }

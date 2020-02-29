@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using BeardedManStudios.Forge.Networking.Generated;
 
-public class EnemyHealth : MonoBehaviour
+public class EnemyHealth : EnemyHealthBehavior
 {
     public int health = 10;
 
@@ -19,9 +20,22 @@ public class EnemyHealth : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (states.currState == States.state_dead)
+        if (networkObject.IsServer) 
         {
-            Instantiate(deathEffect, transform.position, Quaternion.identity);
+            networkObject.health = health;
+
+            if (states.currState == States.state_dead)
+            {
+                Instantiate(deathEffect, transform.position, Quaternion.identity);
+            }
+
+        }
+        else
+        {
+            health = networkObject.health;
+
+            if (health <= 0)
+                Instantiate(deathEffect, transform.position, transform.rotation);
         }
     }
 }

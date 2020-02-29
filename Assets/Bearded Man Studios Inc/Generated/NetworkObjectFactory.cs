@@ -35,6 +35,10 @@ namespace BeardedManStudios.Forge.Networking.Generated
 						availableCallback = true;
 						obj = new BulletNetworkObject(networker, id, frame);
 						break;
+					case ChangeFaceNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new ChangeFaceNetworkObject(networker, id, frame);
+						break;
 					case ChatManagerNetworkObject.IDENTITY:
 						availableCallback = true;
 						obj = new ChatManagerNetworkObject(networker, id, frame);
@@ -46,6 +50,22 @@ namespace BeardedManStudios.Forge.Networking.Generated
 					case CubeForgeGameNetworkObject.IDENTITY:
 						availableCallback = true;
 						obj = new CubeForgeGameNetworkObject(networker, id, frame);
+						break;
+					case EnemyHealthNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new EnemyHealthNetworkObject(networker, id, frame);
+						break;
+					case EnemyLaserNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new EnemyLaserNetworkObject(networker, id, frame);
+						break;
+					case EnemyMovementNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new EnemyMovementNetworkObject(networker, id, frame);
+						break;
+					case EnemyStatesNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new EnemyStatesNetworkObject(networker, id, frame);
 						break;
 					case EnvironmentalNetworkObject.IDENTITY:
 						availableCallback = true;
@@ -62,6 +82,10 @@ namespace BeardedManStudios.Forge.Networking.Generated
 					case GunNetworkObject.IDENTITY:
 						availableCallback = true;
 						obj = new GunNetworkObject(networker, id, frame);
+						break;
+					case HitMarkerNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new HitMarkerNetworkObject(networker, id, frame);
 						break;
 					case NetworkCameraNetworkObject.IDENTITY:
 						availableCallback = true;

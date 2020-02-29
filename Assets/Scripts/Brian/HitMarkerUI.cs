@@ -2,14 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using BeardedManStudios.Forge.Networking.Unity;
 
 public class HitMarkerUI : MonoBehaviour
 {
     private Image hitMarkerImage;
 
-    public bool hit = false;
+    public bool serverHit = false;
+    public bool clientHit = false;
 
     float imageTimer = 1f;
+    float imageTimer2 = 1f;
 
     // Start is called before the first frame update
     void Start()
@@ -20,19 +23,42 @@ public class HitMarkerUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!hit)
-            hitMarkerImage.enabled = false;
-        if (hit)
+        if (NetworkManager.Instance.IsServer)
         {
-            hitMarkerImage.enabled = true;
+            if (!serverHit)
+                hitMarkerImage.enabled = false;
 
-            imageTimer -= Time.deltaTime;
-
-            if (imageTimer < 0f)
+            if (serverHit)
             {
-                hit = false;
-                imageTimer = 1f;
+                hitMarkerImage.enabled = true;
+
+                imageTimer -= Time.deltaTime;
+
+                if (imageTimer < 0f)
+                {
+                    serverHit = false;
+                    imageTimer = 1f;
+                }
             }
         }
+        else
+        {
+            if (!clientHit)
+                hitMarkerImage.enabled = false;
+
+            if (clientHit)
+            {
+                hitMarkerImage.enabled = true;
+
+                imageTimer2 -= Time.deltaTime;
+
+                if (imageTimer2 < 0f)
+                {
+                    clientHit = false;
+                    imageTimer2 = 1f;
+                }
+            }
+        }
+
     }
 }

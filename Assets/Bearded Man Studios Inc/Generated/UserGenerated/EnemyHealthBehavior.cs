@@ -4,16 +4,12 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[\"Vector3\", \"Quaternion\", \"bool\"][\"Vector3\", \"Quaternion\", \"bool\"][\"bool\"][\"bool\"]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[\"position\", \"rotation\", \"isOrNot\"][\"position\", \"rotation\", \"isOrNot\"][\"gravity\"][\"gravity\"]]")]
-	public abstract partial class EnvironmentalBehavior : NetworkBehavior
+	[GeneratedRPC("{\"types\":[]")]
+	[GeneratedRPCVariableNames("{\"types\":[]")]
+	public abstract partial class EnemyHealthBehavior : NetworkBehavior
 	{
-		public const byte RPC_UPDATE_SERVER = 0 + 5;
-		public const byte RPC_UPDATE_CLIENT = 1 + 5;
-		public const byte RPC_USE_GRAVITY_SERVER = 2 + 5;
-		public const byte RPC_USE_GRAVITY_CLIENT = 3 + 5;
 		
-		public EnvironmentalNetworkObject networkObject = null;
+		public EnemyHealthNetworkObject networkObject = null;
 
 		public override void Initialize(NetworkObject obj)
 		{
@@ -21,14 +17,10 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			if (networkObject != null && networkObject.AttachedBehavior != null)
 				return;
 			
-			networkObject = (EnvironmentalNetworkObject)obj;
+			networkObject = (EnemyHealthNetworkObject)obj;
 			networkObject.AttachedBehavior = this;
 
 			base.SetupHelperRpcs(networkObject);
-			networkObject.RegisterRpc("UpdateServer", UpdateServer, typeof(Vector3), typeof(Quaternion), typeof(bool));
-			networkObject.RegisterRpc("UpdateClient", UpdateClient, typeof(Vector3), typeof(Quaternion), typeof(bool));
-			networkObject.RegisterRpc("UseGravityServer", UseGravityServer, typeof(bool));
-			networkObject.RegisterRpc("UseGravityClient", UseGravityClient, typeof(bool));
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -86,7 +78,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		public override void Initialize(NetWorker networker, byte[] metadata = null)
 		{
-			Initialize(new EnvironmentalNetworkObject(networker, createCode: TempAttachCode, metadata: metadata));
+			Initialize(new EnemyHealthNetworkObject(networker, createCode: TempAttachCode, metadata: metadata));
 		}
 
 		private void DestroyGameObject(NetWorker sender)
@@ -97,7 +89,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		public override NetworkObject CreateNetworkObject(NetWorker networker, int createCode, byte[] metadata = null)
 		{
-			return new EnvironmentalNetworkObject(networker, this, createCode, metadata);
+			return new EnemyHealthNetworkObject(networker, this, createCode, metadata);
 		}
 
 		protected override void InitializedTransform()
@@ -105,30 +97,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			networkObject.SnapInterpolations();
 		}
 
-		/// <summary>
-		/// Arguments:
-		/// Vector3 position
-		/// Quaternion rotation
-		/// bool isOrNot
-		/// </summary>
-		public abstract void UpdateServer(RpcArgs args);
-		/// <summary>
-		/// Arguments:
-		/// Vector3 position
-		/// Quaternion rotation
-		/// bool isOrNot
-		/// </summary>
-		public abstract void UpdateClient(RpcArgs args);
-		/// <summary>
-		/// Arguments:
-		/// bool gravity
-		/// </summary>
-		public abstract void UseGravityServer(RpcArgs args);
-		/// <summary>
-		/// Arguments:
-		/// bool gravity
-		/// </summary>
-		public abstract void UseGravityClient(RpcArgs args);
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}
