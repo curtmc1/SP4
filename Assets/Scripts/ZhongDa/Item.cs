@@ -76,10 +76,10 @@ public class Item : MonoBehaviour
     {
         if(equipped)
         {
-            if (Input.GetKeyDown(KeyCode.F))
-                equipped = false;
-            if (equipped == false)
-                this.gameObject.SetActive(false);
+            //if (Input.GetKeyDown(KeyCode.F))
+            //    equipped = false;
+            //if (equipped == false)
+            //    this.gameObject.SetActive(false);
         }
     }
 }
