@@ -4,18 +4,24 @@ using UnityEngine;
 
 public class AmmoBox : MonoBehaviour
 {
-    private Pistol gun;
+    private WeaponManager gun;
     void Start()
     {
-        gun = (Pistol)FindObjectOfType(typeof(Pistol));
+        gun = (WeaponManager)FindObjectOfType(typeof(WeaponManager));
     }
+
+    private void Update()
+    {
+        //gun = (WeaponManager)FindObjectOfType(typeof(WeaponManager));
+    }
+
     private void OnTriggerEnter(Collider other)
     {
         if(other.tag == "Player")
         {
-            gun.Ammo += 10;
+            gun.ammoScore += 10;
             Destroy(this.gameObject);
-            Debug.Log(gun.Ammo);
+            Debug.Log(gun.ammoScore);
         }
     }
 }

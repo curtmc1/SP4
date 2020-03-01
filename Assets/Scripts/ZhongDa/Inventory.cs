@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Inventory : MonoBehaviour
 {
-    private bool cursorEnabled;
+    //private bool cursorEnabled;
     
     public GameObject inventory;
     public GameObject slotHolder;
@@ -31,22 +31,22 @@ public class Inventory : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.I))
-        {
-            cursorEnabled = !cursorEnabled;
+        //if (Input.GetKeyDown(KeyCode.I))
+        //{
+        //    cursorEnabled = !cursorEnabled;
 
-        }
+        //}
 
-        if (cursorEnabled == true)
-        {
-            Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
-        }
+        //if (cursorEnabled == true)
+        //{
+        //    Cursor.lockState = CursorLockMode.None;
+        //    Cursor.visible = true;
+        //}
+        //else
+        //{
+        //    Cursor.lockState = CursorLockMode.Locked;
+        //    Cursor.visible = false;
+        //}
     }
 
     private void OnTriggerEnter(Collider other)

@@ -83,6 +83,14 @@ namespace BeardedManStudios.Forge.Networking.Generated
 						availableCallback = true;
 						obj = new GunNetworkObject(networker, id, frame);
 						break;
+					case HealthBarShrinkNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new HealthBarShrinkNetworkObject(networker, id, frame);
+						break;
+					case HealthPotNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new HealthPotNetworkObject(networker, id, frame);
+						break;
 					case HitMarkerNetworkObject.IDENTITY:
 						availableCallback = true;
 						obj = new HitMarkerNetworkObject(networker, id, frame);

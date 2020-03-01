@@ -5,9 +5,9 @@ using UnityEngine.UI;
 
 public class PortalUI : MonoBehaviour
 {
-    [SerializeField] private Image portal1UI;
-    [SerializeField] private Image portal2UI;
-    [SerializeField] private Text ammoText;
+    public Image portal1UI; //[SerializeField] private Image portal1UI;
+    public Image portal2UI;
+    public Text ammoText;
 
     public bool canDisplay1;
     public bool canDisplay2;
@@ -24,19 +24,6 @@ public class PortalUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //GameObject p1 = GameObject.FindGameObjectWithTag("Portal1");
-        //GameObject p2 = GameObject.FindGameObjectWithTag("Portal2");
-
-        //if (p1)
-        //    portal1UI.gameObject.SetActive(true);
-        //else
-        //    portal1UI.gameObject.SetActive(false);
-
-        //if (p2)
-        //    portal2UI.gameObject.SetActive(true);
-        //else
-        //    portal2UI.gameObject.SetActive(false);
-
         ammoText.text = "" + ammo;
 
         if (canDisplay1)

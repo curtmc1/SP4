@@ -5,41 +5,32 @@ using UnityEngine.UI;
 
 public class HealthPot : MonoBehaviour
 {
-    public Text coolDownText;
     private HealthBarShrink hpbar;
-    private bool canHeal = false;
-    private float coolDown = 5.0f;
-    private float coolDownTimer;
-
+    Item item;
+    ItemCoolDown iCD;
+    public bool canDisable;
+    public ParticleSystem heal;
 
     void Start()
     {
         hpbar = (HealthBarShrink)FindObjectOfType(typeof(HealthBarShrink));
-        coolDownText.enabled = false;
+        item = GetComponent<Item>();
+
+        iCD = (ItemCoolDown)FindObjectOfType(typeof(ItemCoolDown));
+        canDisable = false;
     }
 
     void Update()
     {
-        int timer = (int)coolDownTimer;
-        coolDownText.text = timer.ToString();
+        if (!item.equipped) return;
 
-        if (coolDownTimer > 0.0f)
-            coolDownTimer -= Time.deltaTime;
-        if (coolDownTimer < 0)
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            coolDownTimer = 0.0f;
-            coolDownText.enabled = false;
-        }
-
-        if (coolDownTimer == 5.0f)
-            coolDownText.enabled = false;
-
-        if (Input.GetKeyUp(KeyCode.G) && coolDownTimer == 0)
-        {
-            coolDownText.enabled = true;
             hpbar.IncreaseHealth(20);
-            coolDownTimer = coolDown;
+            Destroy(Instantiate(heal.gameObject, transform.parent.parent.parent.position, heal.gameObject.transform.rotation) as GameObject, 0.5f);
+            canDisable = true;
+            gameObject.SetActive(false);
+            iCD.canCoolDown = true;
         }
-
     }
 }

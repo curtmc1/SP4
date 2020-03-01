@@ -25,12 +25,16 @@ namespace BeardedManStudios.Forge.Networking.Unity
 		public GameObject[] ExampleProximityPlayerNetworkObject = null;
 		public GameObject[] GameLogicNetworkObject = null;
 		public GameObject[] GunNetworkObject = null;
+		public GameObject[] HealthBarShrinkNetworkObject = null;
+		public GameObject[] HealthPotNetworkObject = null;
 		public GameObject[] HitMarkerNetworkObject = null;
 		public GameObject[] NetworkCameraNetworkObject = null;
 		public GameObject[] PistolNetworkObject = null;
 		public GameObject[] PlayerNetworkObject = null;
 		public GameObject[] SetUpPlayerNetworkObject = null;
 		public GameObject[] TestNetworkObject = null;
+		public Material player1;
+		public Material player2;
 
 		protected virtual void SetupObjectCreatedEvent()
 		{
@@ -393,6 +397,52 @@ namespace BeardedManStudios.Forge.Networking.Unity
 						objectInitialized(newObj, obj);
 				});
 			}
+			else if (obj is HealthBarShrinkNetworkObject)
+			{
+				MainThreadManager.Run(() =>
+				{
+					NetworkBehavior newObj = null;
+					if (!NetworkBehavior.skipAttachIds.TryGetValue(obj.NetworkId, out newObj))
+					{
+						if (HealthBarShrinkNetworkObject.Length > 0 && HealthBarShrinkNetworkObject[obj.CreateCode] != null)
+						{
+							var go = Instantiate(HealthBarShrinkNetworkObject[obj.CreateCode]);
+							newObj = go.GetComponent<HealthBarShrinkBehavior>();
+						}
+					}
+
+					if (newObj == null)
+						return;
+						
+					newObj.Initialize(obj);
+
+					if (objectInitialized != null)
+						objectInitialized(newObj, obj);
+				});
+			}
+			else if (obj is HealthPotNetworkObject)
+			{
+				MainThreadManager.Run(() =>
+				{
+					NetworkBehavior newObj = null;
+					if (!NetworkBehavior.skipAttachIds.TryGetValue(obj.NetworkId, out newObj))
+					{
+						if (HealthPotNetworkObject.Length > 0 && HealthPotNetworkObject[obj.CreateCode] != null)
+						{
+							var go = Instantiate(HealthPotNetworkObject[obj.CreateCode]);
+							newObj = go.GetComponent<HealthPotBehavior>();
+						}
+					}
+
+					if (newObj == null)
+						return;
+						
+					newObj.Initialize(obj);
+
+					if (objectInitialized != null)
+						objectInitialized(newObj, obj);
+				});
+			}
 			else if (obj is HitMarkerNetworkObject)
 			{
 				MainThreadManager.Run(() =>
@@ -716,6 +766,30 @@ namespace BeardedManStudios.Forge.Networking.Unity
 			var netBehavior = go.GetComponent<GunBehavior>();
 			var obj = netBehavior.CreateNetworkObject(Networker, index);
 			go.GetComponent<GunBehavior>().networkObject = (GunNetworkObject)obj;
+
+			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+		[Obsolete("Use InstantiateHealthBarShrink instead, its shorter and easier to type out ;)")]
+		public HealthBarShrinkBehavior InstantiateHealthBarShrinkNetworkObject(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(HealthBarShrinkNetworkObject[index]);
+			var netBehavior = go.GetComponent<HealthBarShrinkBehavior>();
+			var obj = netBehavior.CreateNetworkObject(Networker, index);
+			go.GetComponent<HealthBarShrinkBehavior>().networkObject = (HealthBarShrinkNetworkObject)obj;
+
+			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+		[Obsolete("Use InstantiateHealthPot instead, its shorter and easier to type out ;)")]
+		public HealthPotBehavior InstantiateHealthPotNetworkObject(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(HealthPotNetworkObject[index]);
+			var netBehavior = go.GetComponent<HealthPotBehavior>();
+			var obj = netBehavior.CreateNetworkObject(Networker, index);
+			go.GetComponent<HealthPotBehavior>().networkObject = (HealthPotNetworkObject)obj;
 
 			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
 			
@@ -1560,6 +1634,108 @@ namespace BeardedManStudios.Forge.Networking.Unity
 			return netBehavior;
 		}
 		/// <summary>
+		/// Instantiate an instance of HealthBarShrink
+		/// </summary>
+		/// <returns>
+		/// A local instance of HealthBarShrinkBehavior
+		/// </returns>
+		/// <param name="index">The index of the HealthBarShrink prefab in the NetworkManager to Instantiate</param>
+		/// <param name="position">Optional parameter which defines the position of the created GameObject</param>
+		/// <param name="rotation">Optional parameter which defines the rotation of the created GameObject</param>
+		/// <param name="sendTransform">Optional Parameter to send transform data to other connected clients on Instantiation</param>
+		public HealthBarShrinkBehavior InstantiateHealthBarShrink(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(HealthBarShrinkNetworkObject[index]);
+			var netBehavior = go.GetComponent<HealthBarShrinkBehavior>();
+
+			NetworkObject obj = null;
+			if (!sendTransform && position == null && rotation == null)
+				obj = netBehavior.CreateNetworkObject(Networker, index);
+			else
+			{
+				metadata.Clear();
+
+				if (position == null && rotation == null)
+				{
+					byte transformFlags = 0x1 | 0x2;
+					ObjectMapper.Instance.MapBytes(metadata, transformFlags);
+					ObjectMapper.Instance.MapBytes(metadata, go.transform.position, go.transform.rotation);
+				}
+				else
+				{
+					byte transformFlags = 0x0;
+					transformFlags |= (byte)(position != null ? 0x1 : 0x0);
+					transformFlags |= (byte)(rotation != null ? 0x2 : 0x0);
+					ObjectMapper.Instance.MapBytes(metadata, transformFlags);
+
+					if (position != null)
+						ObjectMapper.Instance.MapBytes(metadata, position.Value);
+
+					if (rotation != null)
+						ObjectMapper.Instance.MapBytes(metadata, rotation.Value);
+				}
+
+				obj = netBehavior.CreateNetworkObject(Networker, index, metadata.CompressBytes());
+			}
+
+			go.GetComponent<HealthBarShrinkBehavior>().networkObject = (HealthBarShrinkNetworkObject)obj;
+
+			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+		/// <summary>
+		/// Instantiate an instance of HealthPot
+		/// </summary>
+		/// <returns>
+		/// A local instance of HealthPotBehavior
+		/// </returns>
+		/// <param name="index">The index of the HealthPot prefab in the NetworkManager to Instantiate</param>
+		/// <param name="position">Optional parameter which defines the position of the created GameObject</param>
+		/// <param name="rotation">Optional parameter which defines the rotation of the created GameObject</param>
+		/// <param name="sendTransform">Optional Parameter to send transform data to other connected clients on Instantiation</param>
+		public HealthPotBehavior InstantiateHealthPot(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(HealthPotNetworkObject[index]);
+			var netBehavior = go.GetComponent<HealthPotBehavior>();
+
+			NetworkObject obj = null;
+			if (!sendTransform && position == null && rotation == null)
+				obj = netBehavior.CreateNetworkObject(Networker, index);
+			else
+			{
+				metadata.Clear();
+
+				if (position == null && rotation == null)
+				{
+					byte transformFlags = 0x1 | 0x2;
+					ObjectMapper.Instance.MapBytes(metadata, transformFlags);
+					ObjectMapper.Instance.MapBytes(metadata, go.transform.position, go.transform.rotation);
+				}
+				else
+				{
+					byte transformFlags = 0x0;
+					transformFlags |= (byte)(position != null ? 0x1 : 0x0);
+					transformFlags |= (byte)(rotation != null ? 0x2 : 0x0);
+					ObjectMapper.Instance.MapBytes(metadata, transformFlags);
+
+					if (position != null)
+						ObjectMapper.Instance.MapBytes(metadata, position.Value);
+
+					if (rotation != null)
+						ObjectMapper.Instance.MapBytes(metadata, rotation.Value);
+				}
+
+				obj = netBehavior.CreateNetworkObject(Networker, index, metadata.CompressBytes());
+			}
+
+			go.GetComponent<HealthPotBehavior>().networkObject = (HealthPotNetworkObject)obj;
+
+			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+		/// <summary>
 		/// Instantiate an instance of HitMarker
 		/// </summary>
 		/// <returns>
@@ -1726,6 +1902,11 @@ namespace BeardedManStudios.Forge.Networking.Unity
 		{
 			var go = Instantiate(PlayerNetworkObject[index]);
 			var netBehavior = go.GetComponent<PlayerBehavior>();
+
+			if (Instance.IsServer)
+				PlayerNetworkObject[index].GetComponent<Renderer>().material = player2;
+			else
+				PlayerNetworkObject[index].GetComponent<Renderer>().material = player1;
 
 			NetworkObject obj = null;
 			if (!sendTransform && position == null && rotation == null)

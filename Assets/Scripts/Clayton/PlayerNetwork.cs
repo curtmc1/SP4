@@ -11,10 +11,10 @@ public class PlayerNetwork : PlayerBehavior
     [System.Serializable] public class ToggleEvent : UnityEvent<bool> { } //using Unity event
     public Text nameUI;
 
-    [SerializeField] private GameObject playerModel;
-    [SerializeField] private GameObject playerHUD;
-    [SerializeField] ToggleEvent ownerScripts;
-    [SerializeField] private ParticleSystem speedParticle;
+    public GameObject playerModel; //[SerializeField] private GameObject playerModel;
+    public GameObject playerHUD;
+    public ToggleEvent ownerScripts;
+    public ParticleSystem speedParticle;
     private string playerName;
     private Camera playerCamera;
 

@@ -9,7 +9,7 @@ using BeardedManStudios.Forge.Networking;
 public class GunNetwork : GunBehavior
 {
     [System.Serializable] public class ToggleEvent : UnityEvent<bool> { } //using Unity event
-    [SerializeField] ToggleEvent ownerScripts;
+    [HideInInspector] public ToggleEvent ownerScripts;
 
     private WeaponManager weaponManager;
     private Pistol pistol;

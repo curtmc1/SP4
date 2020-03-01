@@ -10,6 +10,9 @@ public class WeaponManager : MonoBehaviour
     private int currWeapon;
     private int prevWeapon;
     private bool canScroll;
+    public int ammoScore;
+    bool addOnce;
+    PortalUI portUI;
 
     public bool GetCanScroll
     {
@@ -56,7 +59,10 @@ public class WeaponManager : MonoBehaviour
         {
             weapons.Add(transform.GetChild(i).gameObject);
         }
-        currWeapon = 0;
+        currWeapon = ammoScore = 0;
+
+        portUI = transform.parent.GetComponentInChildren<PortalUI>();
+        addOnce = false;
     }
 
      void Update()
@@ -87,6 +93,23 @@ public class WeaponManager : MonoBehaviour
         if (currWeapon > weapons.Count - 1)
         {
             currWeapon = 0;
+        }
+
+        if (ammoScore > 0) //Adding ammo
+        {
+            if (!addOnce)
+            {
+                portUI.ammo += ammoScore;
+                addOnce = true;
+            }
+
+            if (weapons[1].activeSelf) //Pistol
+            {
+                weapons[1].GetComponentInChildren<Pistol>().Ammo += ammoScore;
+
+                ammoScore = 0;
+                addOnce = false;
+            }
         }
 
         SetWeapon(currWeapon);

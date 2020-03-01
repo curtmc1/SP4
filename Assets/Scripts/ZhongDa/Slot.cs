@@ -17,11 +17,13 @@ public class Slot : MonoBehaviour
 
     public KeyCode _key;
     private Button _button;
+    public bool gotUse;
 
     void Awake()
     {
         _button = GetComponent<Button>();
         slotIconGo = transform.GetChild(0);
+        gotUse = false;
     }
 
     void Update()
@@ -34,7 +36,12 @@ public class Slot : MonoBehaviour
         else if (Input.GetKeyUp(_key))
         {
             FadeToColor(_button.colors.normalColor);
-            UseItem();
+
+            if (!gotUse && !empty)
+            {
+                gotUse = true;
+                UseItem();
+            }
         }
     }
 
@@ -49,6 +56,7 @@ public class Slot : MonoBehaviour
     }
     public void UseItem()
     {
-        item.GetComponent<Item>().ItemUsage();
+        if (item)
+            item.GetComponent<Item>().ItemUsage();
     }
 }
