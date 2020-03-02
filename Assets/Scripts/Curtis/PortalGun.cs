@@ -176,4 +176,8 @@ public class PortalGun : GunBehavior
     public override void Object(RpcArgs args)
     {
     }
+
+    public override void Muzzle(RpcArgs args)
+    {
+    }
 }

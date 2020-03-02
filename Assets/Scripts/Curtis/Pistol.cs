@@ -13,6 +13,7 @@ public class Pistol : GunBehavior
     private int ammo;
     PortalUI portUI;
     Vector3 vel;
+    MuzzleFlash muzzleFlash;
 
     public bool GetCanShoot
     {
@@ -31,6 +32,7 @@ public class Pistol : GunBehavior
     {
         ammo = 30;
         portUI = gameObject.transform.parent.parent.parent.GetComponentInChildren<PortalUI>();
+        muzzleFlash = GetComponent<MuzzleFlash>();
     }
 
     // Update is called once per frame
@@ -55,7 +57,9 @@ public class Pistol : GunBehavior
             if (!networkObject.IsServer)
                 bul.GetComponent<Bullet>().naming = "Client";
 
+            muzzleFlash.Activate();
             networkObject.SendRpc(RPC_SHOOT, Receivers.AllBuffered, transform.position, transform.rotation, vel, bul.GetComponent<Bullet>().naming);
+            networkObject.SendRpc(RPC_MUZZLE, Receivers.AllBuffered, true);
 
             ammo--;
             timer = 0.0f;
@@ -78,5 +82,19 @@ public class Pistol : GunBehavior
 
     public override void Object(RpcArgs args)
     {
+    }
+
+    public override void Muzzle(RpcArgs args)
+    {
+        if (networkObject.IsOwner) return;
+
+        bool canShow = args.GetNext<bool>();
+        bool temp = false;
+
+        if (canShow && !temp)
+        {
+            muzzleFlash.Activate();
+            temp = true;
+        }
     }
 }

@@ -120,4 +120,8 @@ public class GunNetwork : GunBehavior
     public override void Object(RpcArgs args)
     {
     }
+
+    public override void Muzzle(RpcArgs args)
+    {
+    }
 }

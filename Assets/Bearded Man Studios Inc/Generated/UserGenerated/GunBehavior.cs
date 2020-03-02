@@ -4,12 +4,13 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedRPC("{\"types\":[[\"Vector3\", \"Quaternion\", \"Vector3\", \"string\"][\"Vector3\", \"Quaternion\"]]")]
-	[GeneratedRPCVariableNames("{\"types\":[[\"position\", \"rotation\", \"forward\", \"portal\"][\"position\", \"rotation\"]]")]
+	[GeneratedRPC("{\"types\":[[\"Vector3\", \"Quaternion\", \"Vector3\", \"string\"][\"Vector3\", \"Quaternion\"][\"bool\"]]")]
+	[GeneratedRPCVariableNames("{\"types\":[[\"position\", \"rotation\", \"forward\", \"portal\"][\"position\", \"rotation\"][\"show\"]]")]
 	public abstract partial class GunBehavior : NetworkBehavior
 	{
 		public const byte RPC_SHOOT = 0 + 5;
 		public const byte RPC_OBJECT = 1 + 5;
+		public const byte RPC_MUZZLE = 2 + 5;
 		
 		public GunNetworkObject networkObject = null;
 
@@ -25,6 +26,7 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			base.SetupHelperRpcs(networkObject);
 			networkObject.RegisterRpc("Shoot", Shoot, typeof(Vector3), typeof(Quaternion), typeof(Vector3), typeof(string));
 			networkObject.RegisterRpc("Object", Object, typeof(Vector3), typeof(Quaternion));
+			networkObject.RegisterRpc("Muzzle", Muzzle, typeof(bool));
 
 			networkObject.onDestroy += DestroyGameObject;
 
@@ -115,6 +117,11 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		/// Quaternion rotation
 		/// </summary>
 		public abstract void Object(RpcArgs args);
+		/// <summary>
+		/// Arguments:
+		/// bool show
+		/// </summary>
+		public abstract void Muzzle(RpcArgs args);
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}
