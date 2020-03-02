@@ -10,7 +10,7 @@ PrefabInstance:
     - target: {fileID: 4773650412060497307, guid: fd07dd47d82a6bd4aafaed390062ebbd,
         type: 3}
       propertyPath: m_Name
-      value: PortalParticle2
+      value: PortalParticle2 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 4773650412060497310, guid: fd07dd47d82a6bd4aafaed390062ebbd,
         type: 3}
@@ -70,17 +70,17 @@ PrefabInstance:
     - target: {fileID: 4773650412060497305, guid: fd07dd47d82a6bd4aafaed390062ebbd,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
-      value: 1
+      value: 0.8679245
       objectReference: {fileID: 0}
     - target: {fileID: 4773650412060497305, guid: fd07dd47d82a6bd4aafaed390062ebbd,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.g
-      value: 0.5665206
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4773650412060497305, guid: fd07dd47d82a6bd4aafaed390062ebbd,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.b
-      value: 0
+      value: 0.6702143
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fd07dd47d82a6bd4aafaed390062ebbd, type: 3}

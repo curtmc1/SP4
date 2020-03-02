@@ -742,7 +742,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b4a5ea0b7270d0d428f4be60a480f101, type: 2}
+  - {fileID: 2100000, guid: 82ff40f45923de3479a582c0ea8fa615, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1827,11 +1827,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9195797195037714337}
     m_Modifications:
-    - target: {fileID: 15420400323619762, guid: 75a68a623fdfba34db92a2dba29f8754,
-        type: 3}
-      propertyPath: m_Name
-      value: Player speed
-      objectReference: {fileID: 0}
     - target: {fileID: 724273514681794788, guid: 75a68a623fdfba34db92a2dba29f8754,
         type: 3}
       propertyPath: ShapeModule.arc.mode
@@ -1921,6 +1916,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 15420400323619762, guid: 75a68a623fdfba34db92a2dba29f8754,
+        type: 3}
+      propertyPath: m_Name
+      value: Player speed
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75a68a623fdfba34db92a2dba29f8754, type: 3}
@@ -2126,11 +2126,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1290388709624123206}
     m_Modifications:
-    - target: {fileID: 2506863650845465127, guid: cb5a1fd302d21464290d4019a1458bff,
-        type: 3}
-      propertyPath: m_Name
-      value: WeaponManager
-      objectReference: {fileID: 0}
     - target: {fileID: 2506863650845465120, guid: cb5a1fd302d21464290d4019a1458bff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2186,6 +2181,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2506863650845465127, guid: cb5a1fd302d21464290d4019a1458bff,
+        type: 3}
+      propertyPath: m_Name
+      value: WeaponManager
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb5a1fd302d21464290d4019a1458bff, type: 3}
 --- !u!4 &3255118711993582848 stripped
@@ -2201,15 +2201,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5198757780157938029}
     m_Modifications:
-    - target: {fileID: 8805693150892004656, guid: 13fe1c3858cf3ad4b982e175c9c77006,
-        type: 3}
-      propertyPath: m_Name
-      value: Inventory
-      objectReference: {fileID: 0}
     - target: {fileID: 3696563341027657484, guid: 13fe1c3858cf3ad4b982e175c9c77006,
         type: 3}
       propertyPath: m_IsActive
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8805693150892004656, guid: 13fe1c3858cf3ad4b982e175c9c77006,
+        type: 3}
+      propertyPath: m_Name
+      value: Inventory
       objectReference: {fileID: 0}
     - target: {fileID: 8805693150892004655, guid: 13fe1c3858cf3ad4b982e175c9c77006,
         type: 3}
