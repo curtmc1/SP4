@@ -14,8 +14,11 @@ public class PlayerMovement : MonoBehaviour // VIOR not viour
     public ParticleSystem jumpEffect;
     private bool doubleJumped = false;
     public ParticleSystem speedParticle;
+    int recoilForce;
+    WeaponManager weaponManager;
+    PortalUI portUI;
 
-   private void Awake()
+    private void Awake()
     {
         speed = 5;
         tempSpeed = 5;
@@ -36,6 +39,9 @@ public class PlayerMovement : MonoBehaviour // VIOR not viour
         //PlayerPrefs, store health and use throughout the game
         PlayerPrefs.SetFloat("playerHealth", playerHealth);
         speedParticle.gameObject.SetActive(false);
+        recoilForce = 80;
+        weaponManager = GetComponentInChildren<WeaponManager>();
+        portUI = GetComponentInChildren<PortalUI>();
     }
 
     // Update is called once per frame
@@ -61,6 +67,15 @@ public class PlayerMovement : MonoBehaviour // VIOR not viour
         {
             speed = tempSpeed;
             speedParticle.gameObject.SetActive(false);
+        }
+
+        if (weaponManager.CurrentWeaponChoice == 1) //pistol
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (portUI.ammo > 0)
+                    playerBody.AddForce(transform.forward * -recoilForce);
+            }
         }
     }
 

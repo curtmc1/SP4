@@ -1387,7 +1387,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ab75928b6fa86c94085d97c859c8f19b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c3cb0f335d425eb4b87e7211e08fa535, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1553,7 +1553,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 94bcd082b98fe1a4c83fc1e9553f515a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a1c43b227d87e4643a983824b4332148, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1827,6 +1827,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9195797195037714337}
     m_Modifications:
+    - target: {fileID: 15420400323619762, guid: 75a68a623fdfba34db92a2dba29f8754,
+        type: 3}
+      propertyPath: m_Name
+      value: Player speed
+      objectReference: {fileID: 0}
     - target: {fileID: 724273514681794788, guid: 75a68a623fdfba34db92a2dba29f8754,
         type: 3}
       propertyPath: ShapeModule.arc.mode
@@ -1916,11 +1921,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 15420400323619762, guid: 75a68a623fdfba34db92a2dba29f8754,
-        type: 3}
-      propertyPath: m_Name
-      value: Player speed
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 75a68a623fdfba34db92a2dba29f8754, type: 3}
@@ -2126,6 +2126,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1290388709624123206}
     m_Modifications:
+    - target: {fileID: 2506863650845465127, guid: cb5a1fd302d21464290d4019a1458bff,
+        type: 3}
+      propertyPath: m_Name
+      value: WeaponManager
+      objectReference: {fileID: 0}
     - target: {fileID: 2506863650845465120, guid: cb5a1fd302d21464290d4019a1458bff,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2180,11 +2185,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2506863650845465127, guid: cb5a1fd302d21464290d4019a1458bff,
-        type: 3}
-      propertyPath: m_Name
-      value: WeaponManager
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb5a1fd302d21464290d4019a1458bff, type: 3}
