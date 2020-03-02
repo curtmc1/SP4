@@ -26,6 +26,7 @@ public class HealthPot : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.G))
         {
+            SoundManager.PlaySound("healthpickupsound");
             hpbar.IncreaseHealth(20);
             Destroy(Instantiate(heal.gameObject, transform.parent.parent.parent.position, heal.gameObject.transform.rotation) as GameObject, 0.5f);
             canDisable = true;

@@ -19,6 +19,7 @@ public class AmmoBox : MonoBehaviour
     {
         if(other.tag == "Player")
         {
+            SoundManager.PlaySound("ammopickupsound");
             gun.ammoScore += 10;
             Destroy(this.gameObject);
             Debug.Log(gun.ammoScore);

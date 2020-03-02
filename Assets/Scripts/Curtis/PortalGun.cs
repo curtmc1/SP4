@@ -50,6 +50,7 @@ public class PortalGun : GunBehavior
 
         if (Input.GetMouseButtonDown(0))
         {
+            SoundManager.PlaySound("portalsound");
             Instantiate(portalParticle, transform.position + 0.5f * transform.forward, transform.rotation);
 
             RaycastHit hit;
@@ -69,6 +70,7 @@ public class PortalGun : GunBehavior
 
         if (Input.GetMouseButtonDown(1))
         {
+            SoundManager.PlaySound("portalsound");
             Instantiate(portalParticle2, transform.position + 0.5f * transform.forward, transform.rotation);
 
             RaycastHit hit;

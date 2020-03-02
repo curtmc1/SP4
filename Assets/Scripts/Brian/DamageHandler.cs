@@ -38,12 +38,14 @@ public class DamageHandler : MonoBehaviour
         //Debug.Log(collision.gameObject);
 
         //Enemy attack Player
-        if (/*hpbar && */gameObject.tag == "Enemy")
+        //if (hpbar && gameObject.tag == "Enemy")
+        if (gameObject.tag == "Enemy")
         {
             if (collision.gameObject.tag == "Player")
             {
                 if (invulnTimer <= 0f)
                 {
+                    SoundManager.PlaySound("playerdamagesound");
                     //hpbar.SetHealth(10);
                     collision.gameObject.GetComponentInChildren<HealthBarShrink>().SetHealth(10);
                     invulnTimer = invulnPeriod;
@@ -55,6 +57,7 @@ public class DamageHandler : MonoBehaviour
         //Bullet hit Enemy
         if (collision.gameObject.tag == "Enemy")
         {
+            SoundManager.PlaySound("hitmarkersound");
             collision.gameObject.GetComponent<EnemyHealth>().health--;
 
             if (gameObject.GetComponent<Bullet>().naming == "Server")
@@ -66,9 +69,8 @@ public class DamageHandler : MonoBehaviour
         }
         else if (collision.gameObject.tag == "EnemyHead")
         {
+            SoundManager.PlaySound("hitmarkersound");
             SoundManager.PlaySound("headshotsound");
-            //EnemyHealth enemyhp = collision.gameObject.GetComponentInParent<EnemyHealth>();
-            //enemyhp.health -= 3;
             collision.gameObject.GetComponentInParent<EnemyHealth>().health -= 3;
 
             if (gameObject.GetComponent<Bullet>().naming == "Server")
