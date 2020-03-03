@@ -16,7 +16,6 @@ public class PortalGun : GunBehavior
     private new GameObject camera;
     private GameObject objectHeld;
     private bool isHeld;
-    private Vector3 pos;
 
     PortalUI portUI;
 
@@ -61,8 +60,6 @@ public class PortalGun : GunBehavior
                     GameObject p1 = GameObject.FindGameObjectWithTag("Portal1");
                     Destroy(p1);
                     Instantiate(portal1, hit.point + 2 * hit.transform.forward, hit.transform.rotation);
-                    pos = hit.point + 2 * hit.transform.forward;
-                    networkObject.SendRpc(RPC_SHOOT, Receivers.AllBuffered, pos, hit.transform.rotation, pos, "portal1");
                     portUI.canDisplay1 = true;
                 }
             }
@@ -81,8 +78,6 @@ public class PortalGun : GunBehavior
                     GameObject p2 = GameObject.FindGameObjectWithTag("Portal2");
                     Destroy(p2);
                     Instantiate(portal2, hit.point + 2 * hit.transform.forward, hit.transform.rotation);
-                    pos = hit.point + 2 * hit.transform.forward;
-                    networkObject.SendRpc(RPC_SHOOT, Receivers.AllBuffered, pos, hit.transform.rotation, pos, "portal2");
                     portUI.canDisplay2 = true;
                 }
             }
@@ -104,7 +99,6 @@ public class PortalGun : GunBehavior
 
                         if (networkObject.IsServer)
                         {
-                            //objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().naming = "Server";
                             objectHeld.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
                             objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isServer = true;
                             objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isClient = false;
@@ -112,7 +106,6 @@ public class PortalGun : GunBehavior
 
                         if (!networkObject.IsServer)
                         {
-                            //objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().naming = "Client";
                             objectHeld.transform.gameObject.GetComponent<Rigidbody>().useGravity = false;
                             objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isClient = true;
                             objectHeld.transform.gameObject.GetComponent<EnvironmentalObject>().isServer = false;
@@ -150,30 +143,11 @@ public class PortalGun : GunBehavior
         }
     }
 
-    public override void Shoot(RpcArgs args)
+    public override void Shoot(RpcArgs args) //Each player will have their own portal so dont need send data
     {
-        if (networkObject.IsOwner) return;
-
-        Vector3 pos = args.GetNext<Vector3>();
-        Quaternion rot = args.GetNext<Quaternion>();
-        Vector3 forward = args.GetNext<Vector3>();
-        string name = args.GetNext<string>();
-
-        if (name == "portal1")
-        {
-            GameObject p1 = GameObject.FindGameObjectWithTag("Portal1");
-            Destroy(p1);
-            Instantiate(portal1, pos, rot);
-        }
-        else if (name == "portal2")
-        {
-            GameObject p2 = GameObject.FindGameObjectWithTag("Portal2");
-            Destroy(p2);
-            Instantiate(portal2, pos, rot);
-        }
     }
 
-    public override void Object(RpcArgs args)
+    public override void Object(RpcArgs args) //Do nothing. Cannot removed because of the GunBehavior it inherited from. It is used in other class
     {
     }
 

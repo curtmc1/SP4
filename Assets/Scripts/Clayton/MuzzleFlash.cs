@@ -21,7 +21,7 @@ public class MuzzleFlash : MonoBehaviour
 
 		int flashSpriteIndex = Random.Range(0, flashSprites.Length);
 
-		for (int i = 0; i < spriteRenderers.Length; i++)
+		for (int i = 0; i < spriteRenderers.Length; i++) //Render the sprite animation
 		{
 			spriteRenderers[i].sprite = flashSprites[flashSpriteIndex];
 		}

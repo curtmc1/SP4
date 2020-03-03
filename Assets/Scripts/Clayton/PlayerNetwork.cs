@@ -17,6 +17,7 @@ public class PlayerNetwork : PlayerBehavior
     public ParticleSystem speedParticle;
     private string playerName;
     private Camera playerCamera;
+    private PlayerCameraController playerCameraController;
 
     public void Naming()
     {
@@ -35,11 +36,14 @@ public class PlayerNetwork : PlayerBehavior
         ownerScripts.Invoke(networkObject.IsOwner);
 
         playerCamera = GetComponentInChildren<Camera>();
+        playerCameraController = GetComponentInChildren<PlayerCameraController>();
 
         if (!networkObject.IsOwner)
         {
             Destroy(playerCamera.GetComponent<AudioListener>());
-            playerCamera.gameObject.SetActive(false);
+            //playerCamera.gameObject.SetActive(false);
+            playerCamera.enabled = false;
+            playerCameraController.enabled = false;
             playerHUD.SetActive(false);
             speedParticle.gameObject.SetActive(false);
         }

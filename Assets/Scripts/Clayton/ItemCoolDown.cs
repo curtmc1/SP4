@@ -23,7 +23,7 @@ public class ItemCoolDown : MonoBehaviour
     {
         if (canCoolDown)
         {
-            if (slot.gotUse && !isCooldown)
+            if (slot.gotUse && !isCooldown) //If number is pressd and Item is used
                 isCooldown = true;
         }
 

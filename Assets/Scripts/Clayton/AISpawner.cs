@@ -44,7 +44,7 @@ public class AISpawner : MonoBehaviour
         }
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy() //Spawn enemy from server
     {
         AIBehavior aib;
         int temp = currentWaveNumber - 1;
@@ -52,7 +52,7 @@ public class AISpawner : MonoBehaviour
         aib.GetComponentInChildren<EnemyStates>().OnDeath += OnEnemyDeath;
     }
 
-    void OnEnemyDeath()
+    void OnEnemyDeath() //Allows for change wave
     {
         enemiesRemainingAlive--;
 

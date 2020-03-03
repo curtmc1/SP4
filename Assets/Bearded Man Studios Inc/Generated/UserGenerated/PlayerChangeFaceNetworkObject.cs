@@ -5,10 +5,10 @@ using UnityEngine;
 
 namespace BeardedManStudios.Forge.Networking.Generated
 {
-	[GeneratedInterpol("{\"inter\":[0.15,0.15,0]")]
-	public partial class GunNetworkObject : NetworkObject
+	[GeneratedInterpol("{\"inter\":[0.15,0.15]")]
+	public partial class PlayerChangeFaceNetworkObject : NetworkObject
 	{
-		public const int IDENTITY = 15;
+		public const int IDENTITY = 22;
 
 		private byte[] _dirtyFields = new byte[1];
 
@@ -77,37 +77,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			if (rotationChanged != null) rotationChanged(_rotation, timestep);
 			if (fieldAltered != null) fieldAltered("rotation", _rotation, timestep);
 		}
-		[ForgeGeneratedField]
-		private int _gunChoice;
-		public event FieldEvent<int> gunChoiceChanged;
-		public Interpolated<int> gunChoiceInterpolation = new Interpolated<int>() { LerpT = 0f, Enabled = false };
-		public int gunChoice
-		{
-			get { return _gunChoice; }
-			set
-			{
-				// Don't do anything if the value is the same
-				if (_gunChoice == value)
-					return;
-
-				// Mark the field as dirty for the network to transmit
-				_dirtyFields[0] |= 0x4;
-				_gunChoice = value;
-				hasDirtyFields = true;
-			}
-		}
-
-		public void SetgunChoiceDirty()
-		{
-			_dirtyFields[0] |= 0x4;
-			hasDirtyFields = true;
-		}
-
-		private void RunChange_gunChoice(ulong timestep)
-		{
-			if (gunChoiceChanged != null) gunChoiceChanged(_gunChoice, timestep);
-			if (fieldAltered != null) fieldAltered("gunChoice", _gunChoice, timestep);
-		}
 
 		protected override void OwnershipChanged()
 		{
@@ -119,7 +88,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		{
 			positionInterpolation.current = positionInterpolation.target;
 			rotationInterpolation.current = rotationInterpolation.target;
-			gunChoiceInterpolation.current = gunChoiceInterpolation.target;
 		}
 
 		public override int UniqueIdentity { get { return IDENTITY; } }
@@ -128,7 +96,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 		{
 			UnityObjectMapper.Instance.MapBytes(data, _position);
 			UnityObjectMapper.Instance.MapBytes(data, _rotation);
-			UnityObjectMapper.Instance.MapBytes(data, _gunChoice);
 
 			return data;
 		}
@@ -143,10 +110,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 			rotationInterpolation.current = _rotation;
 			rotationInterpolation.target = _rotation;
 			RunChange_rotation(timestep);
-			_gunChoice = UnityObjectMapper.Instance.Map<int>(payload);
-			gunChoiceInterpolation.current = _gunChoice;
-			gunChoiceInterpolation.target = _gunChoice;
-			RunChange_gunChoice(timestep);
 		}
 
 		protected override BMSByte SerializeDirtyFields()
@@ -158,8 +121,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _position);
 			if ((0x2 & _dirtyFields[0]) != 0)
 				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _rotation);
-			if ((0x4 & _dirtyFields[0]) != 0)
-				UnityObjectMapper.Instance.MapBytes(dirtyFieldsData, _gunChoice);
 
 			// Reset all the dirty fields
 			for (int i = 0; i < _dirtyFields.Length; i++)
@@ -202,19 +163,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 					RunChange_rotation(timestep);
 				}
 			}
-			if ((0x4 & readDirtyFlags[0]) != 0)
-			{
-				if (gunChoiceInterpolation.Enabled)
-				{
-					gunChoiceInterpolation.target = UnityObjectMapper.Instance.Map<int>(data);
-					gunChoiceInterpolation.Timestep = timestep;
-				}
-				else
-				{
-					_gunChoice = UnityObjectMapper.Instance.Map<int>(data);
-					RunChange_gunChoice(timestep);
-				}
-			}
 		}
 
 		public override void InterpolateUpdate()
@@ -232,11 +180,6 @@ namespace BeardedManStudios.Forge.Networking.Generated
 				_rotation = (Quaternion)rotationInterpolation.Interpolate();
 				//RunChange_rotation(rotationInterpolation.Timestep);
 			}
-			if (gunChoiceInterpolation.Enabled && !gunChoiceInterpolation.current.UnityNear(gunChoiceInterpolation.target, 0.0015f))
-			{
-				_gunChoice = (int)gunChoiceInterpolation.Interpolate();
-				//RunChange_gunChoice(gunChoiceInterpolation.Timestep);
-			}
 		}
 
 		private void Initialize()
@@ -246,9 +189,9 @@ namespace BeardedManStudios.Forge.Networking.Generated
 
 		}
 
-		public GunNetworkObject() : base() { Initialize(); }
-		public GunNetworkObject(NetWorker networker, INetworkBehavior networkBehavior = null, int createCode = 0, byte[] metadata = null) : base(networker, networkBehavior, createCode, metadata) { Initialize(); }
-		public GunNetworkObject(NetWorker networker, uint serverId, FrameStream frame) : base(networker, serverId, frame) { Initialize(); }
+		public PlayerChangeFaceNetworkObject() : base() { Initialize(); }
+		public PlayerChangeFaceNetworkObject(NetWorker networker, INetworkBehavior networkBehavior = null, int createCode = 0, byte[] metadata = null) : base(networker, networkBehavior, createCode, metadata) { Initialize(); }
+		public PlayerChangeFaceNetworkObject(NetWorker networker, uint serverId, FrameStream frame) : base(networker, serverId, frame) { Initialize(); }
 
 		// DO NOT TOUCH, THIS GETS GENERATED PLEASE EXTEND THIS CLASS IF YOU WISH TO HAVE CUSTOM CODE ADDITIONS
 	}

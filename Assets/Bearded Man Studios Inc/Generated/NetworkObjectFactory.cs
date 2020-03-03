@@ -103,6 +103,14 @@ namespace BeardedManStudios.Forge.Networking.Generated
 						availableCallback = true;
 						obj = new PistolNetworkObject(networker, id, frame);
 						break;
+					case PlayerArmNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new PlayerArmNetworkObject(networker, id, frame);
+						break;
+					case PlayerChangeFaceNetworkObject.IDENTITY:
+						availableCallback = true;
+						obj = new PlayerChangeFaceNetworkObject(networker, id, frame);
+						break;
 					case PlayerNetworkObject.IDENTITY:
 						availableCallback = true;
 						obj = new PlayerNetworkObject(networker, id, frame);

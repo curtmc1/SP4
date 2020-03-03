@@ -22,20 +22,25 @@ public class EnvironmentalObject : EnvironmentalBehavior
     // Update is called once per frame
     void Update()
     {
-        if (networkObject.IsServer)
+        //Basically if player pickup item and player is the server then send data to other player and 
+        //if player pickup item and player is not server then send data to server
+        //If item was picked up by someone, the person will send data till the item stops moving
+        //When Item is picked up, gravity is turned off (Enabled when Item is not picked up) as the gravity will mess up the data received on the other side
+
+        if (networkObject.IsServer) //If server
         {
-            if (isServer)
+            if (isServer) // If item is picked up by player from the server, disable gravity
             {
                 networkObject.SendRpc(RPC_UPDATE_CLIENT, Receivers.AllBuffered, transform.position, transform.rotation, isServer);
                 forServer = true;
             }
-            else if (!isServer && !isClient)
+            else if (!isServer && !isClient) //If no one pick up item
             {
-                if (gameObject.GetComponent<Rigidbody>().velocity != Vector3.zero && forServer)
+                if (gameObject.GetComponent<Rigidbody>().velocity != Vector3.zero && forServer) //If still got movement then continue sending data
                     networkObject.SendRpc(RPC_UPDATE_CLIENT, Receivers.AllBuffered, transform.position, transform.rotation, isServer);
                 else
                 {
-                    forServer = false;
+                    forServer = false; //when Item is stationary then add gravity
                     networkObject.SendRpc(RPC_USE_GRAVITY_CLIENT, Receivers.AllBuffered, true);
                 }
             }
@@ -58,8 +63,6 @@ public class EnvironmentalObject : EnvironmentalBehavior
                 }
             }
         }
-
-        //Debug.Log(" isServer: " + isServer + ", isClient: " + isClient + ", Naming: " + naming + ", Velocity: " + gameObject.GetComponent<Rigidbody>().velocity); 
     }
 
     public override void UpdateServer(RpcArgs args)

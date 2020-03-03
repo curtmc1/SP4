@@ -24,13 +24,13 @@ public class PlayerDamagedWarning : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (damaged)
+        if (damaged) //Make image fade in
         {
             StartCoroutine(FadeIn());
             needStopDamage = true;
         }
 
-        if (needStopDamage)
+        if (needStopDamage) //When image faded in, make it fade out
         {
             if (timer > 1f)
             {

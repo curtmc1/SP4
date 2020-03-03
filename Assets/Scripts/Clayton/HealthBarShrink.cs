@@ -18,6 +18,7 @@ public class HealthBarShrink : MonoBehaviour
     PlayerDamagedWarning pDW;
     private float playerHealth;
     public ParticleSystem reviveEffect;
+    PlayerChangeFace playerFace;
 
     private void Awake()
     {
@@ -28,9 +29,10 @@ public class HealthBarShrink : MonoBehaviour
         damaged = healed = false;
         pDW = gameObject.transform.parent.parent.GetComponentInChildren<PlayerDamagedWarning>();
         barImage.fillAmount = 1f;
+        playerFace = transform.parent.parent.parent.parent.GetComponentInChildren<PlayerChangeFace>();
     }
 
-    public void SetHealth(float healthNormalized) //changed to public so can be used outside of current script
+    public void SetHealth(float healthNormalized) //Set the health to minus
     {
         playerHealth -= healthNormalized;
 
@@ -41,9 +43,10 @@ public class HealthBarShrink : MonoBehaviour
         barImage.fillAmount = temp;
         pDW.damaged = true;
         damaged = true;
+        playerFace.playerDamaged = true;
     }
 
-    public void IncreaseHealth(float healthNormalized) //changed to public so can be used outside of current script
+    public void IncreaseHealth(float healthNormalized)
     {
         playerHealth += healthNormalized;
 
@@ -84,15 +87,20 @@ public class HealthBarShrink : MonoBehaviour
         }
 
         UpdateBar();
+
         damagedHealthShrinkTimer -= Time.deltaTime;
+
         if (damagedHealthShrinkTimer < 0)
         {
-            if (barImage.fillAmount < damagedBarImage.fillAmount && !healing)
+            if (barImage.fillAmount < damagedBarImage.fillAmount && !healing) //If player is damaged
             {
                 float shrinkSpeed = 1f;
                 damagedBarImage.fillAmount -= shrinkSpeed * Time.deltaTime;
             }
-            if (barImage.fillAmount < healingBarImage.fillAmount && healing)
+            else
+                playerFace.playerDamaged = false;
+
+            if (barImage.fillAmount < healingBarImage.fillAmount && healing) //If player is healed
             {
                 float expandSpeed = 1f;
                 barImage.fillAmount += expandSpeed * Time.deltaTime;
@@ -110,7 +118,6 @@ public class HealthBarShrink : MonoBehaviour
 
         if (healed)
         {
-            //damagedBarImage.fillAmount = barImage.fillAmount;
             damagedHealthShrinkTimer = DAMAGED_HEALTH_SHRINK_TIMER;
             healed = false;
         }

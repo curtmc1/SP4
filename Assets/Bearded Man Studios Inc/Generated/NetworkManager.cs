@@ -30,9 +30,12 @@ namespace BeardedManStudios.Forge.Networking.Unity
 		public GameObject[] HitMarkerNetworkObject = null;
 		public GameObject[] NetworkCameraNetworkObject = null;
 		public GameObject[] PistolNetworkObject = null;
+		public GameObject[] PlayerArmNetworkObject = null;
+		public GameObject[] PlayerChangeFaceNetworkObject = null;
 		public GameObject[] PlayerNetworkObject = null;
 		public GameObject[] SetUpPlayerNetworkObject = null;
 		public GameObject[] TestNetworkObject = null;
+
 		public Material player1;
 		public Material player2;
 
@@ -512,6 +515,52 @@ namespace BeardedManStudios.Forge.Networking.Unity
 						objectInitialized(newObj, obj);
 				});
 			}
+			else if (obj is PlayerArmNetworkObject)
+			{
+				MainThreadManager.Run(() =>
+				{
+					NetworkBehavior newObj = null;
+					if (!NetworkBehavior.skipAttachIds.TryGetValue(obj.NetworkId, out newObj))
+					{
+						if (PlayerArmNetworkObject.Length > 0 && PlayerArmNetworkObject[obj.CreateCode] != null)
+						{
+							var go = Instantiate(PlayerArmNetworkObject[obj.CreateCode]);
+							newObj = go.GetComponent<PlayerArmBehavior>();
+						}
+					}
+
+					if (newObj == null)
+						return;
+						
+					newObj.Initialize(obj);
+
+					if (objectInitialized != null)
+						objectInitialized(newObj, obj);
+				});
+			}
+			else if (obj is PlayerChangeFaceNetworkObject)
+			{
+				MainThreadManager.Run(() =>
+				{
+					NetworkBehavior newObj = null;
+					if (!NetworkBehavior.skipAttachIds.TryGetValue(obj.NetworkId, out newObj))
+					{
+						if (PlayerChangeFaceNetworkObject.Length > 0 && PlayerChangeFaceNetworkObject[obj.CreateCode] != null)
+						{
+							var go = Instantiate(PlayerChangeFaceNetworkObject[obj.CreateCode]);
+							newObj = go.GetComponent<PlayerChangeFaceBehavior>();
+						}
+					}
+
+					if (newObj == null)
+						return;
+						
+					newObj.Initialize(obj);
+
+					if (objectInitialized != null)
+						objectInitialized(newObj, obj);
+				});
+			}
 			else if (obj is PlayerNetworkObject)
 			{
 				MainThreadManager.Run(() =>
@@ -826,6 +875,30 @@ namespace BeardedManStudios.Forge.Networking.Unity
 			var netBehavior = go.GetComponent<PistolBehavior>();
 			var obj = netBehavior.CreateNetworkObject(Networker, index);
 			go.GetComponent<PistolBehavior>().networkObject = (PistolNetworkObject)obj;
+
+			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+		[Obsolete("Use InstantiatePlayerArm instead, its shorter and easier to type out ;)")]
+		public PlayerArmBehavior InstantiatePlayerArmNetworkObject(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(PlayerArmNetworkObject[index]);
+			var netBehavior = go.GetComponent<PlayerArmBehavior>();
+			var obj = netBehavior.CreateNetworkObject(Networker, index);
+			go.GetComponent<PlayerArmBehavior>().networkObject = (PlayerArmNetworkObject)obj;
+
+			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+		[Obsolete("Use InstantiatePlayerChangeFace instead, its shorter and easier to type out ;)")]
+		public PlayerChangeFaceBehavior InstantiatePlayerChangeFaceNetworkObject(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(PlayerChangeFaceNetworkObject[index]);
+			var netBehavior = go.GetComponent<PlayerChangeFaceBehavior>();
+			var obj = netBehavior.CreateNetworkObject(Networker, index);
+			go.GetComponent<PlayerChangeFaceBehavior>().networkObject = (PlayerChangeFaceNetworkObject)obj;
 
 			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
 			
@@ -1889,6 +1962,108 @@ namespace BeardedManStudios.Forge.Networking.Unity
 			return netBehavior;
 		}
 		/// <summary>
+		/// Instantiate an instance of PlayerArm
+		/// </summary>
+		/// <returns>
+		/// A local instance of PlayerArmBehavior
+		/// </returns>
+		/// <param name="index">The index of the PlayerArm prefab in the NetworkManager to Instantiate</param>
+		/// <param name="position">Optional parameter which defines the position of the created GameObject</param>
+		/// <param name="rotation">Optional parameter which defines the rotation of the created GameObject</param>
+		/// <param name="sendTransform">Optional Parameter to send transform data to other connected clients on Instantiation</param>
+		public PlayerArmBehavior InstantiatePlayerArm(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(PlayerArmNetworkObject[index]);
+			var netBehavior = go.GetComponent<PlayerArmBehavior>();
+
+			NetworkObject obj = null;
+			if (!sendTransform && position == null && rotation == null)
+				obj = netBehavior.CreateNetworkObject(Networker, index);
+			else
+			{
+				metadata.Clear();
+
+				if (position == null && rotation == null)
+				{
+					byte transformFlags = 0x1 | 0x2;
+					ObjectMapper.Instance.MapBytes(metadata, transformFlags);
+					ObjectMapper.Instance.MapBytes(metadata, go.transform.position, go.transform.rotation);
+				}
+				else
+				{
+					byte transformFlags = 0x0;
+					transformFlags |= (byte)(position != null ? 0x1 : 0x0);
+					transformFlags |= (byte)(rotation != null ? 0x2 : 0x0);
+					ObjectMapper.Instance.MapBytes(metadata, transformFlags);
+
+					if (position != null)
+						ObjectMapper.Instance.MapBytes(metadata, position.Value);
+
+					if (rotation != null)
+						ObjectMapper.Instance.MapBytes(metadata, rotation.Value);
+				}
+
+				obj = netBehavior.CreateNetworkObject(Networker, index, metadata.CompressBytes());
+			}
+
+			go.GetComponent<PlayerArmBehavior>().networkObject = (PlayerArmNetworkObject)obj;
+
+			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+		/// <summary>
+		/// Instantiate an instance of PlayerChangeFace
+		/// </summary>
+		/// <returns>
+		/// A local instance of PlayerChangeFaceBehavior
+		/// </returns>
+		/// <param name="index">The index of the PlayerChangeFace prefab in the NetworkManager to Instantiate</param>
+		/// <param name="position">Optional parameter which defines the position of the created GameObject</param>
+		/// <param name="rotation">Optional parameter which defines the rotation of the created GameObject</param>
+		/// <param name="sendTransform">Optional Parameter to send transform data to other connected clients on Instantiation</param>
+		public PlayerChangeFaceBehavior InstantiatePlayerChangeFace(int index = 0, Vector3? position = null, Quaternion? rotation = null, bool sendTransform = true)
+		{
+			var go = Instantiate(PlayerChangeFaceNetworkObject[index]);
+			var netBehavior = go.GetComponent<PlayerChangeFaceBehavior>();
+
+			NetworkObject obj = null;
+			if (!sendTransform && position == null && rotation == null)
+				obj = netBehavior.CreateNetworkObject(Networker, index);
+			else
+			{
+				metadata.Clear();
+
+				if (position == null && rotation == null)
+				{
+					byte transformFlags = 0x1 | 0x2;
+					ObjectMapper.Instance.MapBytes(metadata, transformFlags);
+					ObjectMapper.Instance.MapBytes(metadata, go.transform.position, go.transform.rotation);
+				}
+				else
+				{
+					byte transformFlags = 0x0;
+					transformFlags |= (byte)(position != null ? 0x1 : 0x0);
+					transformFlags |= (byte)(rotation != null ? 0x2 : 0x0);
+					ObjectMapper.Instance.MapBytes(metadata, transformFlags);
+
+					if (position != null)
+						ObjectMapper.Instance.MapBytes(metadata, position.Value);
+
+					if (rotation != null)
+						ObjectMapper.Instance.MapBytes(metadata, rotation.Value);
+				}
+
+				obj = netBehavior.CreateNetworkObject(Networker, index, metadata.CompressBytes());
+			}
+
+			go.GetComponent<PlayerChangeFaceBehavior>().networkObject = (PlayerChangeFaceNetworkObject)obj;
+
+			FinalizeInitialization(go, netBehavior, obj, position, rotation, sendTransform);
+			
+			return netBehavior;
+		}
+		/// <summary>
 		/// Instantiate an instance of Player
 		/// </summary>
 		/// <returns>
@@ -1904,9 +2079,10 @@ namespace BeardedManStudios.Forge.Networking.Unity
 			var netBehavior = go.GetComponent<PlayerBehavior>();
 
 			if (Instance.IsServer)
-				PlayerNetworkObject[index].GetComponent<Renderer>().material = player2;
-			else
 				PlayerNetworkObject[index].GetComponent<Renderer>().material = player1;
+			else
+				PlayerNetworkObject[index].GetComponent<Renderer>().material = player2;
+
 
 			NetworkObject obj = null;
 			if (!sendTransform && position == null && rotation == null)

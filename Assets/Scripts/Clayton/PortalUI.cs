@@ -24,9 +24,9 @@ public class PortalUI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        ammoText.text = "" + ammo;
+        ammoText.text = "" + ammo; //Ammo UI
 
-        if (canDisplay1)
+        if (canDisplay1) //Display portal 1
         {
             portal1UI.gameObject.SetActive(true);
             portal1UI.gameObject.transform.Rotate(0, 0, 1 * 0.5f);
@@ -34,7 +34,7 @@ public class PortalUI : MonoBehaviour
         else
             portal1UI.gameObject.SetActive(false);
 
-        if (canDisplay2)
+        if (canDisplay2) //Display portal 2
         {
             portal2UI.gameObject.SetActive(true);
             portal2UI.gameObject.transform.Rotate(0, 0, 1 * 0.5f);

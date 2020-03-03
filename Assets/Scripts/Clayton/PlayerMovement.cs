@@ -30,13 +30,11 @@ public class PlayerMovement : MonoBehaviour // VIOR not viour
 
         playerBody = GetComponent<Rigidbody>();
         tempSpeed = speed;
-        //PlayerPrefs.SetFloat("playerHealth", playerHealth);
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        //PlayerPrefs, store health and use throughout the game
         PlayerPrefs.SetFloat("playerHealth", playerHealth);
         speedParticle.gameObject.SetActive(false);
         recoilForce = 80;
@@ -69,7 +67,7 @@ public class PlayerMovement : MonoBehaviour // VIOR not viour
             speedParticle.gameObject.SetActive(false);
         }
 
-        if (weaponManager.CurrentWeaponChoice == 1) //pistol
+        if (weaponManager.CurrentWeaponChoice == 1) //Add recoil when player shoot using pistol
         {
             if (Input.GetMouseButtonDown(0))
             {
@@ -93,21 +91,6 @@ public class PlayerMovement : MonoBehaviour // VIOR not viour
 
         Vector3 newPosition = playerBody.position + playerBody.transform.TransformDirection(movement);
         playerBody.MovePosition(newPosition);
-
-        //if (Input.GetKeyDown(KeyCode.Q))
-        //{
-        //    float force = 100;
-        //    RaycastHit hit;
-        //    if (Physics.Raycast(transform.position, transform.forward, out hit, Mathf.Infinity))
-        //    {
-        //        if (hit.transform.gameObject.tag == "Player" || hit.transform.gameObject.tag == "Enemy")
-        //        {
-        //           // Debug.Log("powerrrrrrrrrrrr");
-        //            //Vector3 dir = playerBody.position - hit.collider.gameObject.transform.position;
-        //            //hit.collider.gameObject.GetComponent<Rigidbody>().AddForce(-dir * force);
-        //        }
-        //    }
-        //}
     }
 
     private void Jump()
@@ -119,7 +102,6 @@ public class PlayerMovement : MonoBehaviour // VIOR not viour
             {
                 doubleJumped = false;
                 Vector3 temp = new Vector3(transform.position.x, transform.position.y - 1.5f, transform.position.z);
-                //Destroy(Instantiate(jumpEffect.gameObject, temp, Quaternion.FromToRotation(Vector3.zero, Vector3.up)) as GameObject, 0.4f);
                 playerBody.AddForce(0, jumpForce, 0, ForceMode.Impulse);
             }
             else

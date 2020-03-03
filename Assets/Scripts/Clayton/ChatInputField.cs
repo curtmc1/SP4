@@ -42,7 +42,7 @@ public class ChatInputField : MonoBehaviour
             }
         }
 
-        if (!scroll.gameObject.activeSelf)
+        if (!scroll.gameObject.activeSelf) //If receive msg from other player
         {
             if (!string.IsNullOrEmpty(chatManager.MSG))
             {

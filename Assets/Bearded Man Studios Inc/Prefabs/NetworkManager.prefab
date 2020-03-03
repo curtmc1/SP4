@@ -69,10 +69,12 @@ MonoBehaviour:
   NetworkCameraNetworkObject:
   - {fileID: 0}
   PistolNetworkObject: []
+  PlayerArmNetworkObject: []
+  PlayerChangeFaceNetworkObject: []
   PlayerNetworkObject:
   - {fileID: 2077197284143736358, guid: 21f71e800579b384f82f0458f47ac89a, type: 3}
   SetUpPlayerNetworkObject: []
   TestNetworkObject: []
-  player1: {fileID: 2100000, guid: b4a5ea0b7270d0d428f4be60a480f101, type: 2}
-  player2: {fileID: 2100000, guid: 82ff40f45923de3479a582c0ea8fa615, type: 2}
+  player1: {fileID: 2100000, guid: 717c24905fd026144925c5d7100a113d, type: 2}
+  player2: {fileID: 2100000, guid: 336bdf3c0803f8a4b9efc543ee477b07, type: 2}
   automaticScenes: 1

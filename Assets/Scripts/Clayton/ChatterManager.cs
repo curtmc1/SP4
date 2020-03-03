@@ -23,7 +23,7 @@ public class ChatterManager : ChatterManagerBehavior
 
     public void writeMessage(InputField sender)
     {
-        if (networkObject.IsServer)
+        if (networkObject.IsServer) //Setting names for chat
         {
             if (string.IsNullOrEmpty(PlayerPrefs.GetString("PlayerName1")))
                 nameToSend = "Player 1";
@@ -38,7 +38,7 @@ public class ChatterManager : ChatterManagerBehavior
                 nameToSend = PlayerPrefs.GetString("PlayerName2");
         }
 
-        if (!string.IsNullOrEmpty(sender.text) && sender.text.Trim().Length > 0)
+        if (!string.IsNullOrEmpty(sender.text) && sender.text.Trim().Length > 0) //Send msg
         {
             sender.text = sender.text.Replace("\r", string.Empty).Replace("\n", string.Empty);
             networkObject.SendRpc(RPC_TRANSMIT_MESSAGE, Receivers.All, nameToSend, sender.text.Trim());
@@ -49,7 +49,7 @@ public class ChatterManager : ChatterManagerBehavior
         }
     }
 
-    public override void TransmitMessage(RpcArgs args)
+    public override void TransmitMessage(RpcArgs args) //receive
     {
         string username = args.GetNext<string>();
         string message = args.GetNext<string>();

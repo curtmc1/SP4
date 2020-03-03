@@ -14,7 +14,6 @@ public class PlayerCameraController : MonoBehaviour
     {
         player = transform.parent.gameObject;
         Cursor.lockState = CursorLockMode.Locked;
-        //Cursor.visible = false; might use if have inventory
         lookSensitivity = PlayerPrefs.GetFloat("LookSensitivity");
     }
 
@@ -32,8 +31,7 @@ public class PlayerCameraController : MonoBehaviour
         inputValue = Vector2.Scale(inputValue, new Vector2(lookSensitivity * smoothing, lookSensitivity * smoothing));
 
         //Smoothing the motion. 
-        //Little optimisation: storing it as it is needed in every frame. Dont want to keep resetting it and getting a new one every frame
-        //Smoothing is like GetAxis instead of GetAxisRaw. I used smoothing as I can adjust the amount of smoothness I want the motion to be
+        //Smoothing is like GetAxis instead of GetAxisRaw. Used smoothing as I can adjust the amount of smoothness I want the motion to be
         smoothedVelocity.x = Mathf.Lerp(smoothedVelocity.x, inputValue.x, 1f / smoothing);
         smoothedVelocity.y = Mathf.Lerp(smoothedVelocity.y, inputValue.y, 1f / smoothing);
 

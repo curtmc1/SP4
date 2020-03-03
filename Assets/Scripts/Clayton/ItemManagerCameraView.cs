@@ -16,6 +16,7 @@ public class ItemManagerCameraView : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Just to rotate the item (Health pot) properly
         transform.rotation = camera.rotation;
     }
 }
