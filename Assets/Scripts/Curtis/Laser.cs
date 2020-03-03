@@ -22,7 +22,11 @@ public class Laser : MonoBehaviour
             {
                 if (hit.transform.tag == "Player")
                 {
-                    hit.transform.GetComponentInChildren<HealthBarShrink>().SetHealth(10);
+                    hit.transform.GetComponentInChildren<HealthBarShrink>().SetHealth(100);
+                }
+                else if (hit.transform.tag == "Enemy")
+                {
+                    hit.transform.GetComponent<EnemyHealth>().health = 0;
                 }
                 laser.SetPosition(1, hit.point);
             }
