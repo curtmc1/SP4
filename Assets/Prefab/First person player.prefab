@@ -2851,15 +2851,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5198757780157938029}
     m_Modifications:
-    - target: {fileID: 3696563341027657484, guid: 13fe1c3858cf3ad4b982e175c9c77006,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 8805693150892004656, guid: 13fe1c3858cf3ad4b982e175c9c77006,
         type: 3}
       propertyPath: m_Name
       value: Inventory
+      objectReference: {fileID: 0}
+    - target: {fileID: 3696563341027657484, guid: 13fe1c3858cf3ad4b982e175c9c77006,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8805693150892004655, guid: 13fe1c3858cf3ad4b982e175c9c77006,
         type: 3}

@@ -11,9 +11,10 @@ GameObject:
   - component: {fileID: 5099373353592053308}
   - component: {fileID: 1693859989754852040}
   - component: {fileID: 5646237038843773666}
+  - component: {fileID: -2190584049827028069}
   m_Layer: 0
   m_Name: HealEffect
-  m_TagString: Untagged
+  m_TagString: Particles
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4753,3 +4754,15 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!114 &-2190584049827028069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4791275824231084868}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd0fcfcc4d2681145b82f526e7baa00c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
